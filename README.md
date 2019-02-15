@@ -13,7 +13,13 @@ Being able to use the Keeper security SDK with Powershell. The SDK is reliant on
 
 #### WinPython
 1. Download and install [WinPython](https://winpython.github.io/)
-2. From the install folder of WinPython, run the "WinPython Command Prompt"
+
+#### KeeperCommander module
+1. Open "WinPython Command Prompt"
+2. Install Keeper commander with pip3:
+```
+pip3 --install keepercommander
+```
 
 #### Environment Variables
 1. Right click "My Computer/This PC" choose properties
@@ -26,14 +32,8 @@ Being able to use the Keeper security SDK with Powershell. The SDK is reliant on
 6. Click Ok
 7. A restart might be required...
 
-#### KeeperCommander module
-1. Open "WinPython Command Prompt"
-2. Install Keeper commander with pip3:
-```
-pip3 --install keepercommander
-```
 #### Keeper security account
-You are required a Keeper security account, there is a free product model but it only allows certain amount of entries. 
+A Keeper Security account is required, "Keeper is free for local password management on your device. Premium subscriptions provides cloud-based capabilites including multi-device sync, shared folders, teams, SSO integration and encrypted file storage. [Keeper Security](https://keepersecurity.com/)
 
 #### Powershell
 Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6)
@@ -52,8 +52,10 @@ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
 
-## Running the tests
-
+## Setup explanation 
+I feel like explaning the setup and why it's done as it is. Keeper Security provide us with a SDK where we get to use a python based cmd prompt and a module for all commands Keeper provide us with. Keeper Security have made the decision to make the access through their own module as there's different stages of encrypting the data sent to their API. 
+This repository is built on Python scripts which in the back end is using the Keeper Commander functionality. The python scripts can be run by any programming or scripting language which have the capability to run python. 
+In this build we are using Powershell as a front and calling python scripts in the back with arguments for the different functionality within the Keeper Commander hence the prerequisities of python and Keeper commander.
 
 ## Built With
 
@@ -63,7 +65,7 @@ if you're prompted with commands for the keeper module the installation has been
 
 ## Contributing
 
-Feel free to submit a build...
+Feel free to submit a Pull request...
 
 ## Versioning
 
