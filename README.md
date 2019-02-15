@@ -18,7 +18,7 @@ Being able to use the Keeper security SDK with Powershell. The SDK is reliant on
 1. Open "WinPython Command Prompt"
 2. Install Keeper commander with pip3:
 ```
-pip3 --install keepercommander
+$ pip3 --install keepercommander
 ```
 
 #### Environment Variables
@@ -31,6 +31,14 @@ pip3 --install keepercommander
 7. Add the location of the python folder which is located inside the WinPython installation folder
 6. Click Ok
 7. A restart might be required...
+  
+ Or  
+   
+ Run the following environment variable script snippet in for example Powershell
+ ```
+ $pythonpoath = "<Location of python folder e.g. c:\program files\python\>"
+ [Environment]::SetEnvironmentVariable("Path", "$env:Path;$pythonPath", "User")
+ ```
 
 #### Keeper security account
 A Keeper Security account is required, "Keeper is free for local password management on your device. Premium subscriptions provides cloud-based capabilites including multi-device sync, shared folders, teams, SSO integration and encrypted file storage. [Keeper Security](https://keepersecurity.com/)
@@ -41,14 +49,14 @@ Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/insta
 #### Verify installation
 To verify that the installation of python and the configuration of the environment variables is done successfully, open the WinPython Command Prompt and type the following. 
 ```
-python --version
+$ python --version
 ```
 if you get the python version as response you've succeded
 
 
 To verify that the Keeper commander module has been loaded type the following in the WinPython Command Prompt:
 ```
-keeper
+$ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
 
