@@ -38,7 +38,7 @@ A Keeper Security account is required, "Keeper is free for local password manage
 #### Powershell
 Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6)
 
-
+#### Verify installation
 To verify that the installation of python and the configuration of the environment variables is done successfully, open the WinPython Command Prompt and type the following. 
 ```
 python --version
