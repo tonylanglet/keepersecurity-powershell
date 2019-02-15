@@ -46,13 +46,13 @@ python --version
 if you get the python version as response you've succeded
 
 
-To verify that the Keeper commander module has been loaded type the following in the WinPtyhon Command Prompt:
+To verify that the Keeper commander module has been loaded type the following in the WinPython Command Prompt:
 ```
 keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
 
-## Setup explanation 
+## Setup explenation 
 I feel like explaning the setup and why it's done as it is. Keeper Security provide us with a SDK where we get to use a python based cmd prompt and a module for all commands Keeper provide us with. Keeper Security have made the decision to make the access through their own module as there's different stages of encrypting the data sent to their API.  
   
 This repository is built on Python scripts which in the back end is using the Keeper Commander functionality. The python scripts can be run by any programming or scripting language which have the capability to run python.    
