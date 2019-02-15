@@ -41,7 +41,7 @@ $ pip3 --install keepercommander
  ```
 
 #### Keeper security account
-A Keeper Security account is required, "Keeper is free for local password management on your device. Premium subscriptions provides cloud-based capabilites including multi-device sync, shared folders, teams, SSO integration and encrypted file storage. [Keeper Security](https://keepersecurity.com/)
+A Keeper Security account is required, "Keeper is free for local password management on your device. Premium subscriptions provides cloud-based capabilites including multi-device sync, shared folders, teams, SSO integration and encrypted file storage. [Keeper Security](https://keepersecurity.com/) Test and work has only been done on Cloud account and Enterprise account not local accounts
 
 #### Powershell
 Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6)
