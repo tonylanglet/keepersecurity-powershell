@@ -13,7 +13,7 @@ from keepercommander import display, api
 my_params = KeeperParams()
 
 # ADD NEW RECORD INTO KEEPER
-def del_record(recordUid, recordFormat):
+def del_record(recordUid, recordForce):
     # Get Record from Keeper
     command = RecordRemoveCommand()
     recordResult = command.execute(my_params, record=recordUid, force=recordForce)
@@ -31,13 +31,13 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="Recordc UID")
-    parser.add_argument("-f", "--force", type=str, help="Force")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
+    parser.add_argument("-r", "--record", type=str, help="Recordc UID", required=True)
+    parser.add_argument("-f", "--force", type=str, help="Force y/n or true/false", required=True)
+    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
+    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.title:
+    if args.record:
         recordUid = args.record
     if args.force:
         recordForce = args.force
