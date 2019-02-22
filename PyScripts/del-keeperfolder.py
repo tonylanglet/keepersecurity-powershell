@@ -12,7 +12,7 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def del_folder(folderUID, folderForce):
     command = FolderRemoveCommand()
     recordResult = command.execute(my_params, folder=folderUID, force=folderForce)
