@@ -14,7 +14,6 @@ my_params = KeeperParams()
 
 # ADD NEW RECORD INTO KEEPER
 def get_record(recordUid, recordFormat):
-    # Get Record from Keeper
     command = RecordGetUidCommand()
     recordResult = command.execute(my_params, uid=recordUid, format=recordFormat)
     print("Successfully fetched record [",recordUid,"]")
