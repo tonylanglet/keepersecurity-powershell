@@ -12,12 +12,11 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def add_recordnotes(recordUid, recordNotes):
-    # Get Record from Keeper
     command = RecordAppendNotesCommand()
     recordResult = command.execute(my_params, record=recordUid, notes=recordNotes)
-    print("Successfully deleted record [",recordUid,"]")
+    print("Successfully updated notes on [",recordUid,"] with [", recordNotes ,"]")
     return recordResult
       
 # MAIN FUNCTION
@@ -31,10 +30,10 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="Record UID")
+    parser.add_argument("-r", "--record", type=str, help="Record UID", required=True)
     parser.add_argument("-n", "--notes", type=str, help="Appended notes")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
+    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
+    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
     if args.record:
