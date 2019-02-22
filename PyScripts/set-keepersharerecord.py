@@ -12,7 +12,7 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def share_record(recordUID, shareEmail, shareAction, shareShare, shareWrite):
     # Get Record from Keeper
     command = ShareRecordCommand()
@@ -34,13 +34,13 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="Record UID")
-    parser.add_argument("-e", "--email", type=str, help="Email")
-    parser.add_argument("-a", "--action", type=str, choices=["grant","revoke","owner"], help="Action Grant/Revoke/Owner")
+    parser.add_argument("-r", "--record", type=str, help="Record UID", required=True)
+    parser.add_argument("-e", "--email", type=str, help="Email", required=True)
+    parser.add_argument("-a", "--action", type=str, choices=["grant","revoke","owner"], help="Action Grant/Revoke/Owner", required=True)
     parser.add_argument("-s", "--share", type=str, help="Share")
     parser.add_argument("-w", "--write", type=str, help="Write")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
+    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
+    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
     if args.record:
