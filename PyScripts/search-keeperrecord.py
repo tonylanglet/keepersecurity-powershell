@@ -40,22 +40,6 @@ def main(argv):
     if args.apassword:
         authPassword = args.apassword
     
-    try:
-        opts, args = getopt.getopt(argv,"h:p:",["pattern=","ausername=","apassword="])
-    except getopt.GetoptError:
-        print('search-keeperrecord.py -pattern|p <Search pattern> --ausername <AuthUsername> --apassword <AuthPAssword>')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print('search-keeperrecord.py -pattern|p <Search pattern> --ausername <AuthUsername> --apassword <AuthPAssword>')
-            sys.exit()
-        elif opt in ("-p", "--pattern"):
-            recordPattern = arg
-        elif opt in "--ausername":
-            authUsername = arg
-        elif opt in "--apassword":
-            authPassword = arg
-
     while not my_params.user:
         my_params.user = authUsername
 
