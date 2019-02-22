@@ -12,9 +12,8 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def lst_record(recordPattern):
-    # Get Record from Keeper
     command = RecordListCommand()
     recordResult = command.execute(my_params, pattern=recordPattern)
     print("List successfully fetched")
