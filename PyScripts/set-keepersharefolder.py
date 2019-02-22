@@ -12,7 +12,7 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def share_record(recordUID, shareEmail, shareAction, shareShare, shareWrite):
     # Get Record from Keeper
     command = ShareRecordCommand()
@@ -37,16 +37,16 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--folder", type=str, help="shared folder path or UID")
-    parser.add_argument("-a", "--action", type=str, choices=["grant","revoke"] help="shared folder action. \'grant\' if omitted")
-    parser.add_argument("-u", "--user", type=str, help="account email, team, or \'*\' as default folder permission")
-    parser.add_argument("-r", "--record", type=str, help="record name, record UID, or \'*\' as default folder permission")
+    parser.add_argument("-f", "--folder", type=str, help="shared folder path or UID", required=True)
+    parser.add_argument("-a", "--action", type=str, choices=["grant","revoke"] help="shared folder action. \'grant\' if omitted", required=True)
+    parser.add_argument("-u", "--user", type=str, help="account email, team, or \'*\' as default folder permission", required=True)
+    parser.add_argument("-r", "--record", type=str, help="record name, record UID, or \'*\' as default folder permission", required=True)
     parser.add_argument("-p", "--manage-records", type=str, help="account permission: can manage records.")
     parser.add_argument("-o", "--manage-users", type=str, help="account permission: can manage users.")
     parser.add_argument("-s", "--can-share", type=str, help="record permission: can be shared")
     parser.add_argument("-e", "--can-edit", type=str, help="record permission: can be modified.")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
+    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
+    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
     if args.folder:
