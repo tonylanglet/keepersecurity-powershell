@@ -3,7 +3,7 @@ import getopt
 import getpass
 import string
 import random
-import regparse
+import argparse
 
 from keepercommander.record import Record
 from keepercommander.commands.record import RecordListCommand
@@ -17,7 +17,7 @@ def lst_record(recordPattern):
     # Get Record from Keeper
     command = RecordListCommand()
     recordResult = command.execute(my_params, pattern=recordPattern)
-    print("Successfully deleted record [",recordUid,"]")
+    print("List successfully fetched")
     return recordResult
       
 # MAIN FUNCTION
