@@ -59,7 +59,13 @@ To verify that the Keeper commander module has been loaded type the following in
 $ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
-
+### Test
+The following examples show you how to run the scripts by themself or by using the Powershell module (N/A)
+#### Using Powershell to run scripts
+```
+python C:\Keper\get-keeperrecord.py --ausername <Username> --apassword <Password> --record "tKvMeXApaOEzhkCkQRtAcw" --format "json"
+```
+#### Using Powershell module
 ## Setup Explanation 
 I feel like explaning the setup and why it's done as it is. Keeper Security provide us with a SDK where we get to use a python based cmd prompt and a module for all commands Keeper provide us with. Keeper Security have made the decision to make the access through their own module as there's different stages of encrypting the data sent to their API.  
   
