@@ -12,7 +12,7 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def add_record(recordTitle, recordLogin, recordPassword, recordURL, recordCustomFields, recordFolder, recordNotes):
     recordGenerate = True 
     recordForce = True
@@ -51,8 +51,8 @@ def main(argv):
     parser.add_argument("-c", "--customfields", type=str, help='Custom Fields for the record, syntax being used "key1=value1,key2=value2"')
     parser.add_argument("-f", "--folder", type=str, help="Folder uid for the record")
     parser.add_argument("-n", "--notes", type=str, help="Notes for the record")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
+    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
+    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
     if args.title:
