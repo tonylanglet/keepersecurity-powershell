@@ -12,9 +12,8 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def del_record(recordUid, recordForce):
-    # Get Record from Keeper
     command = RecordRemoveCommand()
     recordResult = command.execute(my_params, record=recordUid, force=recordForce)
     print("Successfully deleted record [",recordUid,"]")
@@ -22,7 +21,7 @@ def del_record(recordUid, recordForce):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordUid = None
     recordForce = False
     # Authentication credentials
