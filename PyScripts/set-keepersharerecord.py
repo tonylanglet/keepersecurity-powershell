@@ -14,7 +14,6 @@ my_params = KeeperParams()
 
 # KEEPER COMMAND
 def share_record(recordUID, shareEmail, shareAction, shareShare, shareWrite):
-    # Get Record from Keeper
     command = ShareRecordCommand()
     recordResult = command.execute(my_params, record=recordUID,email=shareEmail, action=shareAction, share=shareShare, write=shareWrite )
     print("Successfully")
@@ -22,7 +21,7 @@ def share_record(recordUID, shareEmail, shareAction, shareShare, shareWrite):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordUID = None
     shareEmail = None
     shareAction = None
