@@ -1,0 +1,237 @@
+
+
+New-KeeperRecord {
+Param(
+    $title,
+    $login,
+    $password,
+    $url,
+    $notes,
+    $customfields,
+    $folderUId,
+    $force,
+    $generate
+)
+}
+
+Get-KeeperRecord {
+Param(
+    $recordUid,
+    $format #json, keepass, csv
+)
+}
+
+Del-KeeperRecord {
+Param(
+    $recordUId,
+    $force
+)
+}
+
+List-KeeperRecord {
+Param(
+    $pattern
+)
+}
+
+Search-KeeperRecord {
+Param(
+    $pattern
+)
+}
+
+Add-KeeperRecordNotes {
+Param(
+    $recordUId,
+    $notes
+)
+}
+
+Get-KeeperRecordAttachment {
+Param(
+    $recordUId
+)
+}
+Del-KeeperRecordAttachment {
+Param(
+    $recordUId,
+    $attachmentName
+)
+}
+New-KeeperRecordAttachment {
+Param(
+    $recordUId,
+    $filePath
+)
+}
+
+# FOLDER
+List-KeeperFolder {
+Param(
+    $list,
+    $folders,
+    $records,
+    $pattern
+)
+}
+
+Del-KeeperFolder {
+Param(
+    $folderUId,
+    $force
+)
+}
+
+New-KeeperUserFolder {
+Param(
+    $name, # user-folder
+    $permission,
+    $manageUsers,
+    $manageRecords,
+    $canShare,
+    $canEdit,
+    $path
+)
+}
+
+New-KeeperSharedFolder {
+Param(
+    $name, # shared-folder
+    $permission,
+    $manageUsers,
+    $manageRecords,
+    $canShare,
+    $canEdit,
+    $path
+)
+}
+
+Move-KeeperFolder {
+Param(
+    $folderUId,
+    $destination,
+    $canEdit,
+    $canReShare,
+    $force
+)
+
+}
+
+Link-KeeperRecord {
+    $recordUId,
+    $linkPath,
+    $canEdit,
+    $canReShare,
+    $force
+}
+Link-KeeperFolder {
+Param(
+    $folderUId,
+    $linkPath,
+    $canEdit,
+    $canReShare,
+    $force
+)
+}
+
+
+# ENTERPRISE INFO
+Get-KeeperEnterpriseInfo {
+Param (
+    [string]$nodes,
+    [string]$users,
+    [string]$teams,
+    [string]$roles,
+    [string]$verbose,
+    [string]$node
+)
+
+}
+
+# ENTERPRISE USER
+Set-KeeperEnterpriseUser {
+    [string]$userEmail,
+    [string]$expireMasterPassword,
+    [string]$enabled, #lock/unlock
+    [string]$name,
+    [string]$node,
+    [string]$addRole,
+    [string]$removeRole,
+    [string]$addTeam,
+    [string]$removeTeam,
+    [string]$force
+}
+
+New-KeeperEnterpriseUser {
+Param(
+    [string]$email,
+    [string]$force
+)
+
+}
+
+# ENTERPRISE ROLE
+Set-KeeperEnterpriseRole {
+Param(
+    [string]$addUser,
+    [string]$removeUser,
+    [string]$role
+)
+
+}
+
+# ENTERPRISE TEAM
+New-KeeperEnterpriseTeam {
+Param(
+    [string]$name,
+    [string]$verbose,
+    [string]$force
+)
+
+}
+Set-KeeperEnterpriseTeam {
+Param(
+    [string]$teamId,
+    [string]$addUser,
+    [string]$removeUser,
+    [string]$restrictEdit, # On / Off
+    [string]$restrictShare, # On /off
+    [string]$restrictView, # On /Off
+    [string]$node
+)
+
+}
+Del-KeeperEnterpriseTeam {
+Param(
+    [string]$teamId,
+    [string]$force
+)
+
+}
+
+# AUDIT LOG/REPORT
+Get-KeeperAuditLog {
+Param(
+    [string]$recordId,
+    [string]$target # Splunk /syslog /sumo
+)
+
+}
+
+Get-KeeperAuditReport {
+Param(
+    [string]$reportType, # 'raw', 'dim', 'hour', 'day', 'week', 'month', 'span'
+    [string]$reportFormat, #Message /fields
+    [string]$columns,
+    [string]$aggregate, # occurrences, first_created, last_created
+    [string]$timezone,
+    [string]$limit,
+    [string]$order, # Desc asc
+    [string]$created,
+    [string]$eventType,
+    [string]$username,
+    [string]$toUsername,
+    [string]$recordUid,
+    [string]$sharedFolderUid
+)
+}
