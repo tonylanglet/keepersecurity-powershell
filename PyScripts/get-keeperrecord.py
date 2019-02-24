@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -12,7 +11,7 @@ from keepercommander import display, api
 
 my_params = KeeperParams()
 
-# ADD NEW RECORD INTO KEEPER
+# KEEPER COMMAND
 def get_record(recordUid, recordFormat):
     command = RecordGetUidCommand()
     recordResult = command.execute(my_params, uid=recordUid, format=recordFormat)
@@ -21,7 +20,7 @@ def get_record(recordUid, recordFormat):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordUid = None
     recordFormat = None
     # Authentication credentials
