@@ -21,7 +21,7 @@ def add_recordnotes(recordUid, recordNotes):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordUid = None
     recordNotes = None
     # Authentication credentials
