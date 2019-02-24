@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -16,7 +15,7 @@ my_params = KeeperParams()
 def add_record(recordTitle, recordLogin, recordPassword, recordURL, recordCustomFields, recordFolder, recordNotes):
     recordGenerate = True 
     recordForce = True
-    #If there is no password set, generate one with Keeper
+    #If there is no password sent, generate one with Keeper
     if recordPassword is None:
         recordGenerate = True
     else:
@@ -30,7 +29,7 @@ def add_record(recordTitle, recordLogin, recordPassword, recordURL, recordCustom
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordTitle = None
     recordLogin = None
     recordURL = None
