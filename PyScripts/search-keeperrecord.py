@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 
 from keepercommander.record import Record
 from keepercommander.commands.record import SearchCommand
@@ -20,7 +19,7 @@ def search_record(recordPattern):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordPattern = None
     # Authentication credentials
     authUsername = None
