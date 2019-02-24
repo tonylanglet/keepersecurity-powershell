@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -21,7 +20,7 @@ def share_record(recordUID, shareEmail, shareAction, shareShare, shareWrite):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     folderUid = None
     shareAction = None
     shareUser = None
