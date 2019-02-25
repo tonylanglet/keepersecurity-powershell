@@ -2,135 +2,159 @@
 
 New-KeeperRecord {
 Param(
-    $title,
-    $login,
-    $password,
-    $url,
-    $notes,
-    $customfields,
-    $folderUId,
-    $force,
-    $generate
+    [Parameter(Mandatory=$false)][string]$title,
+    [Parameter(Mandatory=$true)][string]$login,
+    [Parameter(Mandatory=$false)][string]$password,
+    [Parameter(Mandatory=$false)][string]$url,
+    [Parameter(Mandatory=$false)][string]$notes,
+    [Parameter(Mandatory=$false)][string]$customfields,
+    [Parameter(Mandatory=$false)][string]$folderUId,
+    [Parameter(Mandatory=$false)][string]$force,
+    [Parameter(Mandatory=$false)][string]$generate
 )
 }
 
 Get-KeeperRecord {
 Param(
-    $recordUid,
-    $format #json, keepass, csv
+    [Parameter(Mandatory=$true)][string]$recordUid,
+    [Parameter(Mandatory=$false)][ValidateSet("json","keepas","csv")][string]$format #json, keepass, csv
 )
 }
 
 Del-KeeperRecord {
 Param(
-    $recordUId,
-    $force
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$false)][string]$force
 )
 }
 
 List-KeeperRecord {
 Param(
-    $pattern
+    [Parameter(Mandatory=$true)][string]$pattern
 )
 }
 
 Search-KeeperRecord {
 Param(
-    $pattern
+    [Parameter(Mandatory=$true)][string]$pattern
 )
 }
 
 Add-KeeperRecordNotes {
 Param(
-    $recordUId,
-    $notes
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$false)][string]$notes
 )
 }
 
 Get-KeeperRecordAttachment {
 Param(
-    $recordUId
+    [Parameter(Mandatory=$true)][string]$recordUId
 )
 }
 Del-KeeperRecordAttachment {
 Param(
-    $recordUId,
-    $attachmentName
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$false)][string]$attachmentName
 )
 }
 New-KeeperRecordAttachment {
 Param(
-    $recordUId,
-    $filePath
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$false)][string]$filePath
 )
+}
+
+Share-KeeperRecord {
+Param(
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$false)][string]$mail,
+    [Parameter(Mandatory=$false)][string]$action,
+    [Parameter(Mandatory=$false)][string]$share,
+    [Parameter(Mandatory=$false)][string]$write
+)
+
 }
 
 # FOLDER
 List-KeeperFolder {
 Param(
-    $list,
-    $folders,
-    $records,
-    $pattern
+    [Parameter(Mandatory=$false)][string]$list,
+    [Parameter(Mandatory=$false)][string]$folders,
+    [Parameter(Mandatory=$false)][string]$records,
+    [Parameter(Mandatory=$false)][string]$pattern
 )
 }
 
 Del-KeeperFolder {
 Param(
-    $folderUId,
-    $force
+    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$false)][string]$force
 )
 }
 
 New-KeeperUserFolder {
 Param(
-    $name, # user-folder
-    $permission,
-    $manageUsers,
-    $manageRecords,
-    $canShare,
-    $canEdit,
-    $path
+    [Parameter(Mandatory=$true)][string]$name, # user-folder
+    [Parameter(Mandatory=$false)][string]$permission,
+    [Parameter(Mandatory=$false)][string]$manageUsers,
+    [Parameter(Mandatory=$false)][string]$manageRecords,
+    [Parameter(Mandatory=$false)][string]$canShare,
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$false)][string]$path
 )
 }
 
 New-KeeperSharedFolder {
 Param(
-    $name, # shared-folder
-    $permission,
-    $manageUsers,
-    $manageRecords,
-    $canShare,
-    $canEdit,
-    $path
+    [Parameter(Mandatory=$true)][string]$name, # shared-folder
+    [Parameter(Mandatory=$false)][string]$permission,
+    [Parameter(Mandatory=$false)][string]$manageUsers,
+    [Parameter(Mandatory=$false)][string]$manageRecords,
+    [Parameter(Mandatory=$false)][string]$canShare,
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$false)][string]$path
 )
 }
 
 Move-KeeperFolder {
 Param(
-    $folderUId,
-    $destination,
-    $canEdit,
-    $canReShare,
-    $force
+    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$true)][string]$destination,
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$false)][string]$force
 )
 
 }
 
 Link-KeeperRecord {
-    $recordUId,
-    $linkPath,
-    $canEdit,
-    $canReShare,
-    $force
+    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$true)][string]$linkPath,
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$false)][string]$force
 }
 Link-KeeperFolder {
 Param(
-    $folderUId,
-    $linkPath,
-    $canEdit,
-    $canReShare,
-    $force
+    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$true)][string]$linkPath,
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$false)][string]$force
+)
+}
+
+Share-KeeperFolder {
+Param(
+    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$false)][string]$action,
+    [Parameter(Mandatory=$false)][string]$user,
+    [Parameter(Mandatory=$false)][string]$record,
+    [Parameter(Mandatory=$false)][string]$manageRecords,
+    [Parameter(Mandatory=$false)][string]$manageUsers,
+    [Parameter(Mandatory=$false)][string]$canShare,
+    [Parameter(Mandatory=$false)][string]$canEdit
 )
 }
 
@@ -138,34 +162,49 @@ Param(
 # ENTERPRISE INFO
 Get-KeeperEnterpriseInfo {
 Param (
-    [string]$nodes,
-    [string]$users,
-    [string]$teams,
-    [string]$roles,
-    [string]$verbose,
-    [string]$node
+    [Parameter(Mandatory=$false)][string]$nodes,
+    [Parameter(Mandatory=$false)][string]$users,
+    [Parameter(Mandatory=$false)][string]$teams,
+    [Parameter(Mandatory=$false)][string]$roles,
+    [Parameter(Mandatory=$false)][string]$verbose,
+    [Parameter(Mandatory=$false)][string]$node
 )
 
 }
 
+# USER
+New-KeeperUser {
+Param(
+    [Parameter(Mandatory=$true)][string]$mail,
+    [Parameter(Mandatory=$false)][string]$password,
+    [Parameter(Mandatory=$false)][string]$name,
+    [Parameter(Mandatory=$false)][string]$dataCenter,
+    [Parameter(Mandatory=$false)][string]$node,
+    [Parameter(Mandatory=$true)][string]$secretQuestion,
+    [Parameter(Mandatory=$true)][string]$secretAnswer,
+    [Parameter(Mandatory=$false)][string]$storeRecord,
+    [Parameter(Mandatory=$false)][string]$generate    
+)
+}
+
 # ENTERPRISE USER
 Set-KeeperEnterpriseUser {
-    [string]$userEmail,
-    [string]$expireMasterPassword,
-    [string]$enabled, #lock/unlock
-    [string]$name,
-    [string]$node,
-    [string]$addRole,
-    [string]$removeRole,
-    [string]$addTeam,
-    [string]$removeTeam,
-    [string]$force
+    [Parameter(Mandatory=$false)][string]$userEmail,
+    [Parameter(Mandatory=$false)][string]$expireMasterPassword,
+    [Parameter(Mandatory=$false)][string]$enabled, #lock/unlock
+    [Parameter(Mandatory=$false)][string]$name,
+    [Parameter(Mandatory=$false)][string]$node,
+    [Parameter(Mandatory=$false)][string]$addRole,
+    [Parameter(Mandatory=$false)][string]$removeRole,
+    [Parameter(Mandatory=$false)][string]$addTeam,
+    [Parameter(Mandatory=$false)][string]$removeTeam,
+    [Parameter(Mandatory=$false)][string]$force
 }
 
 New-KeeperEnterpriseUser {
 Param(
-    [string]$email,
-    [string]$force
+    [Parameter(Mandatory=$true)][string]$email,
+    [Parameter(Mandatory=$false)][string]$force
 )
 
 }
@@ -173,9 +212,9 @@ Param(
 # ENTERPRISE ROLE
 Set-KeeperEnterpriseRole {
 Param(
-    [string]$addUser,
-    [string]$removeUser,
-    [string]$role
+    [Parameter(Mandatory=$false)][string]$addUser,
+    [Parameter(Mandatory=$false)][string]$removeUser,
+    [Parameter(Mandatory=$false)][string]$role
 )
 
 }
@@ -183,28 +222,28 @@ Param(
 # ENTERPRISE TEAM
 New-KeeperEnterpriseTeam {
 Param(
-    [string]$name,
-    [string]$verbose,
-    [string]$force
+    [Parameter(Mandatory=$true)][string]$name,
+    [Parameter(Mandatory=$false)][string]$verbose,
+    [Parameter(Mandatory=$false)][string]$force
 )
 
 }
 Set-KeeperEnterpriseTeam {
 Param(
-    [string]$teamId,
-    [string]$addUser,
-    [string]$removeUser,
-    [string]$restrictEdit, # On / Off
-    [string]$restrictShare, # On /off
-    [string]$restrictView, # On /Off
-    [string]$node
+    [Parameter(Mandatory=$true)][string]$teamId,
+    [Parameter(Mandatory=$false)][string]$addUser,
+    [Parameter(Mandatory=$false)][string]$removeUser,
+    [ValidateSet("On","Off")][string]$restrictEdit, 
+    [ValidateSet("On","Off")][string]$restrictShare, 
+    [ValidateSet("On","Off")][string]$restrictView,
+    [Parameter(Mandatory=$false)][string]$node
 )
 
 }
 Del-KeeperEnterpriseTeam {
 Param(
-    [string]$teamId,
-    [string]$force
+    [Parameter(Mandatory=$true)][string]$teamId,
+    [Parameter(Mandatory=$false)][string]$force
 )
 
 }
@@ -212,26 +251,26 @@ Param(
 # AUDIT LOG/REPORT
 Get-KeeperAuditLog {
 Param(
-    [string]$recordId,
-    [string]$target # Splunk /syslog /sumo
+    [Parameter(Mandatory=$true)][string]$recordId,
+    [Parameter(Mandatory=$true)][ValidateSet("splunk","syslog","sumo")][string]$target
 )
 
 }
 
 Get-KeeperAuditReport {
 Param(
-    [string]$reportType, # 'raw', 'dim', 'hour', 'day', 'week', 'month', 'span'
-    [string]$reportFormat, #Message /fields
-    [string]$columns,
-    [string]$aggregate, # occurrences, first_created, last_created
-    [string]$timezone,
-    [string]$limit,
-    [string]$order, # Desc asc
-    [string]$created,
-    [string]$eventType,
-    [string]$username,
-    [string]$toUsername,
-    [string]$recordUid,
-    [string]$sharedFolderUid
+    [ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$reportType, 
+    [ValidateSet("Message","Fields")][string]$reportFormat,
+    [Parameter(Mandatory=$false)][string]$columns,
+    [ValidateSet("occurrences", "first_created", "last_created")][string]$aggregate, 
+    [Parameter(Mandatory=$false)][string]$timezone,
+    [Parameter(Mandatory=$false)][string]$limit,
+    [ValidateSet("desc","asc")][string]$order,
+    [Parameter(Mandatory=$false)][string]$created,
+    [Parameter(Mandatory=$false)][string]$eventType,
+    [Parameter(Mandatory=$false)][string]$username,
+    [Parameter(Mandatory=$false)][string]$toUsername,
+    [Parameter(Mandatory=$false)][string]$recordUid,
+    [Parameter(Mandatory=$false)][string]$sharedFolderUid
 )
 }
