@@ -31,7 +31,7 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--record", type=str, help="Folder UID", required=True)
-    parser.add_argument("-name", "--name", type=str, help="force y/n, true/false", default=True)
+    parser.add_argument("-n", "--name", type=str, help="force y/n, true/false", default=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
