@@ -9,13 +9,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def search_record(recordPattern):
-    command = SearchCommand()
-    recordResult = command.execute(my_params, pattern=recordPattern)
-    print("Search complete")
-    return recordResult
       
 # MAIN FUNCTION
 def main(argv):
@@ -46,8 +39,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = search_record(recordPattern)
+    # KEEPER COMMAND
+    command = SearchCommand()
+    recordResult = command.execute(my_params, pattern=recordPattern)
+    print("Search complete")
+    return recordResult
 
 if __name__ == "__main__":
     main(sys.argv[1:])
