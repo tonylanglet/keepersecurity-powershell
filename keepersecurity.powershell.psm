@@ -8,10 +8,33 @@ Param(
     [Parameter(Mandatory=$false)][string]$url,
     [Parameter(Mandatory=$false)][string]$notes,
     [Parameter(Mandatory=$false)][string]$customfields,
-    [Parameter(Mandatory=$false)][string]$folderUId,
-    [Parameter(Mandatory=$false)][string]$force,
-    [Parameter(Mandatory=$false)][string]$generate
+    [Parameter(Mandatory=$false)][string]$folderUId
+    #[Parameter(Mandatory=$false)][string]$force,
+    #[Parameter(Mandatory=$false)][string]$generate
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($title)) { $Parameters.Add("t","$title") }
+if(![string]::IsNullOrEmpty($login)) { $Parameters.Add("l","$login") }
+if(![string]::IsNullOrEmpty($password)) { $Parameters.Add("p","$password") }
+if(![string]::IsNullOrEmpty($url)) { $Parameters.Add("u","$url") }
+if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
+if(![string]::IsNullOrEmpty($customfields)) { $Parameters.Add("c","$customfields") }
+if(![string]::IsNullOrEmpty($folderUId)) { $Parameters.Add("f","$folderUId") }
+#if(![string]::IsNullOrEmpty($force)) { $Parameters.Add("force","$force") }
+#if(![string]::IsNullOrEmpty($generate)) { $Parameters.Add("generate","$generate") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperRecord: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
+
 }
 
 Get-KeeperRecord {
@@ -19,6 +42,21 @@ Param(
     [Parameter(Mandatory=$true)][string]$recordUid,
     [Parameter(Mandatory=$false)][ValidateSet("json","keepas","csv")][string]$format #json, keepass, csv
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($recordUid)) { $Parameters.Add("r","$recordUid") }
+if(![string]::IsNullOrEmpty($format)) { $Parameters.Add("f","$format") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Get-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperRecord: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Del-KeeperRecord {
@@ -26,18 +64,61 @@ Param(
     [Parameter(Mandatory=$true)][string]$recordUId,
     [Parameter(Mandatory=$false)][string]$force
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($recordUid)) { $Parameters.Add("r","$recordUid") }
+if(![string]::IsNullOrEmpty($force)) { $Parameters.Add("f","$force") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Del-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Del-KeeperRecord: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 List-KeeperRecord {
 Param(
     [Parameter(Mandatory=$true)][string]$pattern
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/List-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "List-KeeperRecord: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Search-KeeperRecord {
 Param(
     [Parameter(Mandatory=$true)][string]$pattern
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Search-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Search-KeeperRecord: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Add-KeeperRecordNotes {
@@ -45,6 +126,21 @@ Param(
     [Parameter(Mandatory=$true)][string]$recordUId,
     [Parameter(Mandatory=$false)][string]$notes
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($recordUId)) { $Parameters.Add("r","$recordUId") }
+if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Add-KeeperRecordNotes.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Add-KeeperRecordNotes: Unable to create new record"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Get-KeeperRecordAttachment {
