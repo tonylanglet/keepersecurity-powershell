@@ -10,13 +10,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def share_record(recordUid, userEmail, shareAction, shareShare, shareWrite):
-    command = ShareRecordCommand()
-    recordResult = command.execute(my_params, record=recordUid, email=userEmail, action=shareAction, share=shareShare, write=shareWrite)
-    print("Successfully")
-    return recordResult
       
 # MAIN FUNCTION
 def main(argv):
@@ -64,8 +57,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    #Start function
-    result = share_record(recordUid, userEmail, shareAction, shareShare, shareWrite)
+    # KEEPER COMMAND
+    command = ShareRecordCommand()
+    recordResult = command.execute(my_params, record=recordUid, email=userEmail, action=shareAction, share=shareShare, write=shareWrite)
+    print("Successfully")
+    return recordResult
 
 if __name__ == "__main__":
     main(sys.argv[1:])
