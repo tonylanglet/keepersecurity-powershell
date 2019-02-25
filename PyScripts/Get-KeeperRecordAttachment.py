@@ -11,13 +11,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def get_recordatt(recordUID):
-    command = RecordDownloadAttachmentCommand()
-    result = command.execute(my_params, record=recordUID)
-    print("Successfully")
-    return result
       
 # MAIN FUNCTION
 def main(argv):
@@ -48,8 +41,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = get_recordatt(recordUID)
+    # KEEPER COMMAND
+    command = RecordDownloadAttachmentCommand()
+    result = command.execute(my_params, record=recordUID)
+    print("Successfully")
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
