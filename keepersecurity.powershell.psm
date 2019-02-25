@@ -165,7 +165,7 @@ Param(
 
 $Parameters = @{}
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters.Add("a","$attachmentName") }
+if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters.Add("n","$attachmentName") }
 
     try 
     {
