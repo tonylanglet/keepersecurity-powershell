@@ -10,22 +10,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def add_record(recordTitle, recordLogin, recordPassword, recordURL, recordCustomFields, recordFolder, recordNotes):
-    recordGenerate = True 
-    recordForce = True
-    #If there is no password sent, generate one with Keeper
-    if recordPassword is None:
-        recordGenerate = True
-    else:
-        recordGenerate = False
-
-    # Add Record in Keeper
-    command = RecordAddCommand()
-    record_uid = command.execute(my_params, title=recordTitle, login=recordLogin, password=recordPassword, url=recordURL, custom=recordCustomFields, folder=recordFolder, notes=recordNotes, generate=recordGenerate, force=recordForce)
-    print("Successfully created record [",record_uid,"]")
-    return record_uid
       
 # MAIN FUNCTION
 def main(argv):
@@ -36,7 +20,9 @@ def main(argv):
     recordCustomFields = None
     recordFolder = None
     recordNotes = None
-    recordPassword = None 
+    recordPassword = None
+    recordGenerate = True 
+    recordForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -80,8 +66,18 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = add_record(recordTitle, recordLogin, recordPassword, recordURL, recordCustomFields, recordFolder, recordNotes)
+    # KEEPER COMMAND
+    #If there is no password sent, generate one with Keeper
+    if recordPassword is None:
+        recordGenerate = True
+    else:
+        recordGenerate = False
+
+    # Add Record in Keeper
+    command = RecordAddCommand()
+    record_uid = command.execute(my_params, title=recordTitle, login=recordLogin, password=recordPassword, url=recordURL, custom=recordCustomFields, folder=recordFolder, notes=recordNotes, generate=recordGenerate, force=recordForce)
+    print("Successfully created record [",record_uid,"]")
+    return record_uid
 
 if __name__ == "__main__":
     main(sys.argv[1:])
