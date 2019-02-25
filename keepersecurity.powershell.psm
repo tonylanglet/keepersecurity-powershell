@@ -212,7 +212,7 @@ Param(
 
 $Parameters = @{}
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("m","$mail") }
+if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("e","$mail") }
 if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
 if(![string]::IsNullOrEmpty($share)) { $Parameters.Add("s","$share") }
 if(![string]::IsNullOrEmpty($write)) { $Parameters.Add("w","$write") }
