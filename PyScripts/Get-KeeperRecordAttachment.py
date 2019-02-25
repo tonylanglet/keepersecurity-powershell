@@ -21,7 +21,7 @@ def get_recordatt(recordUID):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     recordUID = None
     # Authentication credentials
     authUsername = None
@@ -29,15 +29,13 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", --record", type=str, help="Folder UID", required=True)
+    parser.add_argument("-r", "--record", type=str, help="Folder UID", required=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.folder:
-        folderUID = args.folder
-    if args.force:
-        folderForce = args.force
+    if args.record:
+        recordUID = args.record
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
