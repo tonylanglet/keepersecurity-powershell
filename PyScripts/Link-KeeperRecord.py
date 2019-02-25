@@ -11,13 +11,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def move_folder(recordSource, recordDestination, recordCanReshare, recordCanEdit, recordForce):
-    command = FolderMoveCommand()
-    recordResult = command.execute(my_params, src=recordSource, dst=recordDestination, can-reshare=recordCanReshare, can-edit=recordCanEdit, force=recordForce)
-    print("Success")
-    return recordResult
       
 # MAIN FUNCTION
 def main(argv):
@@ -64,8 +57,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = move_folder(recordSource, recordDestination, recordCanReshare, recordCanEdit, recordForce)
+    # KEEPER COMMAND
+    command = FolderMoveCommand()
+    recordResult = command.execute(my_params, src=recordSource, dst=recordDestination, can-reshare=recordCanReshare, can-edit=recordCanEdit, force=recordForce)
+    print("Success")
+    return recordResult
 
 if __name__ == "__main__":
     main(sys.argv[1:])
