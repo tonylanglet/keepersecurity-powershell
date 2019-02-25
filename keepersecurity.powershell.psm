@@ -187,7 +187,7 @@ Param(
 
 $Parameters = @{}
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($filePath)) { $Parameters.Add("p","$filePath") }
+if(![string]::IsNullOrEmpty($filePath)) { $Parameters.Add("f","$filePath") }
 
     try 
     {
