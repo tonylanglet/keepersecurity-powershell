@@ -11,13 +11,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def list_folder(folderSharedFolder, folderAll, folderManageUser, folderManageRecord, folderCanShare, folderCanEdit, folderFolderPath):
-    command = FolderMakeCommand()
-    recordResult = command.execute(my_params, shared-folder=folderSharedFolder, all=folderAll, manage-user=folderManageUser, manage-record=folderManageRecord, can-share=folderCanShare, can-edit=folderCanEdit, folder=folderFolderPath)
-    print("Success")
-    return recordResult
       
 # MAIN FUNCTION
 def main(argv):
@@ -72,8 +65,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = list_folder(folderSharedFolder, folderAll, folderManageUser, folderManageRecord, folderCanShare, folderCanEdit, folderFolderPath)
+    # KEEPER COMMAND
+    command = FolderMakeCommand()
+    recordResult = command.execute(my_params, shared-folder=folderSharedFolder, all=folderAll, manage-user=folderManageUser, manage-record=folderManageRecord, can-share=folderCanShare, can-edit=folderCanEdit, folder=folderFolderPath)
+    print("Success")
+    return recordResult
 
 if __name__ == "__main__":
     main(sys.argv[1:])
