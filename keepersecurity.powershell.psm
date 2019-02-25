@@ -431,7 +431,7 @@ Param(
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("f","$Identity") }
 if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
 if(![string]::IsNullOrEmpty($user)) { $Parameters.Add("u","$user") }
 if(![string]::IsNullOrEmpty($record)) { $Parameters.Add("r","$record") }
@@ -469,7 +469,7 @@ if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("m","$mail") }
 if(![string]::IsNullOrEmpty($password)) { $Parameters.Add("pass","$password") }
 if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
 if(![string]::IsNullOrEmpty($dataCenter)) { $Parameters.Add("d","$dataCenter") }
-if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
+if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("no","$node") }
 if(![string]::IsNullOrEmpty($secretQuestion)) { $Parameters.Add("sq","$secretQuestion") }
 if(![string]::IsNullOrEmpty($secretAnswer)) { $Parameters.Add("sa","$secretAnswer") }
 if(![string]::IsNullOrEmpty($storeRecord)) { $Parameters.Add("sr","$storeRecord") }
@@ -531,7 +531,7 @@ Param(
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("e","$Identity") }
 if(![string]::IsNullOrEmpty($expireMasterPassword)) { $Parameters.Add("xpass","$expireMasterPassword") }
 if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
 if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("no","$node") }
@@ -585,7 +585,7 @@ Param(
 $Parameters = @{}
 if(![string]::IsNullOrEmpty($addUser)) { $Parameters.Add("au","$addUser") }
 if(![string]::IsNullOrEmpty($removeUser)) { $Parameters.Add("ru","$removeUser") }
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 
     try 
     {
@@ -658,7 +658,7 @@ Param(
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("t","$Identity") }
 
     try 
     {
