@@ -23,7 +23,7 @@ def del_record(recordUid, recordForce):
 def main(argv):
     # Variables
     recordUid = None
-    recordForce = False
+    recordForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -31,7 +31,7 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--record", type=str, help="Recordc UID", required=True)
-    parser.add_argument("-f", "--force", type=str, help="Force y/n or true/false", required=True)
+    parser.add_argument("-f", "--force", type=str, help="Force y/n or true/false", default=True, required=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
