@@ -21,7 +21,7 @@ def del_folder(folderUID, folderForce):
       
 # MAIN FUNCTION
 def main(argv):
-    # Record parameters
+    # Variables
     folderUID = None
     folderForce = True
     # Authentication credentials
