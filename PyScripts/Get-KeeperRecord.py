@@ -10,13 +10,6 @@ from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
 my_params = KeeperParams()
-
-# KEEPER COMMAND
-def get_record(recordUid, recordFormat):
-    command = RecordGetUidCommand()
-    recordResult = command.execute(my_params, uid=recordUid, format=recordFormat)
-    print("Successfully fetched record [",recordUid,"]")
-    return recordResult
       
 # MAIN FUNCTION
 def main(argv):
@@ -52,8 +45,11 @@ def main(argv):
         my_params.password = authPassword
     api.sync_down(my_params)
 
-    # Start function
-    result = get_record(recordUid, recordFormat)
+    # KEEPER COMMAND
+    command = RecordGetUidCommand()
+    recordResult = command.execute(my_params, uid=recordUid, format=recordFormat)
+    print("Successfully fetched record [",recordUid,"]")
+    return recordResult
 
 if __name__ == "__main__":
     main(sys.argv[1:])
