@@ -2,15 +2,13 @@
 
 New-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$false)][string]$title,
-    [Parameter(Mandatory=$true)][string]$login,
-    [Parameter(Mandatory=$false)][string]$password,
-    [Parameter(Mandatory=$false)][string]$url,
-    [Parameter(Mandatory=$false)][string]$notes,
-    [Parameter(Mandatory=$false)][string]$customfields,
-    [Parameter(Mandatory=$false)][string]$folderUId
-    #[Parameter(Mandatory=$false)][string]$force,
-    #[Parameter(Mandatory=$false)][string]$generate
+    [Parameter(Mandatory=$false)][string]$Title,
+    [Parameter(Mandatory=$true)][string]$Login,
+    [Parameter(Mandatory=$false)][string]$Password,
+    [Parameter(Mandatory=$false)][string]$Url,
+    [Parameter(Mandatory=$false)][string]$Notes,
+    [Parameter(Mandatory=$false)][string]$Customfields,
+    [Parameter(Mandatory=$false)][string]$FolderUId
 )
 
 $Parameters = @{}
@@ -21,8 +19,6 @@ if(![string]::IsNullOrEmpty($url)) { $Parameters.Add("u","$url") }
 if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
 if(![string]::IsNullOrEmpty($customfields)) { $Parameters.Add("c","$customfields") }
 if(![string]::IsNullOrEmpty($folderUId)) { $Parameters.Add("f","$folderUId") }
-#if(![string]::IsNullOrEmpty($force)) { $Parameters.Add("force","$force") }
-#if(![string]::IsNullOrEmpty($generate)) { $Parameters.Add("generate","$generate") }
 
     try 
     {
@@ -39,12 +35,12 @@ return $result
 
 Get-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUid,
-    [Parameter(Mandatory=$false)][ValidateSet("json","keepas","csv")][string]$format #json, keepass, csv
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][ValidateSet("json","keepass","csv")][string]$format
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($recordUid)) { $Parameters.Add("r","$recordUid") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 if(![string]::IsNullOrEmpty($format)) { $Parameters.Add("f","$format") }
 
     try 
@@ -61,13 +57,11 @@ return $result
 
 Del-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$true)][string]$Identity
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($recordUid)) { $Parameters.Add("r","$recordUid") }
-if(![string]::IsNullOrEmpty($force)) { $Parameters.Add("f","$force") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 
     try 
     {
@@ -83,7 +77,7 @@ return $result
 
 List-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$pattern
+    [Parameter(Mandatory=$true)][string]$Pattern
 )
 
 $Parameters = @{}
@@ -103,7 +97,7 @@ return $result
 
 Search-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$pattern
+    [Parameter(Mandatory=$true)][string]$Pattern
 )
 
 $Parameters = @{}
@@ -123,12 +117,12 @@ return $result
 
 Add-KeeperRecordNotes {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$true)][string]$Identity, #REcordUID
     [Parameter(Mandatory=$false)][string]$notes
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($recordUId)) { $Parameters.Add("r","$recordUId") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
 
     try 
@@ -145,105 +139,288 @@ return $result
 
 Get-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId
+    [Parameter(Mandatory=$true)][string]$Identity #RecordUID
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Get-KeeperRecordAttachment.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperRecordAttachment: Unable to get attachment"
+        $result = "Error: $_"
+    }
+return $result
 }
+
 Del-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
     [Parameter(Mandatory=$false)][string]$attachmentName
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters.Add("a","$attachmentName") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Del-KeeperRecordAttachment.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Add-KeeperRecordAttachment: Unable to delete attachment"
+        $result = "Error: $_"
+    }
+return $result
 }
+
 New-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
     [Parameter(Mandatory=$false)][string]$filePath
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+if(![string]::IsNullOrEmpty($filePath)) { $Parameters.Add("p","$filePath") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperRecordAttachment.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperRecordAttachment: Unable to add attachment"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Share-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordUId,
+    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
     [Parameter(Mandatory=$false)][string]$mail,
     [Parameter(Mandatory=$false)][string]$action,
     [Parameter(Mandatory=$false)][string]$share,
     [Parameter(Mandatory=$false)][string]$write
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("m","$mail") }
+if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
+if(![string]::IsNullOrEmpty($share)) { $Parameters.Add("s","$share") }
+if(![string]::IsNullOrEmpty($write)) { $Parameters.Add("w","$write") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Share-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Share-KeeperRecord: Unable to add attachment"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 # FOLDER
 List-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$false)][string]$list,
-    [Parameter(Mandatory=$false)][string]$folders,
-    [Parameter(Mandatory=$false)][string]$records,
-    [Parameter(Mandatory=$false)][string]$pattern
+    [Parameter(Mandatory=$false)][string]$List,
+    [Parameter(Mandatory=$false)][string]$Folders,
+    [Parameter(Mandatory=$false)][string]$Records,
+    [Parameter(Mandatory=$false)][string]$Pattern
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($list)) { $Parameters.Add("l","$list") }
+if(![string]::IsNullOrEmpty($folders)) { $Parameters.Add("f","$folders") }
+if(![string]::IsNullOrEmpty($records)) { $Parameters.Add("r","$records") }
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/List-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "List-KeeperFolder: Unable to add attachment"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Del-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$folderUId,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$true)][string]$Identity
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("f","$Identity") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Del-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Del-KeeperFolder: Unable to remove folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 New-KeeperUserFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$name, # user-folder
-    [Parameter(Mandatory=$false)][string]$permission,
-    [Parameter(Mandatory=$false)][string]$manageUsers,
-    [Parameter(Mandatory=$false)][string]$manageRecords,
-    [Parameter(Mandatory=$false)][string]$canShare,
-    [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$path
+    [Parameter(Mandatory=$true)][string]$Name, # user-folder|uf
+    [Parameter(Mandatory=$false)][string]$Permission,
+    [Parameter(Mandatory=$false)][string]$ManageUsers,
+    [Parameter(Mandatory=$false)][string]$ManageRecords,
+    [Parameter(Mandatory=$false)][string]$CanShare,
+    [Parameter(Mandatory=$false)][string]$CanEdit,
+    [Parameter(Mandatory=$false)][string]$Path
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("uf","$name") }
+if(![string]::IsNullOrEmpty($permission)) { $Parameters.Add("a","$permission") }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("u","$manageUsers") }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("r","$manageRecords") }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperUserFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperUserFolder: Unable to create a new user folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 New-KeeperSharedFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$name, # shared-folder
-    [Parameter(Mandatory=$false)][string]$permission,
-    [Parameter(Mandatory=$false)][string]$manageUsers,
-    [Parameter(Mandatory=$false)][string]$manageRecords,
-    [Parameter(Mandatory=$false)][string]$canShare,
-    [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$path
+    [Parameter(Mandatory=$true)][string]$Name, # shared-folder|sf
+    [Parameter(Mandatory=$false)][string]$Permission,
+    [Parameter(Mandatory=$false)][string]$ManageUsers,
+    [Parameter(Mandatory=$false)][string]$ManageRecords,
+    [Parameter(Mandatory=$false)][string]$CanShare,
+    [Parameter(Mandatory=$false)][string]$CanEdit,
+    [Parameter(Mandatory=$false)][string]$Path
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("sf","$name") }
+if(![string]::IsNullOrEmpty($permission)) { $Parameters.Add("a","$permission") }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("u","$manageUsers") }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("r","$manageRecords") }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperSharedFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperSharedFolder: Unable to create a new shared folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Move-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$destination,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$false)][string]$canReShare
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
+if(![string]::IsNullOrEmpty($destination)) { $Parameters.Add("dst","$destination") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Move-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Move-KeeperFolder: Unable to move folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Link-KeeperRecord {
-    [Parameter(Mandatory=$true)][string]$recordUId,
+Param(
+    [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$linkPath,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$false)][string]$canReShare
+)
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
+if(![string]::IsNullOrEmpty($linkPath)) { $Parameters.Add("dst","$linkPath") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Link-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Link-KeeperRecord: Unable to link record"
+        $result = "Error: $_"
+    }
+return $result
 }
+
 Link-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$linkPath,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$false)][string]$canReShare
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
+if(![string]::IsNullOrEmpty($linkPath)) { $Parameters.Add("dst","$linkPath") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Link-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Link-KeeperFolder: Unable to link folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Share-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$folderUId,
+    [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$action,
     [Parameter(Mandatory=$false)][string]$user,
     [Parameter(Mandatory=$false)][string]$record,
@@ -252,8 +429,62 @@ Param(
     [Parameter(Mandatory=$false)][string]$canShare,
     [Parameter(Mandatory=$false)][string]$canEdit
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
+if(![string]::IsNullOrEmpty($user)) { $Parameters.Add("u","$user") }
+if(![string]::IsNullOrEmpty($record)) { $Parameters.Add("r","$record") }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("mr","$manageRecords") }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("mu","$manageUsers") }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Share-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Share-KeeperFolder: Unable to link folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
+# USER
+New-KeeperUser {
+Param(
+    [Parameter(Mandatory=$true)][string]$Mail,
+    [Parameter(Mandatory=$false)][string]$Password,
+    [Parameter(Mandatory=$false)][string]$Name,
+    [Parameter(Mandatory=$false)][string]$DataCenter,
+    [Parameter(Mandatory=$false)][string]$Node,
+    [Parameter(Mandatory=$true)][string]$SecretQuestion,
+    [Parameter(Mandatory=$true)][string]$SecretAnswer,
+    [Parameter(Mandatory=$false)][string]$StoreRecord  
+)
+
+if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("m","$mail") }
+if(![string]::IsNullOrEmpty($password)) { $Parameters.Add("pass","$password") }
+if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
+if(![string]::IsNullOrEmpty($dataCenter)) { $Parameters.Add("d","$dataCenter") }
+if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
+if(![string]::IsNullOrEmpty($secretQuestion)) { $Parameters.Add("sq","$secretQuestion") }
+if(![string]::IsNullOrEmpty($secretAnswer)) { $Parameters.Add("sa","$secretAnswer") }
+if(![string]::IsNullOrEmpty($storeRecord)) { $Parameters.Add("sr","$storeRecord") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperUser.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperUser: Unable to create new keeper user"
+        $result = "Error: $_"
+    }
+return $result
+}
 
 # ENTERPRISE INFO
 Get-KeeperEnterpriseInfo {
@@ -262,111 +493,248 @@ Param (
     [Parameter(Mandatory=$false)][string]$users,
     [Parameter(Mandatory=$false)][string]$teams,
     [Parameter(Mandatory=$false)][string]$roles,
-    [Parameter(Mandatory=$false)][string]$verbose,
     [Parameter(Mandatory=$false)][string]$node
 )
 
-}
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($nodes)) { $Parameters.Add("ns","$nodes") }
+if(![string]::IsNullOrEmpty($users)) { $Parameters.Add("u","$users") }
+if(![string]::IsNullOrEmpty($teams)) { $Parameters.Add("t","$teams") }
+if(![string]::IsNullOrEmpty($roles)) { $Parameters.Add("r","$roles") }
+if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
 
-# USER
-New-KeeperUser {
-Param(
-    [Parameter(Mandatory=$true)][string]$mail,
-    [Parameter(Mandatory=$false)][string]$password,
-    [Parameter(Mandatory=$false)][string]$name,
-    [Parameter(Mandatory=$false)][string]$dataCenter,
-    [Parameter(Mandatory=$false)][string]$node,
-    [Parameter(Mandatory=$true)][string]$secretQuestion,
-    [Parameter(Mandatory=$true)][string]$secretAnswer,
-    [Parameter(Mandatory=$false)][string]$storeRecord,
-    [Parameter(Mandatory=$false)][string]$generate    
-)
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Get-KeeperEnterpriseInfo.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperEnterpriseInfo: Unable to link folder"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 # ENTERPRISE USER
 Set-KeeperEnterpriseUser {
-    [Parameter(Mandatory=$false)][string]$userEmail,
+Param(
+    [Parameter(Mandatory=$false)][string]$Identity, #mail
     [Parameter(Mandatory=$false)][string]$expireMasterPassword,
-    [Parameter(Mandatory=$false)][string]$enabled, #lock/unlock
+    [Parameter(Mandatory=$false)][string]$lock,
+    [Parameter(Mandatory=$false)][string]$unlock,
     [Parameter(Mandatory=$false)][string]$name,
     [Parameter(Mandatory=$false)][string]$node,
     [Parameter(Mandatory=$false)][string]$addRole,
     [Parameter(Mandatory=$false)][string]$removeRole,
     [Parameter(Mandatory=$false)][string]$addTeam,
-    [Parameter(Mandatory=$false)][string]$removeTeam,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$false)][string]$removeTeam
+)
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($expireMasterPassword)) { $Parameters.Add("xpass","$expireMasterPassword") }
+if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
+if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("no","$node") }
+if(![string]::IsNullOrEmpty($addRole)) { $Parameters.Add("ar","$addRole") }
+if(![string]::IsNullOrEmpty($removeRole)) { $Parameters.Add("rr","$removeRole") }
+if(![string]::IsNullOrEmpty($addTeam)) { $Parameters.Add("at","$addTeam") }
+if(![string]::IsNullOrEmpty($removeTeam)) { $Parameters.Add("rt","$removeTeam") }
+if(![string]::IsNullOrEmpty($unlock)) { $Parameters.Add("unlock","$unlock") }
+if(![string]::IsNullOrEmpty($lock)) { $Parameters.Add("lock","$lock") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseUser.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Set-KeeperEnterpriseUser: Unable to set enterprise user"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 New-KeeperEnterpriseUser {
 Param(
-    [Parameter(Mandatory=$true)][string]$email,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$true)][string]$Mail
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("m","$Mail") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperEnterpriseUser.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperEnterpriseUser: Unable to create new enterprise user"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 # ENTERPRISE ROLE
 Set-KeeperEnterpriseRole {
 Param(
-    [Parameter(Mandatory=$false)][string]$addUser,
-    [Parameter(Mandatory=$false)][string]$removeUser,
-    [Parameter(Mandatory=$false)][string]$role
+    [Parameter(Mandatory=$false)][string]$AddUser,
+    [Parameter(Mandatory=$false)][string]$RemoveUser,
+    [Parameter(Mandatory=$false)][string]$Identity
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($addUser)) { $Parameters.Add("au","$addUser") }
+if(![string]::IsNullOrEmpty($removeUser)) { $Parameters.Add("ru","$removeUser") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseRole.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Set-KeeperEnterpriseRole: Unable to set enterprise role"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 # ENTERPRISE TEAM
 New-KeeperEnterpriseTeam {
 Param(
-    [Parameter(Mandatory=$true)][string]$name,
-    [Parameter(Mandatory=$false)][string]$verbose,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$true)][string]$Name
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$Name") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/New-KeeperEnterpriseTeam.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "New-KeeperEnterpriseTeam: Unable create new enterprise team"
+        $result = "Error: $_"
+    }
+return $result
 }
+
 Set-KeeperEnterpriseTeam {
 Param(
-    [Parameter(Mandatory=$true)][string]$teamId,
-    [Parameter(Mandatory=$false)][string]$addUser,
-    [Parameter(Mandatory=$false)][string]$removeUser,
-    [ValidateSet("On","Off")][string]$restrictEdit, 
-    [ValidateSet("On","Off")][string]$restrictShare, 
-    [ValidateSet("On","Off")][string]$restrictView,
-    [Parameter(Mandatory=$false)][string]$node
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string]$AddUser,
+    [Parameter(Mandatory=$false)][string]$RemoveUser,
+    [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictEdit, 
+    [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictShare, 
+    [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictView,
+    [Parameter(Mandatory=$false)][string]$Node
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("t","$Identity") }
+if(![string]::IsNullOrEmpty($addUser)) { $Parameters.Add("au","$addUser") }
+if(![string]::IsNullOrEmpty($removeUser)) { $Parameters.Add("ru","$removeUser") }
+if(![string]::IsNullOrEmpty($restrictEdit)) { $Parameters.Add("re","$restrictEdit") }
+if(![string]::IsNullOrEmpty($restrictShare)) { $Parameters.Add("rd","$restrictShare") }
+if(![string]::IsNullOrEmpty($restrictView)) { $Parameters.Add("rv","$restrictView") }
+if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseTeam.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Set-KeeperEnterpriseTeam: Unable to set enterprise team"
+        $result = "Error: $_"
+    }
+return $result
 }
+
 Del-KeeperEnterpriseTeam {
 Param(
-    [Parameter(Mandatory=$true)][string]$teamId,
-    [Parameter(Mandatory=$false)][string]$force
+    [Parameter(Mandatory=$true)][string]$Identity
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Del-KeeperEnterpriseTeam.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Del-KeeperEnterpriseTeam: Unable to delete enterprise team"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 # AUDIT LOG/REPORT
 Get-KeeperAuditLog {
 Param(
-    [Parameter(Mandatory=$true)][string]$recordId,
+    [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][ValidateSet("splunk","syslog","sumo")][string]$target
 )
 
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
+if(![string]::IsNullOrEmpty($target)) { $Parameters.Add("t","$target") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Get-KeeperAuditLog.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperAuditLog: Unable to get audit log"
+        $result = "Error: $_"
+    }
+return $result
 }
 
 Get-KeeperAuditReport {
 Param(
-    [ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$reportType, 
-    [ValidateSet("Message","Fields")][string]$reportFormat,
-    [Parameter(Mandatory=$false)][string]$columns,
-    [ValidateSet("occurrences", "first_created", "last_created")][string]$aggregate, 
-    [Parameter(Mandatory=$false)][string]$timezone,
-    [Parameter(Mandatory=$false)][string]$limit,
-    [ValidateSet("desc","asc")][string]$order,
-    [Parameter(Mandatory=$false)][string]$created,
-    [Parameter(Mandatory=$false)][string]$eventType,
-    [Parameter(Mandatory=$false)][string]$username,
-    [Parameter(Mandatory=$false)][string]$toUsername,
-    [Parameter(Mandatory=$false)][string]$recordUid,
-    [Parameter(Mandatory=$false)][string]$sharedFolderUid
+    [ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$ReportType, 
+    [ValidateSet("Message","Fields")][string]$ReportFormat,
+    [Parameter(Mandatory=$false)][string]$Columns,
+    [ValidateSet("occurrences", "first_created", "last_created")][string]$Aggregate, 
+    [Parameter(Mandatory=$false)][string]$Timezone,
+    [Parameter(Mandatory=$false)][string]$Limit,
+    [ValidateSet("desc","asc")][string]$Order,
+    [Parameter(Mandatory=$false)][string]$Created,
+    [Parameter(Mandatory=$false)][string]$EventType,
+    [Parameter(Mandatory=$false)][string]$Username,
+    [Parameter(Mandatory=$false)][string]$ToUsername,
+    [Parameter(Mandatory=$false)][string]$RecordUid,
+    [Parameter(Mandatory=$false)][string]$SharedFolderUid
 )
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($ReportType)) { $Parameters.Add("rt","$ReportType") }
+if(![string]::IsNullOrEmpty($ReportFormat)) { $Parameters.Add("rf","$ReportFormat") }
+if(![string]::IsNullOrEmpty($Columns)) { $Parameters.Add("c","$Columns") }
+if(![string]::IsNullOrEmpty($Aggregate)) { $Parameters.Add("a","$Aggregate") }
+if(![string]::IsNullOrEmpty($Timezone)) { $Parameters.Add("tz","$Timezone") }
+if(![string]::IsNullOrEmpty($Limit)) { $Parameters.Add("l","$Limit") }
+if(![string]::IsNullOrEmpty($Order)) { $Parameters.Add("o","$Order") }
+if(![string]::IsNullOrEmpty($Created)) { $Parameters.Add("c","$Created") }
+if(![string]::IsNullOrEmpty($EventType)) { $Parameters.Add("et","$EventType") }
+if(![string]::IsNullOrEmpty($Username)) { $Parameters.Add("u","$Username") }
+if(![string]::IsNullOrEmpty($ToUsername)) { $Parameters.Add("tu","$ToUsername") }
+if(![string]::IsNullOrEmpty($RecordUid)) { $Parameters.Add("r","$RecordUid") }
+if(![string]::IsNullOrEmpty($SharedFolderUid)) { $Parameters.Add("sf","$SharedFolderUid") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Get-KeeperAuditReport.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperAuditReport: Unable to get audit report"
+        $result = "Error: $_"
+    }
+return $result
 }
