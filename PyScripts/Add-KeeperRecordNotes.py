@@ -29,13 +29,14 @@ def main(argv):
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.record:
-        recordUid = args.record
-    if args.notes:
-        recordNotes = args.notes
-    if args.ausername:
+    parameters = dict()
+    if args.record is not None:
+        parameters.update('record',args.record)
+    if args.notes is not None:
+        parameters.update('notes',args.notes)
+    if args.ausername is not None:
         authUsername = args.ausername
-    if args.apassword:
+    if args.apassword is not None:
         authPassword = args.apassword
 
     #Authentication login
@@ -48,7 +49,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordAppendNotesCommand()
-    recordResult = command.execute(my_params, record=recordUid, notes=recordNotes)
+    recordResult = command.execute(my_params, **parameters)
     print("Successfully updated notes on [",recordUid,"] with [", recordNotes ,"]")
     return recordResult
 
