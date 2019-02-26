@@ -556,11 +556,19 @@ return $result
 
 New-KeeperEnterpriseUser {
 Param(
-    [Parameter(Mandatory=$true)][string]$Mail
+    [Parameter(Mandatory=$true)][string]$Mail,
+    [Parameter(Mandatory=$false)][string]$Name,
+    [Parameter(Mandatory=$false)][string]$AddRole,
+    [Parameter(Mandatory=$false)][string]$AddTeam,
+    [Parameter(Mandatory=$false)][string]$Node
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("m","$Mail") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Mail") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("n","$Name") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ar","$AddRole") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("at","$AddTeam") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("no","$Node") }
 
     try 
     {
@@ -574,12 +582,69 @@ if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("m","$Mail") }
 return $result
 }
 
+Del-KeeperEnterpriseUser {
+Param(
+    [Parameter(Mandatory=$true)][string]$Identity
+)
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Identity") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Del-KeeperEnterpriseUser.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Del-KeeperEnterpriseUser: Unable to remove enterprise user"
+        $result = "Error: $_"
+    }
+return $result
+}
+
+Set-KeeperEnterpriseUser {
+Param(
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string]$Lock,
+    [Parameter(Mandatory=$false)][string]$Unlock,
+    [Parameter(Mandatory=$false)][string]$Name,
+    [Parameter(Mandatory=$false)][string]$Node,
+    [Parameter(Mandatory=$false)][string]$AddRole,
+    [Parameter(Mandatory=$false)][string]$RemoveRole,
+    [Parameter(Mandatory=$false)][string]$AddTeam,
+    [Parameter(Mandatory=$false)][string]$RemoveTeam,
+    [Parameter(Mandatory=$false)][string]$Expire
+)
+
+$Parameters = @{}
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Identity") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("l","$Lock") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ul","$Unlock") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("n","$Name") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ar","$AddRole") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rr","$RemoveRole") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("at","$AddTeam") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rt","$RemoveTeam") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("expass","$Expire") }
+
+    try 
+    {
+        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseUser.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Set-KeeperEnterpriseUser: Unable to edit enterprise user"
+        $result = "Error: $_"
+    }
+return $result
+}
+
 # ENTERPRISE ROLE
 Set-KeeperEnterpriseRole {
 Param(
     [Parameter(Mandatory=$false)][string]$AddUser,
     [Parameter(Mandatory=$false)][string]$RemoveUser,
-    [Parameter(Mandatory=$false)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity
 )
 
 $Parameters = @{}
