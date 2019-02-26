@@ -625,7 +625,7 @@ if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ar","$AddRole") }
 if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rr","$RemoveRole") }
 if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("at","$AddTeam") }
 if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rt","$RemoveTeam") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("expass","$Expire") }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("xpass","$Expire") }
 
     try 
     {
