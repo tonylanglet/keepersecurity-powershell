@@ -13,18 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    entUserEmail = None
-    entUserLock = None
-    entUserUnlock = None
-    entUserName = None
-    entUserAddRole = None
-    entUserAddTeam = None
-    entUserRemoveTeam = None
-    entUserRemoveRole = None
-    entUserNode = None
-    endUserExpire = None
-    entUserForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -45,26 +33,28 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.email:
-        entUserEmail = args.email
-    if args.name:
-        entUserName = args.name
-    if args.lock:
-        entUserLock = args.lock
-    if args.unlock:
-        entUserUnlock = args.unlock
-    if args.node:
-        entUserNode = args.node
-    if args.add-role:
-        entUserAddRole = args.add-role
-    if args.remove-role:
-        entUserRemoveRole = args.remove-role
-    if args.add-team:
-        entUserAddTeam = args.add-team
-    if args.remove-team:
-        entUserRemoveTeam = args.remove-team
-    if args.expire:
-        entUserExpire = args.expire
+    Parameters = dict()
+    Parameters.update({'force':True})
+    if args.email is not None:
+        Parameters.update({'email':args.email})
+    if args.name is not None:
+        Parameters.update({'name':args.name})
+    if args.lock is not None:
+        Parameters.update({'lock':args.lock})
+    if args.unlock is not None:
+        Parameters.update({'unlock':args.unlock})
+    if args.node is not None:
+        Parameters.update({'node':args.node})
+    if args.add-role is not None:
+        Parameters.update({'add-role':args.add-role})
+    if args.remove-role is not None:
+        Parameters.update({'remove-role':args.remove-role})
+    if args.add-team is not None:
+        Parameters.update({'add-team':args.add-team})
+    if args.remove-team is not None:
+        Parameters.update({'remove-team':args.remove-team})
+    if args.expire is not None:
+        Parameters.update({'expire':args.expire})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -80,7 +70,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = EnterpriseUserCommand()
-    result = command.execute(my_params, email=entUserEmail, lock=entUserLock, unlock=entUserUnlock, name=entUserName, node=entUserNode, add-role=entUserAddRole, remove-role=entUserRemoveRole, add-team=entUserAddTeam, remove-team=entUserRemoveTeam, expire=entUserExpire, force=entUserForce)
+    result = command.execute(my_params, **Parameters)
     print("Successfully")
     return result
 
