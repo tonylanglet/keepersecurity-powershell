@@ -36,7 +36,7 @@ $ pip3 --install keepercommander
    
  Run the following environment variable script snippet in for example Powershell
  ```
- $pythonPath = "<Location of python folder e.g. c:\program files\python\>"
+ $pythonPath = "<Location of python folder e.g. C:\WPy-3670\python-3.6.7.amd64>"
  [Environment]::SetEnvironmentVariable("Path", "$env:Path;$pythonPath", "User")
  ```
 
