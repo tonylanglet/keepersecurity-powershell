@@ -23,7 +23,7 @@ def main(argv):
 	parser.add_argument('-l', '--login', type=str, help='Login for the record')
 	parser.add_argument('-p', '--password', type=str, help='Password for the record, if left empty a Keeper generated password will be made')
 	parser.add_argument('-u', '--url', type=str, help='URL for the record')
-	parser.add_argument('-c', '--customfields', type=str, help='Custom Fields for the record, syntax being used "key1=value1,key2=value2"')
+	parser.add_argument('-c', '--customfields', type=str, help='Custom Fields for the record, syntax being used "key1:value1,key2:value2"')
 	parser.add_argument('-f', '--folder', type=str, help='Folder uid for the record')
 	parser.add_argument('-n', '--notes', type=str, help='Notes for the record')
 	parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
@@ -37,7 +37,7 @@ def main(argv):
 	if args.login is not None:
 		Parameters.update({'login':args.login})
 	if args.password is not None:
-		Parameters.update({'pass':args.password})
+		Parameters.update({'password':args.password})
 	else: 
 		Parameters.update({'generate':True})
 	if args.url is not None:
