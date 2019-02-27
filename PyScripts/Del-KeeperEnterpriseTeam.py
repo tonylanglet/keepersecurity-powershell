@@ -26,12 +26,12 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
+    Parameters.update({'force':True})
     if args.team is not None:
-        Parameters.Update('team',args.team)
+        Parameters.update({'team':args.team})
     if args.delete is not None:
-        Parameters.Update('delete',args.delete)
-    if args.node is not None:
-        Parameters.Update('noder',args.node)
+        Parameters.update({'delete':args.delete})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
