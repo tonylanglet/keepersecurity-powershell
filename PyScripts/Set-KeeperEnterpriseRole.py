@@ -19,17 +19,20 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-a', '--add-user', type=str, help='add user to role')
-    parser.add_argument('-r', '--remove-user', type=str, help='remove user from role')
+    parser.add_argument('-r', '--role', type=str, help='role id')
+    parser.add_argument('-au', '--add-user', type=str, help='add user to role')
+    parser.add_argument('-ru', '--remove-user', type=str, help='remove user from role')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
     Parameters = dict()
+    if args.role is not None:
+        Parameters.Update({'role':args.role})
     if args.add-user is not None:
-        Parameters.Update('add-user',args.email)
+        Parameters.Update({'add-user':args.add-user})
     if args.remove-user is not None:
-        Parameters.Update('remove-user',args.email)
+        Parameters.Update({'remove-user':args.remove-user})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
