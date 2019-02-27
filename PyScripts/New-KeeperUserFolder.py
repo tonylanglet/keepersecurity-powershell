@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -14,14 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    folderUserFolder = None
-    folderAll = None
-    folderManageUser = None
-    folderManageRecord = None
-    folderCanShare = None
-    folderCanEdir = None
-    folderFolderPath = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -39,20 +30,22 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.user-folder:
-        folderUserFolder = args.user-folder
-    if args.all:
-        folderAll = args.all
-    if args.manage-user:
-        folderManageUser = args.manage-user
-    if args.manager-record:
-        folderManageRecord = args.manage-record
-    if args.can-share:
-        folerCanShare = args.can-share
-    if args.can-edit:
-        folderCanEdit = args.can-edit
-    if args.folder:
-        folderFolderPath = args.folder
+    Parameters = dict()
+    if args.user-folder is not None:
+        Parameters.update({'user-folder':args.user-folder})
+    if args.all is not None:
+        Parameters.update({'all':args.all})
+    if args.manage-user is not None:
+        Parameters.update({'manage-user':args.manage-user})
+    if args.manager-record is not None:
+        Parameters.update({'manager-record':args.manage-record})
+    if args.can-share is not None:
+        Parameters.update({'can-share':args.can-share})
+    if args.can-edit is not None:
+        Parameters.update({'can-edit':args.can-edit})
+    if args.folder is not None:
+        Parameters.update({'folder':args.folder})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -67,9 +60,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderMakeCommand()
-    recordResult = command.execute(my_params, shared-user=folder=UserFolder, all=folderAll, manage-user=folderManageUser, manage-record=folderManageRecord, can-share=folderCanShare, can-edit=folderCanEdit, folder=folderFolderPath)
+    result = command.execute(my_params, **Parameters)
     print("Success")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
