@@ -28,11 +28,11 @@ def main(argv):
 
     Parameters = dict()
     if args.role is not None:
-        Parameters.Update({'role':args.role})
+        Parameters.update({'role':args.role})
     if args.add-user is not None:
-        Parameters.Update({'add-user':args.add-user})
+        Parameters.update({'add-user':args.add-user})
     if args.remove-user is not None:
-        Parameters.Update({'remove-user':args.remove-user})
+        Parameters.update({'remove-user':args.remove-user})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
