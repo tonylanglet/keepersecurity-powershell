@@ -14,9 +14,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    folderUID = None
-    folderForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -24,15 +21,15 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("--folder", type=str, help="Folder UID", required=True)
-    parser.add_argument("--force", type=str, help="force y/n, true/false", default=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.folder:
-        folderUID = args.folder
-    if args.force:
-        folderForce = args.force
+    Parameters = dict()
+    Parameters.update({'force':True})
+    if args.folder is not None:
+        Parameters.update({'folder':args.folder})
+      
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -47,7 +44,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderRemoveCommand()
-    recordResult = command.execute(my_params, folder=folderUID, force=folderForce)
+    recordResult = command.execute(my_params, **Parameters)
     print("Successfully")
     return recordResult
 
