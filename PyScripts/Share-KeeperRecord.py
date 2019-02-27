@@ -13,12 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordUid = None
-    userEmail = None
-    shareAction = None
-    shareShare = None
-    shareWrite = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -34,16 +28,18 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.record:
-        recordUid = args.record
-    if args.notes:
-        userEmail = args.email
-    if args.record:
-        shareAction = args.action
-    if args.notes:
-        shareShare = args.share
-    if args.record:
-        shareWrite = args.write
+    Parameters = dict()
+    if args.record is not None:
+        Parameters.update({'record':args.record})
+    if args.notes is not None:
+        Parameters.update({'email':args.email})
+    if args.record is not None:
+        Parameters.update({'action':args.action})
+    if args.notes is not None:
+        Parameters.update({'share':args.share})
+    if args.record is not None:
+        Parameters.update({'write':args.write})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -59,9 +55,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = ShareRecordCommand()
-    recordResult = command.execute(my_params, record=recordUid, email=userEmail, action=shareAction, share=shareShare, write=shareWrite)
+    result = command.execute(my_params, **Parameters)
     print("Successfully")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
