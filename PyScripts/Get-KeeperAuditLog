@@ -27,9 +27,10 @@ def main(argv):
 
     Parameters = dict()
     if args.target is not None:
-        Parameters.Update('target',args.target)
+        Parameters.Update({'target':args.target})
     if args.record is not None:
-        Parameters.Update('recordr',args.record)
+        Parameters.Update({'recordr':args.record})
+        
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
