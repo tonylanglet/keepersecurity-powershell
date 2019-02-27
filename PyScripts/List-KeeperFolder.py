@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -14,11 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    folderList = None
-    folderFolder = None
-    folderRecord = None
-    folderPattern = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -33,14 +27,16 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.list:
-        folderList = args.list
-    if args.folder:
-        folderFolder = args.folder
-    if args.record:
-        folderRecord = args.record
-    if args.pattern:
-        folderPattern = args.pattern
+    Parameters = dict()
+    if args.list is not None:
+        Parameters.update({'list':args.list})
+    if args.folder is not None:
+        Parameters.update({'folder':args.folder})
+    if args.record is not None:
+        Parameters.update({'record':args.record})
+    if args.pattern is not None:
+        Parameters.update({'pattern':args.pattern})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -55,7 +51,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderListCommand()
-    recordResult = command.execute(my_params, list=folderList, folder=folderFolder, record=folderRecord, pattern=folderPattern)
+    recordResult = command.execute(my_params, **Parameters)
     print("Success")
     return recordResult
 
