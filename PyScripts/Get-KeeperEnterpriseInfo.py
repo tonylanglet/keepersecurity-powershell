@@ -13,12 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    entNodes = None
-    endUsers = None
-    entTeams = None
-    endRoles = None
-    endNode = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -34,16 +28,18 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.nodes:
-        endNodes = args.nodes
-    if args.users:
-        entUsers = args.users
-    if args.roles:
-        entRoles = args.roles
-    if args.teams:
-        entTeams = args.teams
-    if args.node:
-        entNode = args.node
+    Parameters = dict()
+    if args.nodes is not None:
+        Parameters.update({'nodes':args.nodes)}
+    if args.users is not None:
+        Parameters.update({'users':args.users)}
+    if args.roles is not None:
+        Parameters.update({'roles':args.roles)}
+    if args.teams is not None:
+        Parameters.update({'teams':args.teams)}
+    if args.node is not None:
+       Parameters.update({'node':args.node)}
+                          
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -58,7 +54,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = EnterpriseInfoCommand()
-    recordResult = command.execute(my_params, nodes=entNodes, users=entUsers, teams=entTeams, roles=entRoles, node=entNode)
+    recordResult = command.execute(my_params, **Parameters)
     print("Success")
     return recordResult
 
