@@ -13,14 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    entUserEmail = None
-    entUserName = None
-    entUserAdd = True
-    entUserNode = None
-    entUserAddRole = None
-    entUSerAddTeam = None
-    entUserForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -29,7 +21,6 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('-e', '--email', type=str, help='user email or user ID or user search pattern')
     parser.add_argument('-n', '--name', type=str, help='set user name')
-    parser.add_argument('-a', '--add', type=str, help='invite user')
     parser.add_argument('-no', '--node', type=str, help='node name or node ID')
     parser.add_argument('-ar', '--add-role', type=str, help='role name or role ID')
     parser.add_argument('-at', '--add-team', type=str, help='team name or team ID')
@@ -37,18 +28,19 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.email:
-        entUserEmail = args.email
-    if args.name:
-        entUserName = args.name
-    if args.add:
-        entUserAdd = args.add
-    if args.node:
-        entUserNode = args.node
-    if args.add-role:
-        entUserAddRole = args.add-role
-    if args.add-team:
-        entUserAddTeam = args.add-team
+    Parameters = dict()
+    Parameters.update({'force':True})
+    Parameters.update({'add':True})
+    if args.email is not None:
+        Parameters.update({'email':args.email})
+    if args.name is not None:
+        Parameters.update({'name':args.name})        
+    if args.node is not None:
+        Parameters.update({'node':args.node})
+    if args.add-role is not None:
+        Parameters.update({'add-role':args.add-role})
+    if args.add-team is not None:
+        Parameters.update({'add-team':args.add-team})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
