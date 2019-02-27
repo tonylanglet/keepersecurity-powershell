@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -14,9 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordUid = None
-    recordForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -24,15 +20,15 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--record", type=str, help="Recordc UID", required=True)
-    parser.add_argument("-f", "--force", type=str, help="Force y/n or true/false", default=True, required=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.record:
-        recordUid = args.record
-    if args.force:
-        recordForce = args.force
+    Parameters = dict()
+    Parameters.update({'force':True})
+    if args.record is not None:
+        Parameters.update({'record':args.record})
+
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -47,9 +43,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordRemoveCommand()
-    recordResult = command.execute(my_params, record=recordUid, force=recordForce)
+    result = command.execute(my_params, **Parameters)
     print("Successfully deleted record [",recordUid,"]")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
