@@ -13,16 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    userStoreRecord = None
-    userGenerate = None
-    userPassword = None
-    userDataCenter = 'eu'
-    userNode = None
-    userName = None
-    userQuestion = None
-    userAnswer = None
-    userEmail = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -32,7 +22,7 @@ def main(argv):
     parser.add_argument('-sr', '--store-record', type=str, help='store credentials into Keeper record (must be logged in)')
     parser.add_argument('-g', '--generate', type=str, help='generate a password')
     parser.add_argument('-pass', '--password', help='user password')
-    parser.add_argument('-d', '--data-center', choices=['eu','us'], type=str, help='data center')
+    parser.add_argument('-d', '--data-center', choices=['eu','us'], type=str, help='data center', default='eu')
     parser.add_argument('-no', '--node', type=str, help='node name or node ID (enterprise only)')
     parser.add_argument('-n', '--name', type=str, help='user name (enterprise only)')
     parser.add_argument('-sq', '--question', type=str, help='secret question')
@@ -42,24 +32,26 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.store-record:
-        userStoreRecord = args.store-record
-    if args.generate:
-        userGenerate = args.generate
-    if args.password:
-        userPassword = args.password
-    if args.data-center:
-        userDataCenter = args.data-center
-    if args.node:
-        userNode = args.node
-    if args.name:
-        userName = args.name
-    if args.question:
-        userQuestion = args.question
-    if args.answer:
-        userAnswer = args.answer
-    if args.email:
-        userEmail = args.email
+    Parameters = dict()
+    if args.store-record is not None:
+        Parameter.update({'store-record':args.store-record})
+    if args.generate is not None:
+        Parameter.update({'generate':args.generate})
+    if args.password is not None:
+        Parameter.update({'pass':args.password})
+    if args.data-center is not None:
+        Parameter.update({'data-center':args.data-center})
+    if args.node is not None:
+        Parameter.update({'node':args.node})
+    if args.name is not None:
+        Parameter.update({'name':args.name})
+    if args.question is not None:
+        Parameter.update({'question':args.question})
+    if args.answer is not None:
+        Parameter.update({'answer':args.answer})
+    if args.email is not None:
+        Parameter.update({'email':args.email})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -75,7 +67,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RegisterCommand()
-    result = command.execute(my_params, store-record=userStoreRecord, generate=userGenerate, pass=userPassword, data-center=userDataCenter, node=userNode, name=userName, question=userQuestion, answer=userAnswer, email=userEmail)
+    result = command.execute(my_params, **Parameters)
     print("Successfully")
     return result
 
