@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -14,37 +13,31 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    folderDestination = None
-    folderSource = None
-    folderCanReshare = None
-    folderCanEdit = None
-    folderForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID')
-    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID')
+    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID', required=True)
+    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID', required=True)
     parser.add_argument('-s', '--can-reshare', type=str, help='anyone can reshare records')
     parser.add_argument('-e', '--can-edit', type=str, help='anyone can edit records')
-    parser.add_argument('-f', '--force', type=str, help='do not prompt', default=True)
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.source:
-        folderSource = args.source
-    if args.destination:
-        folderDestination = args.destination
-    if args.can-reshare:
-        folderCanReshare = args.can-reshare
-    if args.can-edit:
-        folderCanEdit = args.can-edit
-    if args.force:
-        folderForce = args.force
+    Parameters = dict()
+    Parameters.update({'force':True})
+    if args.source is not None:
+        Parameters.update({'src':args.source})
+    if args.destination is not None:
+        Parameters.update({'dst':args.destination})
+    if args.can-reshare is not None:
+        Parameters.update({'can-reshare':args.can-reshare})
+    if args.can-edit is not None:
+        Parameters.update({'can-edit':args.can-edit})
+                           
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -59,7 +52,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderMoveCommand()
-    recordResult = command.execute(my_params, src=folderSource, dst=folderDestination, can-reshare=folderCanReshare, can-edit=folderCanEdit, force=folderForce)
+    recordResult = command.execute(my_params, **Parameters)
     print("Success")
     return recordResult
 
