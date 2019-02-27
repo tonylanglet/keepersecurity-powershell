@@ -14,9 +14,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordUid = None
-    recordNotes = None
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -29,11 +26,11 @@ def main(argv):
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    parameters = dict()
+    Parameters = dict()
     if args.record is not None:
-        parameters.update('record',args.record)
+        parameters.update({'record':args.record})
     if args.notes is not None:
-        parameters.update('notes',args.notes)
+        parameters.update({'notes':args.notes})
     if args.ausername is not None:
         authUsername = args.ausername
     if args.apassword is not None:
@@ -49,7 +46,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordAppendNotesCommand()
-    recordResult = command.execute(my_params, **parameters)
+    recordResult = command.execute(my_params, **Parameters)
     print("Successfully updated notes on [",recordUid,"] with [", recordNotes ,"]")
     return recordResult
 
