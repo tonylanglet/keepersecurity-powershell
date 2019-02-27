@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import random
 import argparse
 
 from keepercommander.record import Record
@@ -14,12 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordDestination = None
-    recordSource = None
-    recordCanReshare = None
-    recordCanEdit = None
-    recordForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
@@ -35,16 +28,17 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
+    Parameters = dict()
+    Parameters.update({'force':True})
     if args.source:
-        recordSource = args.source
+        Parameters.update({'src':args.source})
     if args.destination:
-        recordDestination = args.destination
+        Parameters.update({'dst':args.destination})
     if args.can-reshare:
-        recordCanReshare = args.can-reshare
+        Parameters.update({'can-reshare':args.can-reshare})
     if args.can-edit:
-        recordCanEdit = args.can-edit
-    if args.force:
-        recordForce = args.force
+        Parameters.update({'can-edit':args.can-edit})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -59,9 +53,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderMoveCommand()
-    recordResult = command.execute(my_params, src=recordSource, dst=recordDestination, can-reshare=recordCanReshare, can-edit=recordCanEdit, force=recordForce)
+    result = command.execute(my_params, **Parameters)
     print("Success")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
