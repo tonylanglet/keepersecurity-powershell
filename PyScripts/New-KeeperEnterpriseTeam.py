@@ -31,17 +31,18 @@ def main(argv):
 
     Parameters = dict()
     if args.add is not None:
-        Parameters.Update('add',args.add)
+        Parameters.update({'add',args.add})
     if args.add-user is not None:
-        Parameters.Update('add-user',args.add-user)
+        Parameters.update({'add-user',args.add-user})
     if args.restrict-edit is not None:
-        Parameters.Update('restrict-edit',args.restrict-edit)
+        Parameters.update({'restrict-edit',args.restrict-edit})
     if args.restrict-share is not None:
-        Parameters.Update('restrict-share',args.restrict-share)
+        Parameters.update({'restrict-share',args.restrict-share})
     if args.restrict-view is not None:
-        Parameters.Update('restrict-view',args.restrict-view)
+        Parameters.update({'restrict-view',args.restrict-view})
     if args.node is not None:
-        Parameters.Update('noder',args.node)
+        Parameters.update({'node',args.node})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
