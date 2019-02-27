@@ -24,14 +24,17 @@ def main(argv):
     #Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-e', '--email', type=str, help='user email or user ID or user search pattern')
-    parser.add_argument('-d', '--delete', type=str, help='delete user')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.email:
-        entUserEmail = args.email
-    if args.ausername:
+    Parameters = dict()
+    Parameters.update({'force':True})
+    Parameters.update({'delete':True})
+    if args.email is not None:
+        Parameters.update({'email':args.email)}
+    
+if args.ausername:
         authUsername = args.ausername
     if args.apassword:
         authPassword = args.apassword
@@ -46,8 +49,8 @@ def main(argv):
 
     # KEEPER COMMAND
     command = EnterpriseUserCommand()
-    result = command.execute(my_params, email=entUserEmail, delete=entUserDelete, force=entUserForce)
-    print("Successfully")
+    result = command.execute(my_params, **Parameters)
+    print("Successfully deleted user [", args.email ,"]")
     return result
 
 if __name__ == "__main__":
