@@ -13,26 +13,24 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordUid = None
-    recordFormat = None
     # Authentication credentials
     authUsername = None
     authPassword = None
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="Record uid", required=True)
-    parser.add_argument("-f", "--format", type=str, choices=["json","csv","keepass"], help="format json/csv/keepass", default="json")
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username")
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password")
-
+    parser.add_argument('-r', '--record', type=str, help='Record uid', required=True)
+    parser.add_argument('-f', '--format', type=str, choices=['json','csv','keepass'], help='format json/csv/keepass', default='json')
+    parser.add_argument('-auser', '--ausername', type=str, help='Authentication username')
+    parser.add_argument('-apass', '--apassword', type=str, help='Authentication password')
     args = parser.parse_args()
 
-    if args.record:
-        recordUid = args.record
-    if args.format:
-        recordFormat = args.format
+    Parameters = dict()
+    if args.record is not None:
+        Parameters.update({'record':args.record})
+    if args.format is not None:
+        Parameters.update({'format':args.format})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -47,9 +45,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordGetUidCommand()
-    recordResult = command.execute(my_params, uid=recordUid, format=recordFormat)
+    result = command.execute(my_params, **Parameters)
     print("Successfully fetched record [",recordUid,"]")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
