@@ -39,33 +39,34 @@ def main(argv):
 
     Parameters = dict()
     if args.syntax-help is not None:
-        Parameters.Update('syntax-help',args.syntax-help)
+        Parameters.update({'syntax-help':args.syntax-help})
     if args.report-type is not None:
-        Parameters.Update('report-type',args.report-type)
+        Parameters.update({'report-type':args.report-type})
     if args.report-format is not None:
-        Parameters.Update('report-format',args.report-format)
+        Parameters.update({'report-format':args.report-format})
     if args.columns is not None:
-        Parameters.Update('columns',args.columns)
+        Parameters.update({'columns':args.columns})
     if args.aggregate is not None:
-        Parameters.Update('taraggregateget',args.aggregate)
+        Parameters.update({'taraggregateget':args.aggregate})
     if args.timezone is not None:
-        Parameters.Update('timezone',args.timezone)
+        Parameters.update({'timezone':args.timezone})
     if args.limit is not None:
-        Parameters.Update('limit',args.limit)
+        Parameters.update({'limit':args.limit})
     if args.order is not None:
-        Parameters.Update('order',args.order)
+        Parameters.update({'order':args.order})
     if args.created is not None:
-        Parameters.Update('created',args.created)
+        Parameters.update({'created':args.created})
     if args.event-type is not None:
-        Parameters.Update('event-type',args.event-type)
+        Parameters.update({'event-type':args.event-type})
     if args.username is not None:
-        Parameters.Update('username',args.username)
+        Parameters.update({'username':args.username})
     if args.to-username is not None:
-        Parameters.Update('to-username',args.to-username)
+        Parameters.update({'to-username':args.to-username})
     if args.record-uid is not None:
-        Parameters.Update('record-uid',args.record-uid)
+        Parameters.update({'record-uid':args.record-uid})
     if args.shared-folder-uid is not None:
-        Parameters.Update('shared-folder-uid',args.shared-folder-uid)
+        Parameters.update({'shared-folder-uid':args.shared-folder-uid})
+                           
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
