@@ -28,7 +28,7 @@ def main(argv):
     Parameters.update({'force':True})
     Parameters.update({'delete':True})
     if args.email is not None:
-        Parameters.update({'email':args.email)}
+        Parameters.update({'email':args.email})
     
 if args.ausername:
         authUsername = args.ausername
