@@ -24,6 +24,7 @@ def main(argv):
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
+    Parameters = dict()
     if args.record is not None:
         Parameters.update({'record':args.record})
       
