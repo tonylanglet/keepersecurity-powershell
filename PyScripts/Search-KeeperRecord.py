@@ -12,21 +12,21 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordPattern = None
     # Authentication credentials
     authUsername = None
     authPassword = None
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--pattern", type=str, help="Search pattern", required=True)
-    parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
-    parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
+    parser.add_argument('-p', '--pattern', type=str, help='Search pattern')
+    parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
+    parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
-    if args.pattern:
-        recordPattern = args.pattern
+    Parameters = dict()
+    if args.pattern is not None:
+        Parameters.update({'pattern':args.pattern})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -41,9 +41,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = SearchCommand()
-    recordResult = command.execute(my_params, pattern=recordPattern)
+    result = command.execute(my_params, **Parameters)
     print("Search complete")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
