@@ -13,10 +13,6 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    entUserEmail = None
-    entUserDelete = True
-    entUserForce = True
     # Authentication credentials
     authUsername = None
     authPassword = None
