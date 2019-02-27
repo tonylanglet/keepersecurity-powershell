@@ -2,7 +2,6 @@ import sys
 import getopt
 import getpass
 import string
-import re
 import argparse
 
 from keepercommander.record import Record
@@ -14,25 +13,24 @@ my_params = KeeperParams()
       
 # MAIN FUNCTION
 def main(argv):
-    # Variables
-    recordUID = None
-    attName = None
     # Authentication credentials
     authUsername = None
     authPassword = None
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="Folder UID", required=True)
-    parser.add_argument("-n", "--name", type=str, help="force y/n, true/false", default=True)
+    parser.add_argument("-r", "--record", type=str, help="record UID", required=True)
+    parser.add_argument("-n", "--name", type=str, help="name of the attachment file", required=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
 
-    if args.record:
-        recordUID = args.record
-    if args.name:
-        attName = args.name
+    Parameters = dict()
+    if args.record is not None:
+        Parameters.update({'record':args.record})
+    if args.name is not None:
+        Parameters.update({'name':args.name})
+            
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -47,9 +45,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordDeleteAttachmentCommand()
-    recordResult = command.execute(my_params, record=recordUID, name=attName)
+    result = command.execute(my_params, **Parameters)
     print("Successfully")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
