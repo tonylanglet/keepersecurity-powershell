@@ -38,16 +38,16 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.syntax-help is not None:
-        Parameters.update({'syntax-help':args.syntax-help})
-    if args.report-type is not None:
-        Parameters.update({'report-type':args.report-type})
-    if args.report-format is not None:
-        Parameters.update({'report-format':args.report-format})
+    if args.syntax_help is not None:
+        Parameters.update({'syntax_help':args.syntax_help})
+    if args.report_type is not None:
+        Parameters.update({'report_type':args.report_type})
+    if args.report_format is not None:
+        Parameters.update({'report_format':args.report_format})
     if args.columns is not None:
         Parameters.update({'columns':args.columns})
     if args.aggregate is not None:
-        Parameters.update({'taraggregateget':args.aggregate})
+        Parameters.update({'aggregate':args.aggregate})
     if args.timezone is not None:
         Parameters.update({'timezone':args.timezone})
     if args.limit is not None:
@@ -56,16 +56,16 @@ def main(argv):
         Parameters.update({'order':args.order})
     if args.created is not None:
         Parameters.update({'created':args.created})
-    if args.event-type is not None:
-        Parameters.update({'event-type':args.event-type})
+    if args.event_type is not None:
+        Parameters.update({'event-type':args.event_type})
     if args.username is not None:
         Parameters.update({'username':args.username})
-    if args.to-username is not None:
-        Parameters.update({'to-username':args.to-username})
-    if args.record-uid is not None:
-        Parameters.update({'record-uid':args.record-uid})
-    if args.shared-folder-uid is not None:
-        Parameters.update({'shared-folder-uid':args.shared-folder-uid})
+    if args.to_username is not None:
+        Parameters.update({'to_username':args.to_username})
+    if args.record_uid is not None:
+        Parameters.update({'record_uid':args.record_uid})
+    if args.shared_folder_uid is not None:
+        Parameters.update({'shared_folder_uid':args.shared_folder_uid})
                            
     if args.ausername:
         authUsername = args.ausername
