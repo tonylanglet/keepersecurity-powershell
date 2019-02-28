@@ -1,9 +1,53 @@
 
-
 function New-KeeperRecord {
+<#
+.SYNOPSIS
+  Creates a new Record
+.DESCRIPTION
+  This script creates a record in Keeper security
+.PARAMETER Title
+    Optional [string], descriptive title of the record
+.PARAMETER Login
+    Optional [string], the login/username 
+.PARAMETER Password
+    Optional [string], If sent empty a password will be generated
+.PARAMETER URL
+    Optional [string], Provide if necessary
+.PARAMETER Notes
+    Optional [string], Descriptive notes of the record
+.PARAMETER CustomFields
+    Optional [string], requires the following syntax "key1:value1,key2:value2"...
+.PARAMETER FolderUId
+    Optional [string], provide the folder UID 
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperRecord.
+.OUTPUTS
+  System.String New-KeeperRecord returns a string with the Record UID
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Creates a empty record
+  C:\PS> New-KeeperRecord -AuthObject $credentials
+
+.EXAMPLE 2 
+  Creates a new record with the parameters for Title, Login, and Password
+  C:\PS> New-KeeperRecord -Title "NewRecord" -Login "Username" -Password "Hello1234" -AuthObject $credentials
+
+.EXAMPLE 3
+  Creates a new record and generates a password in Keeper, two custom fields are created named APIKey and SecretKey and the record will be stored in the folder specified
+  C:\PS> New-KeeperRecord -Title "NewRecord" -Login "Username" -CustomFields "APIKey:xyz,SecretKey:1234" -FolderUId "12jJF3j#-jsdkeCKsS" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)][string]$Title,
-    [Parameter(Mandatory=$true)][string]$Login,
+    [Parameter(Mandatory=$false)][string]$Login,
     [Parameter(Mandatory=$false)][string]$Password,
     [Parameter(Mandatory=$false)][string]$Url,
     [Parameter(Mandatory=$false)][string]$Notes,
@@ -36,6 +80,33 @@ return $result
 }
 
 function Get-KeeperRecord {
+<#
+.SYNOPSIS
+  Retreive specified record
+.DESCRIPTION
+  This script will output information about a specific record
+.PARAMETER Identity
+    * Required [string], A record UID or record name
+.PARAMETER Format
+    * Required [string], either a detailed description or json formated string.
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperRecord
+.OUTPUTS
+  A string or a JSON formated output
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Outputs a json string for the record 3Dfeca#fca3Cyv
+  C:\PS> Get-KeeperRecord -Identity "3Dfeca#fca3Cyv" -Format "json" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][ValidateSet("json","detail")][string]$Format,
@@ -60,6 +131,30 @@ return $result
 }
 
 function Del-KeeperRecord {
+<#
+.SYNOPSIS
+  Removes specified record
+.DESCRIPTION
+  This script will remove the specified record
+.PARAMETER Identity
+    * Required [string], A record UID or record name
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperRecord
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  C:\PS> Del-KeeperRecord -Identity "3Dfeca#fca3Cyv" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -82,6 +177,31 @@ return $result
 }
 
 function List-KeeperRecord {
+<#
+.SYNOPSIS
+  List Keeper records
+.DESCRIPTION
+  Providing a regex pattern will display the result of records that match the regex
+.PARAMETER Pattern
+    * Required [string], A Regex to match records to
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to List-KeeperRecord
+.OUTPUTS
+  A List of records matching the provided regex pattern
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  List all records
+  C:\PS> List-KeeperRecord -Pattern "^" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Pattern,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -104,6 +224,31 @@ return $result
 }
 
 function Search-KeeperRecord {
+<#
+.SYNOPSIS
+  List Keeper records
+.DESCRIPTION
+  Providing a regex pattern will display the result of records that match the regex
+.PARAMETER Pattern
+    * Required [string], A Regex to match records to
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Search-KeeperRecord
+.OUTPUTS
+  A List of records matching the provided regex pattern
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  List all records
+  C:\PS> Search-KeeperRecord -Pattern "^" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Pattern,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -126,6 +271,32 @@ return $result
 }
 
 function Add-KeeperRecordNotes {
+<#
+.SYNOPSIS
+  Append notes to a existing record
+.DESCRIPTION
+  The added note will append to the orginal notes on a new line on a existing record
+.PARAMETER Identity
+    * Required [string], Record UID or name
+.PARAMETER Notes
+    * Optional [string], Notes to append to the current notes of an existing record
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Add-KeeperRecordNotes
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  C:\PS> Add-KeeperRecordNotes -Record "_saE3cECJo4vla" -Notes "New information in notes" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$Notes,
@@ -150,6 +321,30 @@ return $result
 }
 
 function Get-KeeperRecordAttachment {
+<#
+.SYNOPSIS
+  Download attachments from a record
+.DESCRIPTION
+  This script will download all attachments from a record and put them into a zip:ed file
+.PARAMETER Identity
+    * Required [string], Record UID or name
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperRecordAttachment
+.OUTPUTS
+  A zipped file with all attachments in it
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  C:\PS> Get-KeeperRecordAttachment -Record "_saE3cECJo4vla" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -172,6 +367,33 @@ return $result
 }
 
 function Del-KeeperRecordAttachment {
+<#
+.SYNOPSIS
+  Remove attachment from a record
+.DESCRIPTION
+  This script will remove a attachment from the record
+.PARAMETER Identity
+    * Required [string], Record UID or name
+.PARAMETER Name
+    * Required [string], The name of the attachment file
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Del-KeeperRecordAttachment
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Will remove the image named print_screen.jpg from the record
+  C:\PS> Add-KeeperRecordNotes -Record "_saE3cECJo4vla" -Name "print_screen.jpg" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Name,
@@ -196,6 +418,32 @@ return $result
 }
 
 function New-KeeperRecordAttachment {
+<#
+.SYNOPSIS
+  Add attachments to a record
+.DESCRIPTION
+  This script will add files as attachments to a record
+.PARAMETER Identity
+    * Required [string], Record UID or name
+.PARAMETER FilePath
+    * Required [string[]], Requires a list of file(s) 
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperRecordAttachment
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  C:\PS> New-KeeperRecordAttachment -Record "_saE3cECJo4vla" -FilePath @("c:\temp\image.jpg") -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string[]]$FilePath,
@@ -220,10 +468,43 @@ return $result
 }
 
 function Set-KeeperSharedRecordPermissions {
+<#
+.SYNOPSIS
+  Append notes to a existing record
+.DESCRIPTION
+  The added note will append to the orginal notes on a new line on a existing record
+.PARAMETER Identity
+    * Required [string], Record UID or name
+.PARAMETER Mail
+    Optional [string], the user account gaining permission changes
+.PARAMETER Action
+    Optional [string], grant/revoke/owner permissions on record for user
+.PARAMETER Share
+    Optional [string], Allow the user to share the record
+.PARAMETER Write
+    Optional [string], Allow the user write permissions on the record
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperSharedRecordPermissions
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Grant permissions on a existing shared record for the user with mail user@domain.com
+  C:\PS> Set-KeeperSharedRecordPermissions -Record "_saE3cECJo4vla" -Mail "user@domain.com" -Action grant -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$Mail,
-    [Parameter(Mandatory=$false)][string]$Action,
+    [Parameter(Mandatory=$false)][ValidateSet("grant","revoke","owner")][string]$Action,
     [Parameter(Mandatory=$false)][string]$Share,
     [Parameter(Mandatory=$false)][string]$Write,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -251,6 +532,37 @@ return $result
 
 # FOLDER
 function List-KeeperFolder {
+<#
+.SYNOPSIS
+  List folders
+.DESCRIPTION
+  List the folders located in the current users context
+.PARAMETER List
+    * Required [string], Record UID or name
+.PARAMETER Folders
+    Optional [string], the user account gaining permission changes
+.PARAMETER Records
+    Optional [string], grant/revoke/owner permissions on record for user
+.PARAMETER Pattern
+    Optional [string], Allow the user to share the record
+.PARAMETER AuthObject
+    * Required |pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperSharedRecordPermissions
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Grant permissions on a existing shared record for the user with mail user@domain.com
+  C:\PS> Set-KeeperSharedRecordPermissions -Record "_saE3cECJo4vla" -Mail "user@domain.com" -Action grant -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)][string]$List,
     [Parameter(Mandatory=$false)][string]$Folders,
