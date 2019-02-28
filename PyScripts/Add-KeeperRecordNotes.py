@@ -28,9 +28,9 @@ def main(argv):
 
     Parameters = dict()
     if args.record is not None:
-        parameters.update({'record':args.record})
+        Parameters.update({'record':args.record})
     if args.notes is not None:
-        parameters.update({'notes':args.notes})
+        Parameters.update({'notes':args.notes})
     if args.ausername is not None:
         authUsername = args.ausername
     if args.apassword is not None:
@@ -46,9 +46,8 @@ def main(argv):
 
     # KEEPER COMMAND
     command = RecordAppendNotesCommand()
-    recordResult = command.execute(my_params, **Parameters)
-    print("Successfully updated notes on [",recordUid,"] with [", recordNotes ,"]")
-    return recordResult
+    result = command.execute(my_params, **Parameters)
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
