@@ -33,10 +33,10 @@ def main(argv):
         Parameters.update({'src':args.source})
     if args.destination is not None:
         Parameters.update({'dst':args.destination})
-    if args.can-reshare is not None:
-        Parameters.update({'can-reshare':args.can-reshare})
-    if args.can-edit is not None:
-        Parameters.update({'can-edit':args.can-edit})
+    if args.can_reshare is not None:
+        Parameters.update({'can_reshare':args.can_reshare})
+    if args.can_edit is not None:
+        Parameters.update({'can_edit':args.can_edit})
                            
     if args.ausername:
         authUsername = args.ausername
