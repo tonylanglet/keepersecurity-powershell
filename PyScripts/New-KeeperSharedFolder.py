@@ -22,29 +22,29 @@ def main(argv):
     parser.add_argument('-sf', '--shared-folder', type=str, help='create user folder', required=True)
     parser.add_argument('-a', '--all', type=str, help='anyone has all permissions by default')
     parser.add_argument('-u', '--manage-user', type=str, help='anyone can manage users by default')
-    parser.add_argument('-r', '--manager-record', type=str, help='anyone can manage records by default')
+    parser.add_argument('-r', '--manage-record', type=str, help='anyone can manage records by default')
     parser.add_argument('-s', '--can-share', type=str, help='anyone can share records by default')
     parser.add_argument('-e', '--can-edit', type=str, help='anyone can edit records by default')
-    parser.add_argument('-f', '--folder', type=str, help='folder path folderUID')
+    parser.add_argument('-n', '--name', type=str, help='folder path folderUID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.shared-folder is not None:
-        Parameters.update({'shared-folder':args.shared-folder})
+    if args.shared_folder is not None:
+        Parameters.update({'shared_folder':args.shared_folder})
     if args.all is not None:
         Parameters.update({'all':args.all})
-    if args.manage-user is not None:
-        Parameters.update({'manage-user':args.manage-user})
-    if args.manager-record is not None:
-        Parameters.update({'manage-record':args.manage-record})
-    if args.can-share is not None:
-        Parameters.update({'can-share':args.can-share})
-    if args.can-edit is not None:
-        Parameters.update({'can-edit':args.can-edit})
-    if args.folder is not None:
-        Parameters.update({'folder':args.folder})
+    if args.manage_user is not None:
+        Parameters.update({'manage_user':args.manage_user})
+    if args.manage_record is not None:
+        Parameters.update({'manage_record':args.manage_record})
+    if args.can_share is not None:
+        Parameters.update({'can_share':args.can_share})
+    if args.can_edit is not None:
+        Parameters.update({'can_edit':args.can_edit})
+    if args.name is not None:
+        Parameters.update({'folder':args.name})
             
     if args.ausername:
         authUsername = args.ausername
