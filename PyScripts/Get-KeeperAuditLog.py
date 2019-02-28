@@ -5,7 +5,7 @@ import string
 import argparse
 
 from keepercommander.record import Record
-from keepercommander.commands.register import AuditLogCommand
+from keepercommander.commands.enterprise import AuditLogCommand
 from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
@@ -27,9 +27,9 @@ def main(argv):
 
     Parameters = dict()
     if args.target is not None:
-        Parameters.Update({'target':args.target})
+        Parameters.update({'target':args.target})
     if args.record is not None:
-        Parameters.Update({'recordr':args.record})
+        Parameters.update({'record':args.record})
         
     if args.ausername:
         authUsername = args.ausername
