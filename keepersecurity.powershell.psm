@@ -24,9 +24,9 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperRecord.py" @Parameters
     }
-    catch 
+    catch
     {
         Write-Error "New-KeeperRecord: Unable to create new record"
         $result = "Error: $_"
@@ -49,7 +49,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Get-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -71,7 +71,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Del-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Del-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -93,7 +93,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/List-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\List-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -115,7 +115,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Search-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Search-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -139,7 +139,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Add-KeeperRecordNotes.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Add-KeeperRecordNotes.py" @Parameters
     }
     catch 
     {
@@ -161,7 +161,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Get-KeeperRecordAttachment.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperRecordAttachment.py" @Parameters
     }
     catch 
     {
@@ -185,7 +185,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Del-KeeperRecordAttachment.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Del-KeeperRecordAttachment.py" @Parameters
     }
     catch 
     {
@@ -209,7 +209,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperRecordAttachment.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperRecordAttachment.py" @Parameters
     }
     catch 
     {
@@ -239,7 +239,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Share-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Share-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -268,7 +268,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/List-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\List-KeeperFolder.py" @Parameters
     }
     catch 
     {
@@ -290,7 +290,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Del-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Del-KeeperFolder.py" @Parameters
     }
     catch 
     {
@@ -322,7 +322,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperUserFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperUserFolder.py" @Parameters
     }
     catch 
     {
@@ -354,7 +354,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperSharedFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperSharedFolder.py" @Parameters
     }
     catch 
     {
@@ -382,7 +382,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Move-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Move-KeeperFolder.py" @Parameters
     }
     catch 
     {
@@ -410,7 +410,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Link-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Link-KeeperRecord.py" @Parameters
     }
     catch 
     {
@@ -438,7 +438,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Link-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Link-KeeperFolder.py" @Parameters
     }
     catch 
     {
@@ -474,7 +474,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Set-KeeperSharedFolderPermission.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperSharedFolderPermission.py" @Parameters
     }
     catch 
     {
@@ -511,7 +511,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperUser.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperUser.py" @Parameters
     }
     catch 
     {
@@ -542,7 +542,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Get-KeeperEnterpriseInfo.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperEnterpriseInfo.py" @Parameters
     }
     catch 
     {
@@ -583,7 +583,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseUser.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperEnterpriseUser.py" @Parameters
     }
     catch 
     {
@@ -613,7 +613,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperEnterpriseUser.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperEnterpriseUser.py" @Parameters
     }
     catch 
     {
@@ -635,7 +635,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Del-KeeperEnterpriseUser.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Del-KeeperEnterpriseUser.py" @Parameters
     }
     catch 
     {
@@ -662,7 +662,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseRole.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperEnterpriseRole.py" @Parameters
     }
     catch 
     {
@@ -685,7 +685,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/New-KeeperEnterpriseTeam.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\New-KeeperEnterpriseTeam.py" @Parameters
     }
     catch 
     {
@@ -719,7 +719,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Set-KeeperEnterpriseTeam.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperEnterpriseTeam.py" @Parameters
     }
     catch 
     {
@@ -741,7 +741,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Del-KeeperEnterpriseTeam.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Del-KeeperEnterpriseTeam.py" @Parameters
     }
     catch 
     {
@@ -751,7 +751,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 return $result
 }
 
-# AUDIT LOG/REPORT
+# AUDIT LOG\REPORT
 function Get-KeeperAuditLog {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
@@ -766,7 +766,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Get-KeeperAuditLog.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperAuditLog.py" @Parameters
     }
     catch 
     {
@@ -812,7 +812,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Get-KeeperAuditReport.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperAuditReport.py" @Parameters
     }
     catch 
     {
