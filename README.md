@@ -52,6 +52,7 @@ To verify that the installation of python and the configuration of the environme
 $ python --version
 ```
 if you get the python version as response you've succeded
+![alt text](https://raw.githubusercontent.com/tonylanglet/keepersecurity.powershell/master/Images/pythonversion.PNG)
 
 
 To verify that the Keeper commander module has been loaded type the following in the WinPython Command Prompt:
@@ -59,6 +60,7 @@ To verify that the Keeper commander module has been loaded type the following in
 $ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
+![alt text](https://raw.githubusercontent.com/tonylanglet/keepersecurity.powershell/master/Images/keepercommander.PNG)
 ### Test
 The following examples show you how to run the scripts by themself or by using the Powershell module (N/A)
 #### Using Powershell to run scripts
