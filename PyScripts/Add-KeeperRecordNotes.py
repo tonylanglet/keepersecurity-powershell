@@ -31,9 +31,9 @@ def main(argv):
         Parameters.update({'record':args.record})
     if args.notes is not None:
         Parameters.update({'notes':args.notes})
-    if args.ausername is not None:
+    if args.ausername:
         authUsername = args.ausername
-    if args.apassword is not None:
+    if args.apassword:
         authPassword = args.apassword
 
     #Authentication login
