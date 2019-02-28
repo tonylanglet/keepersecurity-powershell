@@ -61,7 +61,7 @@ def main(argv):
 		my_params.password = authPassword
 	api.sync_down(my_params)
 
-    # KEEPER COMMAND
+    # KEEPER COMMAND 
 	print(Parameters)
 	command = RecordAddCommand()
 	record_uid = command.execute(my_params, **Parameters)
