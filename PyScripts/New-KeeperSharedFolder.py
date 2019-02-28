@@ -19,7 +19,6 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-sf', '--shared-folder', type=str, help='create user folder', required=True)
     parser.add_argument('-a', '--all', type=str, help='anyone has all permissions by default')
     parser.add_argument('-u', '--manage-user', type=str, help='anyone can manage users by default')
     parser.add_argument('-r', '--manage-record', type=str, help='anyone can manage records by default')
@@ -31,8 +30,7 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.shared_folder is not None:
-        Parameters.update({'shared_folder':args.shared_folder})
+    Parameters.update({'shared_folder':True})
     if args.all is not None:
         Parameters.update({'all':args.all})
     if args.manage_user is not None:
