@@ -19,8 +19,8 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID')
-    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID')
+    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID', required=True)
+    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID', required=True)
     parser.add_argument('-s', '--can-reshare', type=str, help='anyone can reshare records')
     parser.add_argument('-e', '--can-edit', type=str, help='anyone can edit records')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
@@ -33,10 +33,10 @@ def main(argv):
         Parameters.update({'src':args.source})
     if args.destination is not None:
         Parameters.update({'dst':args.destination})
-    if args.can-reshare is not None:
-        Parameters.update({'can-reshare':args.can-reshare})
-    if args.can-edit is not None:
-        Parameters.update({'can-edit':args.can-edit})
+    if args.can_reshare is not None:
+        Parameters.update({'can_reshare':args.can_reshare})
+    if args.can_edit is not None:
+        Parameters.update({'can_edit':args.can_edit})
 
     if args.ausername:
         authUsername = args.ausername
