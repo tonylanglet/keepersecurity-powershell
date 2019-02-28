@@ -51,7 +51,7 @@ def main(argv):
     api.sync_down(my_params)
 
     # KEEPER COMMAND
-    command = FolderMoveCommand()
+    command = FolderLinkCommand()
     result = command.execute(my_params, **Parameters)
     print("Success")
     return result
