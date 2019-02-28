@@ -1,6 +1,6 @@
 
 
-New-KeeperRecord {
+function New-KeeperRecord {
 Param(
     [Parameter(Mandatory=$false)][string]$Title,
     [Parameter(Mandatory=$true)][string]$Login,
@@ -8,17 +8,19 @@ Param(
     [Parameter(Mandatory=$false)][string]$Url,
     [Parameter(Mandatory=$false)][string]$Notes,
     [Parameter(Mandatory=$false)][string]$Customfields,
-    [Parameter(Mandatory=$false)][string]$FolderUId
+    [Parameter(Mandatory=$false)][string]$FolderUId,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($title)) { $Parameters.Add("t","$title") }
-if(![string]::IsNullOrEmpty($login)) { $Parameters.Add("l","$login") }
-if(![string]::IsNullOrEmpty($password)) { $Parameters.Add("p","$password") }
-if(![string]::IsNullOrEmpty($url)) { $Parameters.Add("u","$url") }
-if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
-if(![string]::IsNullOrEmpty($customfields)) { $Parameters.Add("c","$customfields") }
-if(![string]::IsNullOrEmpty($folderUId)) { $Parameters.Add("f","$folderUId") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($title)) { $Parameters += "--title", $title }
+if(![string]::IsNullOrEmpty($login)) { $Parameters += "--login", $login }
+if(![string]::IsNullOrEmpty($password)) { $Parameters += "--password", $password }
+if(![string]::IsNullOrEmpty($url)) { $Parameters += "--url", $url }
+if(![string]::IsNullOrEmpty($notes)) { $Parameters += "--notes", $notes }
+if(![string]::IsNullOrEmpty($customfields)) { $Parameters += "--custom", $customfields }
+if(![string]::IsNullOrEmpty($folderUId)) { $Parameters += "--folder", $folderUId }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -33,15 +35,17 @@ return $result
 
 }
 
-Get-KeeperRecord {
+function Get-KeeperRecord {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
-    [Parameter(Mandatory=$false)][ValidateSet("json","keepass","csv")][string]$format
+    [Parameter(Mandatory=$false)][ValidateSet("json","detail")][string]$Format,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($format)) { $Parameters.Add("f","$format") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($format)) { $Parameters += "-format", $format }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -55,13 +59,15 @@ if(![string]::IsNullOrEmpty($format)) { $Parameters.Add("f","$format") }
 return $result
 }
 
-Del-KeeperRecord {
+function Del-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record",$Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -75,13 +81,15 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 return $result
 }
 
-List-KeeperRecord {
+function List-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$Pattern
+    [Parameter(Mandatory=$true)][string]$Pattern,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern",$pattern }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -95,13 +103,15 @@ if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
 return $result
 }
 
-Search-KeeperRecord {
+function Search-KeeperRecord {
 Param(
-    [Parameter(Mandatory=$true)][string]$Pattern
+    [Parameter(Mandatory=$true)][string]$Pattern,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern",$pattern }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -115,15 +125,17 @@ if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
 return $result
 }
 
-Add-KeeperRecordNotes {
+function Add-KeeperRecordNotes {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity, #REcordUID
-    [Parameter(Mandatory=$false)][string]$notes
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string]$notes,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($notes)) { $Parameters += "--notes", $notes }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -137,13 +149,15 @@ if(![string]::IsNullOrEmpty($notes)) { $Parameters.Add("n","$notes") }
 return $result
 }
 
-Get-KeeperRecordAttachment {
+function Get-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity #RecordUID
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record",$Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -157,15 +171,17 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
 return $result
 }
 
-Del-KeeperRecordAttachment {
+function Del-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
-    [Parameter(Mandatory=$false)][string]$attachmentName
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string]$attachmentName,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters.Add("n","$attachmentName") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters += "--name", $attachmentName }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -179,15 +195,17 @@ if(![string]::IsNullOrEmpty($attachmentName)) { $Parameters.Add("n","$attachment
 return $result
 }
 
-New-KeeperRecordAttachment {
+function New-KeeperRecordAttachment {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
-    [Parameter(Mandatory=$false)][string]$filePath
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string[]]$filePath,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($filePath)) { $Parameters.Add("f","$filePath") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($filePath)) { $Parameters += "--file", $filePath } # Requires to be a list?
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -201,21 +219,23 @@ if(![string]::IsNullOrEmpty($filePath)) { $Parameters.Add("f","$filePath") }
 return $result
 }
 
-Share-KeeperRecord {
+function Set-KeeperSharedRecordPermissions {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity, #RecordUID
-    [Parameter(Mandatory=$false)][string]$mail,
-    [Parameter(Mandatory=$false)][string]$action,
-    [Parameter(Mandatory=$false)][string]$share,
-    [Parameter(Mandatory=$false)][string]$write
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][string]$Mail,
+    [Parameter(Mandatory=$false)][string]$Action,
+    [Parameter(Mandatory=$false)][string]$Share,
+    [Parameter(Mandatory=$false)][string]$Write,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
-if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("e","$mail") }
-if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
-if(![string]::IsNullOrEmpty($share)) { $Parameters.Add("s","$share") }
-if(![string]::IsNullOrEmpty($write)) { $Parameters.Add("w","$write") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($mail)) { $Parameters += "--email", $mail }
+if(![string]::IsNullOrEmpty($action)) { $Parameters += "--action", $action }
+if(![string]::IsNullOrEmpty($share)) { $Parameters += "--share", $share }
+if(![string]::IsNullOrEmpty($write)) { $Parameters += "--write", $write }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -230,19 +250,21 @@ return $result
 }
 
 # FOLDER
-List-KeeperFolder {
+function List-KeeperFolder {
 Param(
     [Parameter(Mandatory=$false)][string]$List,
     [Parameter(Mandatory=$false)][string]$Folders,
     [Parameter(Mandatory=$false)][string]$Records,
-    [Parameter(Mandatory=$false)][string]$Pattern
+    [Parameter(Mandatory=$false)][string]$Pattern,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($list)) { $Parameters.Add("l","$list") }
-if(![string]::IsNullOrEmpty($folders)) { $Parameters.Add("f","$folders") }
-if(![string]::IsNullOrEmpty($records)) { $Parameters.Add("r","$records") }
-if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($list)) { $Parameters += "--list",$list }
+if(![string]::IsNullOrEmpty($folders)) { $Parameters += "--folders", $folders }
+if(![string]::IsNullOrEmpty($records)) { $Parameters += "--records", $records }
+if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern", $pattern }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -256,13 +278,15 @@ if(![string]::IsNullOrEmpty($pattern)) { $Parameters.Add("p","$pattern") }
 return $result
 }
 
-Del-KeeperFolder {
+function Del-KeeperFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("f","$Identity") }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--folder", $Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -276,25 +300,25 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("f","$Identity") }
 return $result
 }
 
-New-KeeperUserFolder {
+function New-KeeperUserFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$Name, # user-folder|uf
+    [Parameter(Mandatory=$true)][string]$Name, 
     [Parameter(Mandatory=$false)][string]$Permission,
     [Parameter(Mandatory=$false)][string]$ManageUsers,
     [Parameter(Mandatory=$false)][string]$ManageRecords,
     [Parameter(Mandatory=$false)][string]$CanShare,
     [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$Path
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("uf","$name") }
-if(![string]::IsNullOrEmpty($permission)) { $Parameters.Add("a","$permission") }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("u","$manageUsers") }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("r","$manageRecords") }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
-if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($permission)) { $Parameters += "-all", $permission }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users", $manageUsers }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records", $manageRecords }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share", $canShare }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit", $canEdit }
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name", $name }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -308,25 +332,25 @@ if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
 return $result
 }
 
-New-KeeperSharedFolder {
+function New-KeeperSharedFolder {
 Param(
-    [Parameter(Mandatory=$true)][string]$Name, # shared-folder|sf
+    [Parameter(Mandatory=$true)][string]$Name,
     [Parameter(Mandatory=$false)][string]$Permission,
     [Parameter(Mandatory=$false)][string]$ManageUsers,
     [Parameter(Mandatory=$false)][string]$ManageRecords,
     [Parameter(Mandatory=$false)][string]$CanShare,
     [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$Path
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("sf","$name") }
-if(![string]::IsNullOrEmpty($permission)) { $Parameters.Add("a","$permission") }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("u","$manageUsers") }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("r","$manageRecords") }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
-if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name", $Name }
+if(![string]::IsNullOrEmpty($permission)) { $Parameters += "--all", $permission }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users", $manageUsers }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manager-records", $manageRecords }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share", $canShare }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit", $canEdit }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -340,19 +364,21 @@ if(![string]::IsNullOrEmpty($path)) { $Parameters.Add("f","$path") }
 return $result
 }
 
-Move-KeeperFolder {
+function Move-KeeperFolder {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$destination,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
-if(![string]::IsNullOrEmpty($destination)) { $Parameters.Add("dst","$destination") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
+if(![string]::IsNullOrEmpty($destination)) { $Parameters += "--destination",$destination }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -366,19 +392,21 @@ if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
 return $result
 }
 
-Link-KeeperRecord {
+function Link-KeeperRecord {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$linkPath,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
-if(![string]::IsNullOrEmpty($linkPath)) { $Parameters.Add("dst","$linkPath") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
+if(![string]::IsNullOrEmpty($linkPath)) { $Parameters += "--destination",$linkPath }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -392,19 +420,21 @@ if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
 return $result
 }
 
-Link-KeeperFolder {
+function Link-KeeperFolder {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$linkPath,
     [Parameter(Mandatory=$false)][string]$canEdit,
-    [Parameter(Mandatory=$false)][string]$canReShare
+    [Parameter(Mandatory=$false)][string]$canReShare,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("src","$Identity") }
-if(![string]::IsNullOrEmpty($linkPath)) { $Parameters.Add("dst","$linkPath") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
+if(![string]::IsNullOrEmpty($linkPath)) { $Parameters += "--destination",$linkPath }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -418,7 +448,7 @@ if(![string]::IsNullOrEmpty($canReShare)) { $Parameters.Add("s","$canReShare") }
 return $result
 }
 
-Share-KeeperFolder {
+function Set-KeeperSharedFolderPermissions {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$action,
@@ -427,22 +457,24 @@ Param(
     [Parameter(Mandatory=$false)][string]$manageRecords,
     [Parameter(Mandatory=$false)][string]$manageUsers,
     [Parameter(Mandatory=$false)][string]$canShare,
-    [Parameter(Mandatory=$false)][string]$canEdit
+    [Parameter(Mandatory=$false)][string]$canEdit,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("f","$Identity") }
-if(![string]::IsNullOrEmpty($action)) { $Parameters.Add("a","$action") }
-if(![string]::IsNullOrEmpty($user)) { $Parameters.Add("u","$user") }
-if(![string]::IsNullOrEmpty($record)) { $Parameters.Add("r","$record") }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters.Add("mr","$manageRecords") }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters.Add("mu","$manageUsers") }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters.Add("s","$canShare") }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters.Add("e","$canEdit") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--folder",$Identity }
+if(![string]::IsNullOrEmpty($action)) { $Parameters += "--action",$action }
+if(![string]::IsNullOrEmpty($user)) { $Parameters += "--user",$user }
+if(![string]::IsNullOrEmpty($record)) { $Parameters += "--record",$record }
+if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records",$manageRecords }
+if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users",$manageUsers }
+if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share",$canShare }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
-        $result = python "$PSScriptRoot/PyScript/Share-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot/PyScript/Set-KeeperSharedFolderPermission.py" @Parameters
     }
     catch 
     {
@@ -453,7 +485,7 @@ return $result
 }
 
 # USER
-New-KeeperUser {
+function New-KeeperUser {
 Param(
     [Parameter(Mandatory=$true)][string]$Mail,
     [Parameter(Mandatory=$false)][string]$Password,
@@ -462,17 +494,20 @@ Param(
     [Parameter(Mandatory=$false)][string]$Node,
     [Parameter(Mandatory=$true)][string]$SecretQuestion,
     [Parameter(Mandatory=$true)][string]$SecretAnswer,
-    [Parameter(Mandatory=$false)][string]$StoreRecord  
+    [Parameter(Mandatory=$false)][string]$StoreRecord,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject  
 )
 
-if(![string]::IsNullOrEmpty($mail)) { $Parameters.Add("m","$mail") }
-if(![string]::IsNullOrEmpty($password)) { $Parameters.Add("pass","$password") }
-if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
-if(![string]::IsNullOrEmpty($dataCenter)) { $Parameters.Add("d","$dataCenter") }
-if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("no","$node") }
-if(![string]::IsNullOrEmpty($secretQuestion)) { $Parameters.Add("sq","$secretQuestion") }
-if(![string]::IsNullOrEmpty($secretAnswer)) { $Parameters.Add("sa","$secretAnswer") }
-if(![string]::IsNullOrEmpty($storeRecord)) { $Parameters.Add("sr","$storeRecord") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($mail)) { $Parameters += "--email",$mail }
+if(![string]::IsNullOrEmpty($password)) { $Parameters += "--password",$password }
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name",$name }
+if(![string]::IsNullOrEmpty($dataCenter)) { $Parameters += "--data-center",$dataCenter }
+if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node", $node }
+if(![string]::IsNullOrEmpty($secretQuestion)) { $Parameters += "--question",$secretQuestion }
+if(![string]::IsNullOrEmpty($secretAnswer)) { $Parameters += "--answer",$secretAnswer }
+if(![string]::IsNullOrEmpty($storeRecord)) { $Parameters += "--store-record",$storeRecord }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -487,21 +522,23 @@ return $result
 }
 
 # ENTERPRISE INFO
-Get-KeeperEnterpriseInfo {
+function Get-KeeperEnterpriseInfo {
 Param (
     [Parameter(Mandatory=$false)][string]$nodes,
     [Parameter(Mandatory=$false)][string]$users,
     [Parameter(Mandatory=$false)][string]$teams,
     [Parameter(Mandatory=$false)][string]$roles,
-    [Parameter(Mandatory=$false)][string]$node
+    [Parameter(Mandatory=$false)][string]$node,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($nodes)) { $Parameters.Add("ns","$nodes") }
-if(![string]::IsNullOrEmpty($users)) { $Parameters.Add("u","$users") }
-if(![string]::IsNullOrEmpty($teams)) { $Parameters.Add("t","$teams") }
-if(![string]::IsNullOrEmpty($roles)) { $Parameters.Add("r","$roles") }
-if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($nodes)) { $Parameters += "--nodes",$nodes }
+if(![string]::IsNullOrEmpty($users)) { $Parameters += "--users",$users }
+if(![string]::IsNullOrEmpty($teams)) { $Parameters += "--teams",$teams }
+if(![string]::IsNullOrEmpty($roles)) { $Parameters += "--roles",$roles }
+if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -516,7 +553,7 @@ return $result
 }
 
 # ENTERPRISE USER
-Set-KeeperEnterpriseUser {
+function Set-KeeperEnterpriseUser {
 Param(
     [Parameter(Mandatory=$false)][string]$Identity, #mail
     [Parameter(Mandatory=$false)][string]$expireMasterPassword,
@@ -527,20 +564,22 @@ Param(
     [Parameter(Mandatory=$false)][string]$addRole,
     [Parameter(Mandatory=$false)][string]$removeRole,
     [Parameter(Mandatory=$false)][string]$addTeam,
-    [Parameter(Mandatory=$false)][string]$removeTeam
+    [Parameter(Mandatory=$false)][string]$removeTeam,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("e","$Identity") }
-if(![string]::IsNullOrEmpty($expireMasterPassword)) { $Parameters.Add("xpass","$expireMasterPassword") }
-if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$name") }
-if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("no","$node") }
-if(![string]::IsNullOrEmpty($addRole)) { $Parameters.Add("ar","$addRole") }
-if(![string]::IsNullOrEmpty($removeRole)) { $Parameters.Add("rr","$removeRole") }
-if(![string]::IsNullOrEmpty($addTeam)) { $Parameters.Add("at","$addTeam") }
-if(![string]::IsNullOrEmpty($removeTeam)) { $Parameters.Add("rt","$removeTeam") }
-if(![string]::IsNullOrEmpty($unlock)) { $Parameters.Add("unlock","$unlock") }
-if(![string]::IsNullOrEmpty($lock)) { $Parameters.Add("lock","$lock") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--email",$Identity }
+if(![string]::IsNullOrEmpty($expireMasterPassword)) { $Parameters += "--expire",$expireMasterPassword }
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name",$name }
+if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
+if(![string]::IsNullOrEmpty($addRole)) { $Parameters += "--add-role",$addRole }
+if(![string]::IsNullOrEmpty($removeRole)) { $Parameters += "--remove-role",$removeRole }
+if(![string]::IsNullOrEmpty($addTeam)) { $Parameters += "--add-team",$addTeam }
+if(![string]::IsNullOrEmpty($removeTeam)) { $Parameters += "--remove-team",$removeTeam }
+if(![string]::IsNullOrEmpty($unlock)) { $Parameters += "--unlock",$unlock }
+if(![string]::IsNullOrEmpty($lock)) { $Parameters += "--lock",$lock }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -554,21 +593,23 @@ if(![string]::IsNullOrEmpty($lock)) { $Parameters.Add("lock","$lock") }
 return $result
 }
 
-New-KeeperEnterpriseUser {
+function New-KeeperEnterpriseUser {
 Param(
     [Parameter(Mandatory=$true)][string]$Mail,
     [Parameter(Mandatory=$false)][string]$Name,
     [Parameter(Mandatory=$false)][string]$AddRole,
     [Parameter(Mandatory=$false)][string]$AddTeam,
-    [Parameter(Mandatory=$false)][string]$Node
+    [Parameter(Mandatory=$false)][string]$Node,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Mail") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("n","$Name") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ar","$AddRole") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("at","$AddTeam") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("no","$Node") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--email",$Mail }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--name",$Name }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--add-role",$AddRole }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--add-team",$AddTeam }
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--node",$Node }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -582,13 +623,15 @@ if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("no","$Node") }
 return $result
 }
 
-Del-KeeperEnterpriseUser {
+function Del-KeeperEnterpriseUser {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Identity") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Mail)) { $Parameters += "--email", $Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -602,7 +645,7 @@ if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Identity") }
 return $result
 }
 
-Set-KeeperEnterpriseUser {
+function Set-KeeperEnterpriseUser {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$Lock,
@@ -613,19 +656,21 @@ Param(
     [Parameter(Mandatory=$false)][string]$RemoveRole,
     [Parameter(Mandatory=$false)][string]$AddTeam,
     [Parameter(Mandatory=$false)][string]$RemoveTeam,
-    [Parameter(Mandatory=$false)][string]$Expire
+    [Parameter(Mandatory=$false)][string]$Expire,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("e","$Identity") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("l","$Lock") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ul","$Unlock") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("n","$Name") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("ar","$AddRole") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rr","$RemoveRole") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("at","$AddTeam") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("rt","$RemoveTeam") }
-if(![string]::IsNullOrEmpty($Mail)) { $Parameters.Add("xpass","$Expire") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--email",$Identity }
+if(![string]::IsNullOrEmpty($Lock)) { $Parameters += "--lock",$Lock }
+if(![string]::IsNullOrEmpty($Unlock)) { $Parameters += "--unlock",$Unlock }
+if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name",$Name }
+if(![string]::IsNullOrEmpty($AddRole)) { $Parameters += "--add-role",$AddRole }
+if(![string]::IsNullOrEmpty($RemoveRole)) { $Parameters += "--remove-role",$RemoveRole }
+if(![string]::IsNullOrEmpty($AddTeam)) { $Parameters += "--add-team",$AddTeam }
+if(![string]::IsNullOrEmpty($RemoveTeam)) { $Parameters += "--remove-team",$RemoveTeam }
+if(![string]::IsNullOrEmpty($Expire)) { $Parameters += "--expire",$Expire }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -640,17 +685,19 @@ return $result
 }
 
 # ENTERPRISE ROLE
-Set-KeeperEnterpriseRole {
+function Set-KeeperEnterpriseRole {
 Param(
     [Parameter(Mandatory=$false)][string]$AddUser,
     [Parameter(Mandatory=$false)][string]$RemoveUser,
-    [Parameter(Mandatory=$true)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($addUser)) { $Parameters.Add("au","$addUser") }
-if(![string]::IsNullOrEmpty($removeUser)) { $Parameters.Add("ru","$removeUser") }
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("r","$Identity") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($addUser)) { $Parameters += "--add-user",$addUser }
+if(![string]::IsNullOrEmpty($removeUser)) { $Parameters += "--remove-user",$removeUser }
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--role",$Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -665,13 +712,15 @@ return $result
 }
 
 # ENTERPRISE TEAM
-New-KeeperEnterpriseTeam {
+function New-KeeperEnterpriseTeam {
 Param(
-    [Parameter(Mandatory=$true)][string]$Name
+    [Parameter(Mandatory=$true)][string]$Name,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$Name") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name", $Name }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -685,7 +734,7 @@ if(![string]::IsNullOrEmpty($name)) { $Parameters.Add("n","$Name") }
 return $result
 }
 
-Set-KeeperEnterpriseTeam {
+function Set-KeeperEnterpriseTeam {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$AddUser,
@@ -693,17 +742,19 @@ Param(
     [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictEdit, 
     [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictShare, 
     [Parameter(Mandatory=$false)][ValidateSet("On","Off")][string]$RestrictView,
-    [Parameter(Mandatory=$false)][string]$Node
+    [Parameter(Mandatory=$false)][string]$Node,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("t","$Identity") }
-if(![string]::IsNullOrEmpty($addUser)) { $Parameters.Add("au","$addUser") }
-if(![string]::IsNullOrEmpty($removeUser)) { $Parameters.Add("ru","$removeUser") }
-if(![string]::IsNullOrEmpty($restrictEdit)) { $Parameters.Add("re","$restrictEdit") }
-if(![string]::IsNullOrEmpty($restrictShare)) { $Parameters.Add("rd","$restrictShare") }
-if(![string]::IsNullOrEmpty($restrictView)) { $Parameters.Add("rv","$restrictView") }
-if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--team",$Identity }
+if(![string]::IsNullOrEmpty($addUser)) { $Parameters += "--add-user",$addUser }
+if(![string]::IsNullOrEmpty($removeUser)) { $Parameters += "--remove-user",$removeUser }
+if(![string]::IsNullOrEmpty($restrictEdit)) { $Parameters += "--restrict-edit",$restrictEdit }
+if(![string]::IsNullOrEmpty($restrictShare)) { $Parameters += "--restrict-share",$restrictShare }
+if(![string]::IsNullOrEmpty($restrictView)) { $Parameters += "--restrict-view",$restrictView }
+if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -717,13 +768,15 @@ if(![string]::IsNullOrEmpty($node)) { $Parameters.Add("n","$node") }
 return $result
 }
 
-Del-KeeperEnterpriseTeam {
+function Del-KeeperEnterpriseTeam {
 Param(
-    [Parameter(Mandatory=$true)][string]$Identity
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("t","$Identity") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--team", $Identity }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -738,15 +791,17 @@ return $result
 }
 
 # AUDIT LOG/REPORT
-Get-KeeperAuditLog {
+function Get-KeeperAuditLog {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
-    [Parameter(Mandatory=$true)][ValidateSet("splunk","syslog","sumo")][string]$target
+    [Parameter(Mandatory=$true)][ValidateSet("splunk","syslog","sumo")][string]$target,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters.Add("id","$Identity") }
-if(![string]::IsNullOrEmpty($target)) { $Parameters.Add("t","$target") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
+if(![string]::IsNullOrEmpty($target)) { $Parameters += "--target", $target }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
@@ -760,37 +815,39 @@ if(![string]::IsNullOrEmpty($target)) { $Parameters.Add("t","$target") }
 return $result
 }
 
-Get-KeeperAuditReport {
+function Get-KeeperAuditReport {
 Param(
-    [ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$ReportType, 
-    [ValidateSet("Message","Fields")][string]$ReportFormat,
+    [Parameter(Mandatory=$false)][ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$ReportType, 
+    [Parameter(Mandatory=$false)][ValidateSet("Message","Fields")][string]$ReportFormat,
     [Parameter(Mandatory=$false)][string]$Columns,
-    [ValidateSet("occurrences", "first_created", "last_created")][string]$Aggregate, 
+    [Parameter(Mandatory=$false)][ValidateSet("occurrences", "first_created", "last_created")][string]$Aggregate, 
     [Parameter(Mandatory=$false)][string]$Timezone,
     [Parameter(Mandatory=$false)][string]$Limit,
-    [ValidateSet("desc","asc")][string]$Order,
+    [Parameter(Mandatory=$false)][ValidateSet("desc","asc")][string]$Order,
     [Parameter(Mandatory=$false)][string]$Created,
     [Parameter(Mandatory=$false)][string]$EventType,
     [Parameter(Mandatory=$false)][string]$Username,
     [Parameter(Mandatory=$false)][string]$ToUsername,
     [Parameter(Mandatory=$false)][string]$RecordUid,
-    [Parameter(Mandatory=$false)][string]$SharedFolderUid
+    [Parameter(Mandatory=$false)][string]$SharedFolderUid,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
-$Parameters = @{}
-if(![string]::IsNullOrEmpty($ReportType)) { $Parameters.Add("rt","$ReportType") }
-if(![string]::IsNullOrEmpty($ReportFormat)) { $Parameters.Add("rf","$ReportFormat") }
-if(![string]::IsNullOrEmpty($Columns)) { $Parameters.Add("c","$Columns") }
-if(![string]::IsNullOrEmpty($Aggregate)) { $Parameters.Add("a","$Aggregate") }
-if(![string]::IsNullOrEmpty($Timezone)) { $Parameters.Add("tz","$Timezone") }
-if(![string]::IsNullOrEmpty($Limit)) { $Parameters.Add("l","$Limit") }
-if(![string]::IsNullOrEmpty($Order)) { $Parameters.Add("o","$Order") }
-if(![string]::IsNullOrEmpty($Created)) { $Parameters.Add("c","$Created") }
-if(![string]::IsNullOrEmpty($EventType)) { $Parameters.Add("et","$EventType") }
-if(![string]::IsNullOrEmpty($Username)) { $Parameters.Add("u","$Username") }
-if(![string]::IsNullOrEmpty($ToUsername)) { $Parameters.Add("tu","$ToUsername") }
-if(![string]::IsNullOrEmpty($RecordUid)) { $Parameters.Add("r","$RecordUid") }
-if(![string]::IsNullOrEmpty($SharedFolderUid)) { $Parameters.Add("sf","$SharedFolderUid") }
+$Parameters = @()
+if(![string]::IsNullOrEmpty($ReportType)) { $Parameters += "--report-type", $ReportType }
+if(![string]::IsNullOrEmpty($ReportFormat)) { $Parameters += "--report-format", $ReportFormat }
+if(![string]::IsNullOrEmpty($Columns)) { $Parameters += "--columns", $Columns }
+if(![string]::IsNullOrEmpty($Aggregate)) { $Parameters += "--aggregate", $Aggregate }
+if(![string]::IsNullOrEmpty($Timezone)) { $Parameters += "--timezone", $Timezone }
+if(![string]::IsNullOrEmpty($Limit)) { $Parameters += "--limit", $Limit }
+if(![string]::IsNullOrEmpty($Order)) { $Parameters += "--order", $Order }
+if(![string]::IsNullOrEmpty($Created)) { $Parameters += "--created", $Created }
+if(![string]::IsNullOrEmpty($EventType)) { $Parameters += "--event-type", $EventType }
+if(![string]::IsNullOrEmpty($Username)) { $Parameters += "--username", $Username }
+if(![string]::IsNullOrEmpty($ToUsername)) { $Parameters += "--to-username", $ToUsername }
+if(![string]::IsNullOrEmpty($RecordUid)) { $Parameters += "--record-uid", $RecordUid }
+if(![string]::IsNullOrEmpty($SharedFolderUid)) { $Parameters += "--shared-folder-uid", $SharedFolderUid }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
 
     try 
     {
