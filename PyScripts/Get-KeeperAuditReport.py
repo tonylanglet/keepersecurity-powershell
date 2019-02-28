@@ -5,7 +5,7 @@ import string
 import argparse
 
 from keepercommander.record import Record
-from keepercommander.commands.register import AuditReportCommand
+from keepercommander.commands.enterprise import AuditReportCommand
 from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
