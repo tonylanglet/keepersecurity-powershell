@@ -2,6 +2,7 @@ import sys
 import getopt
 import getpass
 import string
+import argparse
 
 from keepercommander.record import Record
 from keepercommander.commands.record import SearchCommand
