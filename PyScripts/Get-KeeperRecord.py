@@ -27,7 +27,7 @@ def main(argv):
 
     Parameters = dict()
     if args.record is not None:
-        Parameters.update({'record':args.record})
+        Parameters.update({'uid':args.record})
     if args.format is not None:
         Parameters.update({'format':args.format})
             
