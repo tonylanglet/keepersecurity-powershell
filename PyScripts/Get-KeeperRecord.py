@@ -46,7 +46,7 @@ def main(argv):
     # KEEPER COMMAND
     command = RecordGetUidCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully fetched record [",recordUid,"]")
+    print("Successfully fetched record")
     return result
 
 if __name__ == "__main__":
