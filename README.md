@@ -60,7 +60,7 @@ To verify that the Keeper commander module has been loaded type the following in
 $ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.
-![alt text](https://raw.githubusercontent.com/tonylanglet/keepersecurity.powershell/master/Images/keepercommander.PNG)
+![alt text](https://raw.githubusercontent.com/tonylanglet/keepersecurity.powershell/master/Images/keepercommanderoutput.png)
 ### Test
 The following examples show you how to run the scripts by themself or by using the Powershell module (N/A)
 #### Using Powershell to run scripts
