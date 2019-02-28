@@ -20,8 +20,8 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-l', '--list', type=str, help='show detailed list')
-    parser.add_argument('-f', '--folder', type=str, help='display folders')
-    parser.add_argument('-r', '--record', type=str, help='display records')
+    parser.add_argument('-f', '--folders', type=str, help='display folders')
+    parser.add_argument('-r', '--records', type=str, help='display records')
     parser.add_argument('-p', '--pattern', type=str, help='search pattern')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
@@ -30,10 +30,10 @@ def main(argv):
     Parameters = dict()
     if args.list is not None:
         Parameters.update({'list':args.list})
-    if args.folder is not None:
-        Parameters.update({'folder':args.folder})
-    if args.record is not None:
-        Parameters.update({'record':args.record})
+    if args.folders is not None:
+        Parameters.update({'folders':args.folders})
+    if args.records is not None:
+        Parameters.update({'records':args.records})
     if args.pattern is not None:
         Parameters.update({'pattern':args.pattern})
             
@@ -51,9 +51,9 @@ def main(argv):
 
     # KEEPER COMMAND
     command = FolderListCommand()
-    recordResult = command.execute(my_params, **Parameters)
+    result = command.execute(my_params, **Parameters)
     print("Success")
-    return recordResult
+    return result
 
 if __name__ == "__main__":
     main(sys.argv[1:])
