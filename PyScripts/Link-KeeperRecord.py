@@ -19,11 +19,10 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID')
-    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID')
+    parser.add_argument('-src', '--source', type=str, help='sourch path to folder&record or UID', required=True)
+    parser.add_argument('-dst', '--destination', type=str, help='destination folder or UID', required=True)
     parser.add_argument('-s', '--can-reshare', type=str, help='anyone can reshare records')
     parser.add_argument('-e', '--can-edit', type=str, help='anyone can edit records')
-    parser.add_argument('-f', '--force', type=str, help='do not prompt', default=True)
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
@@ -34,10 +33,10 @@ def main(argv):
         Parameters.update({'src':args.source})
     if args.destination:
         Parameters.update({'dst':args.destination})
-    if args.can-reshare:
-        Parameters.update({'can-reshare':args.can-reshare})
-    if args.can-edit:
-        Parameters.update({'can-edit':args.can-edit})
+    if args.can_reshare:
+        Parameters.update({'can_reshare':args.can_reshare})
+    if args.can_edit:
+        Parameters.update({'can_edit':args.can_edit})
             
     if args.ausername:
         authUsername = args.ausername
@@ -52,7 +51,7 @@ def main(argv):
     api.sync_down(my_params)
 
     # KEEPER COMMAND
-    command = FolderMoveCommand()
+    command = FolderLinkCommand()
     result = command.execute(my_params, **Parameters)
     print("Success")
     return result
