@@ -1,4 +1,4 @@
-mport sys
+import sys
 import getopt
 import getpass
 import string
@@ -40,14 +40,14 @@ def main(argv):
         Parameters.update({'action':args.action})
     if args.record is not None:
         Parameters.update({'record':args.record})
-    if args.manage-records is not None:
-        Parameters.update({'manage-records':args.manage-records})
-    if args.manage-users is not None:
-        Parameters.update({'manage-users':args.manage-users})
-    if args.can-share is not None:
-        Parameters.update({'can-share':args.can-share})
-    if args.can-edit is not None:
-        Parameters.update({'can-edit':args.can-edit})
+    if args.manage_records is not None:
+        Parameters.update({'manage_records':args.manage_records})
+    if args.manage_users is not None:
+        Parameters.update({'manage_users':args.manage_users})
+    if args.can_share is not None:
+        Parameters.update({'can_share':args.can_share})
+    if args.can_edit is not None:
+        Parameters.update({'can_edit':args.can_edit})
             
     if args.ausername:
         authUsername = args.ausername
