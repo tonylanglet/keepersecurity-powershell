@@ -44,7 +44,7 @@ def main(argv):
     # KEEPER COMMAND
     command = RecordRemoveCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully deleted record [",recordUid,"]")
+    print("Successfully deleted record")
     return result
 
 if __name__ == "__main__":
