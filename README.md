@@ -46,6 +46,14 @@ A Keeper Security account is required, "Keeper is free for local password manage
 #### Powershell
 Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6)
 
+#### keepersecurity.powershell module
+By downloading the module form here you'll get the module, manifest and all python scripts required for the module to work (you might want to remove the -master part of the folder once un-zipped). Move the module folder to the Powershell module folder <C:\Program Files\WindowsPowerShell\Modules\>  
+  
+Open a Powershell window
+ ```
+ C:\PS> Import-Module keepersecurity.powershell -Verbose
+ ```
+
 #### Verify Installation
 To verify that the installation of python and the configuration of the environment variables is done successfully, open the WinPython Command Prompt and type the following. 
 ```
@@ -60,7 +68,18 @@ To verify that the Keeper commander module has been loaded type the following in
 $ keeper
 ```
 if you're prompted with commands for the keeper module the installation has been successful.  
-![alt text](https://github.com/tonylanglet/keepersecurity.powershell/blob/master/Images/keepercommanderoutput.png?raw=true)
+![alt text](https://github.com/tonylanglet/keepersecurity.powershell/blob/master/Images/keepercommanderoutput.png?raw=true)  
+  
+To verfiy that the keepersecurity.powershell module is loaded type the following in a powershell window
+ ```
+ C:\PS> Get-Module -Name keepersecurity.powershell
+ ```
+ If you get the followin output the module is loaded
+ ```
+ ModuleType Version    Name                                ExportedCommands                                                       
+ ---------- -------    ----                                ----------------                                                   
+ Script     1.0        keepersecurity.powershell           {Add-KeeperRecordNotes, Del-KeeperEnterpriseTeam...} 
+ ```  
 ### Test
 The following examples show you how to run the scripts by themself or by using the Powershell module (N/A)
 #### Using Powershell to run scripts
