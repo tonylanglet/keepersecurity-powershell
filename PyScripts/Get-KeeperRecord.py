@@ -19,8 +19,8 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--record', type=str, action='store', help='Record uid', required=True)
-    parser.add_argument('-f', '--format', dest='format', action='store', choices=['json','detail'], help='format json/detail', default='json')
+    parser.add_argument('--record', type=str, action='store', help='Record uid', required=True)
+    parser.add_argument('--format', dest='format', action='store', choices=['json','detail'], help='format json/detail', default='json')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username')
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password')
     args = parser.parse_args()
