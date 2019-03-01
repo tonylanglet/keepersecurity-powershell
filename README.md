@@ -74,14 +74,14 @@ To verfiy that the keepersecurity.powershell module is loaded type the following
  ```
  C:\PS> Get-Module -Name keepersecurity.powershell
  ```
- If you get the followin output the module is loaded
+ If you get the following output the module is loaded
  ```
  ModuleType Version    Name                                ExportedCommands                                                       
  ---------- -------    ----                                ----------------                                                   
  Script     1.0        keepersecurity.powershell           {Add-KeeperRecordNotes, Del-KeeperEnterpriseTeam...} 
  ```  
 ### Test
-The following examples show you how to run the scripts by themself or by using the Powershell module (N/A)
+The following examples show you how to run the scripts by themself or by using the Powershell module
 #### Using Powershell to run scripts
 ```
 python C:\Keper\get-keeperrecord.py --ausername <Username> --apassword <Password> --record "tKvMeXApaOEzhkCkQRtAcw" --format "json"
@@ -119,6 +119,21 @@ Make sure the keepersecurity.powershell module is loaded, see installation step 
 'Set-KeeperSharedFolderPermission', 
 'Set-KeeperSharedRecordPermission'
 ```   
+   
+The functions require a keeper security account, to be run the account credentials will have to be stored in a [pscredential] object and sent as input with each function. 
+``` 
+$authuser = "<username>"
+$authpass = "<password>"
+
+$password = $authpass | ConvertTo-SecureString -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PsCredential($authuser,$password)
+``` 
+Running one of the modules functions,
+```
+# The following module function will display a specified records information in a JSON string  
+
+Get-KeeperRecord -Identity "<recordUid>" -Format json -AuthObject $credentials
+``` 
 ## Setup Explanation 
 I feel like explaning the setup and why it's done as it is. Keeper Security provide us with a SDK where we get to use a python based cmd prompt and a module for all commands Keeper provide us with. Keeper Security have made the decision to make the access through their own module as there's different stages of encrypting the data sent to their API.  
   
