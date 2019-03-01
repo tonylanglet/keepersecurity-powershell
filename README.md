@@ -87,6 +87,38 @@ The following examples show you how to run the scripts by themself or by using t
 python C:\Keper\get-keeperrecord.py --ausername <Username> --apassword <Password> --record "tKvMeXApaOEzhkCkQRtAcw" --format "json"
 ```
 #### Using Powershell module
+Make sure the keepersecurity.powershell module is loaded, see installation step above. Once the module is loaded you can use the functions.
+```
+'Add-KeeperRecordNotes', 
+'Del-KeeperEnterpriseTeam', 
+'Del-KeeperEnterpriseUser', 
+'Del-KeeperFolder', 
+'Del-KeeperRecord', 
+'Del-KeeperRecordAttachment', 
+'Get-KeeperAuditLog', 
+'Get-KeeperAuditReport', 
+'Get-KeeperEnterpriseInfo', 
+'Get-KeeperFolder', 
+'Get-KeeperRecord', 
+'Get-KeeperRecordAttachment', 
+'Link-KeeperFolder', 
+'Link-KeeperRecord', 
+'List-KeeperFolder', 
+'List-KeeperRecord', 
+'Move-KeeperFolder',
+'New-KeeperEnterpriseTeam', 
+'New-KeeperEnterpriseUser', 
+'New-KeeperRecord', 
+'New-KeeperRecordAttachment', 
+'New-KeeperSharedFolder', 
+'New-KeeperUser', 
+'New-KeeperUserFolder',
+'Search-KeeperRecord', 
+'Set-KeeperEnterpriseRole', 
+'Set-KeeperEnterpriseTeam', 
+'Set-KeeperSharedFolderPermission', 
+'Set-KeeperSharedRecordPermission'
+```   
 ## Setup Explanation 
 I feel like explaning the setup and why it's done as it is. Keeper Security provide us with a SDK where we get to use a python based cmd prompt and a module for all commands Keeper provide us with. Keeper Security have made the decision to make the access through their own module as there's different stages of encrypting the data sent to their API.  
   
