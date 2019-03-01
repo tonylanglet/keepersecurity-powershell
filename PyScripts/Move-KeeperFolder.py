@@ -53,7 +53,6 @@ def main(argv):
     # KEEPER COMMAND
     command = FolderMoveCommand()
     recordResult = command.execute(my_params, **Parameters)
-    print("Success")
     return recordResult
 
 if __name__ == "__main__":
