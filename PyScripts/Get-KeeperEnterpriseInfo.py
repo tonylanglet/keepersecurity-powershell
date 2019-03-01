@@ -19,11 +19,11 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-ns', '--nodes', type=str, help='print node tree')
-    parser.add_argument('-u', '--users', type=str, help='print user list')
-    parser.add_argument('-t', '--teams', type=str, help='print team list')
-    parser.add_argument('-r', '--roles', type=str, help='print role list')
-    parser.add_argument('-n', '--node', type=str, help='limit results to node (name or ID)')
+    parser.add_argument('--nodes', dest='nodes', action='store_true', help='print node tree')
+    parser.add_argument('--users', dest='users', action='store_true', help='print user list')
+    parser.add_argument('--teams', dest='teams', action='store_true', help='print team list')
+    parser.add_argument('--roles', dest='roles', action='store_true', help='print role list')
+    parser.add_argument('--node', dest='node', action='store', help='limit results to node (name or ID)')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
@@ -55,7 +55,6 @@ def main(argv):
     # KEEPER COMMAND
     command = EnterpriseInfoCommand()
     recordResult = command.execute(my_params, **Parameters)
-    print("Success")
     return recordResult
 
 if __name__ == "__main__":
