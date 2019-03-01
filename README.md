@@ -155,7 +155,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Would like to thank the Keeper Security (keepercommander) staff for the fast response when asking questions.
 
 ## To-Do
-[] Complete the enterprise functions testing, require enterprise admin account
-[] Compelte the enterprise functions synopsis
-[] Create the utils functions of KeeperCommander
-[] Finalize the complete set of functions/commands from KeeperCommander
+- [ ] Complete the enterprise functions testing, require enterprise admin account
+- [ ] Compelte the enterprise functions synopsis
+- [ ] Create the utils functions of KeeperCommander
+- [ ] Finalize the complete set of functions/commands from KeeperCommander
