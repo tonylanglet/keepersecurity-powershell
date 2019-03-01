@@ -31,6 +31,7 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
+    Parameters.update({'force':True})
     if args.team is not None:
         Parameters.Update({'team':args.team})
     if args.add-user is not None:
