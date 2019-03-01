@@ -19,10 +19,10 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-l', '--list', type=str, help='show detailed list')
-    parser.add_argument('-f', '--folders', type=str, help='display folders')
-    parser.add_argument('-r', '--records', type=str, help='display records')
-    parser.add_argument('-p', '--pattern', type=str, help='search pattern')
+    parser.add_argument('-l', '--list', dest='detail', action='store_true', help='show detailed list')
+    parser.add_argument('-f', '--folders', dest='folders', action='store_true', help='display folders')
+    parser.add_argument('-r', '--records', dest='records', action='store_true', help='display records')
+    parser.add_argument('-p', '--pattern', nargs='?', type=str, action='store', help='search pattern')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
