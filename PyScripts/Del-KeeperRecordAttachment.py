@@ -46,7 +46,6 @@ def main(argv):
     # KEEPER COMMAND
     command = RecordDeleteAttachmentCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
