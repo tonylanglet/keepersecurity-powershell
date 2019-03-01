@@ -19,8 +19,8 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--record", type=str, help="record UID", required=True)
-    parser.add_argument("-n", "--name", type=str, help="name of the attachment file", required=True)
+    parser.add_argument("-r", "--record", action='store', help="record UID", required=True)
+    parser.add_argument("-n", "--name", dest='name', action='append', help="name of the attachment file", required=True)
     parser.add_argument("-auser", "--ausername", type=str, help="Authentication username", required=True)
     parser.add_argument("-apass", "--apassword", type=str, help="Authentication password", required=True)
     args = parser.parse_args()
