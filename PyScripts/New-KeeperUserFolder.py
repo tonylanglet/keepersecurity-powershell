@@ -59,7 +59,6 @@ def main(argv):
     # KEEPER COMMAND
     command = FolderMakeCommand()
     result = command.execute(my_params, **Parameters)
-    print("Success")
     return result
 
 if __name__ == "__main__":
