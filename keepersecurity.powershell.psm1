@@ -1179,6 +1179,55 @@ return $result
 
 # ENTERPRISE USER
 function Set-KeeperEnterpriseUser {
+<#
+.SYNOPSIS
+  Edit a enterprise user
+.DESCRIPTION
+  This scripts gives the opportunity to edit a enterprise user object and add different
+  functionality to the user account such ass role and team membership
+.PARAMETER Identity
+    Optional [string], The user identity (email)
+.PARAMETER ExpireMasterPassword
+    Optional [string], Expire the master password 
+.PARAMETER Lock
+    Optional [string], Lock the user account
+.PARAMETER Unlock
+    Optional [string], Unlock the user account
+.PARAMETER Name
+    Optional [string], Change the name of a user account
+.PARAMETER Node
+    Optional [string], Specify the node the user account is located in
+.PARAMETER RoleToAdd
+    Optional [string], Add a role to the user account
+.PARAMETER RoleToRemove
+    Optional [string], Remove a role to the user account
+.PARAMETER TeamToAdd
+    Optional [string], Add the user to a team
+.PARAMETER TeamToRemove
+    Optional [string], Remove the user from a team
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperEnterpriseUser
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Lock a user account with the email address <jon.doe@domain.com>
+  C:\PS> Set-KeeperEnterpriseUser -Identity "jon.doe@domain.com" -Lock True -AuthObject $credentials
+
+.EXAMPLE 2
+  Unlock a user account with the email address <jon.doe@domain.com> and assign the account the <Administrator> role
+  C:\PS> Set-KeeperEnterpriseUser -Identity "jon.doe@domain.com" -Unlock True -RoleToAdd "Administrator" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)][string]$Identity, #mail
     [Parameter(Mandatory=$false)][string]$ExpireMasterPassword,
@@ -1219,6 +1268,45 @@ return $result
 }
 
 function New-KeeperEnterpriseUser {
+<#
+.SYNOPSIS
+  Edit a enterprise user
+.DESCRIPTION
+  This scripts gives the opportunity to edit a enterprise user object and add different
+  functionality to the user account such ass role and team membership
+.PARAMETER Mail
+    * Required [string], the user identity (email)
+.PARAMETER Name
+    Optional [string], name of the user account 
+.PARAMETER RoleToAdd
+    Optional [string], assign a role to the user account
+.PARAMETER TeamToAdd
+    Optional [string], assign team membership to the user account
+.PARAMETER Node
+    Optional [string], which node the account should be created in
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperEnterpriseUser
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Create a user account with the email address <jon.doe@domain.com>
+  C:\PS> New-KeeperEnterpriseUser -Mail "jon.doe@domain.com" -AuthObject $credentials
+
+.EXAMPLE 2
+  Create a user account with the email address <jon.doe@domain.com> and assign the role <Administrator> to the account
+  C:\PS> New-KeeperEnterpriseUser -Mail "jon.doe@domain.com" -RoleToAdd "Administrator" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Mail,
     [Parameter(Mandatory=$false)][string]$Name,
