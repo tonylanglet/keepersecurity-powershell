@@ -20,7 +20,7 @@ function New-KeeperRecord {
 .PARAMETER FolderUId
     Optional [string], provide the folder UID 
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to New-KeeperRecord.
 .OUTPUTS
@@ -64,7 +64,7 @@ if(![string]::IsNullOrEmpty($url)) { $Parameters += "--url", $url }
 if(![string]::IsNullOrEmpty($notes)) { $Parameters += "--notes", $notes }
 if(![string]::IsNullOrEmpty($customfields)) { $Parameters += "--custom", $customfields }
 if(![string]::IsNullOrEmpty($folderUId)) { $Parameters += "--folder", $folderUId }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -90,7 +90,7 @@ function Get-KeeperRecord {
 .PARAMETER Format
     * Required [string], either a detailed description or json formated string.
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Get-KeeperRecord
 .OUTPUTS
@@ -116,7 +116,7 @@ Param(
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($format)) { $Parameters += "-format", $format }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -139,7 +139,7 @@ function Del-KeeperRecord {
 .PARAMETER Identity
     * Required [string], A record UID or record name
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Get-KeeperRecord
 .OUTPUTS
@@ -162,7 +162,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record",$Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -185,7 +185,7 @@ function List-KeeperRecord {
 .PARAMETER Pattern
     * Required [string], A Regex to match records to
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to List-KeeperRecord
 .OUTPUTS
@@ -209,7 +209,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern",$pattern }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -232,7 +232,7 @@ function Search-KeeperRecord {
 .PARAMETER Pattern
     * Required [string], A Regex to match records to
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Search-KeeperRecord
 .OUTPUTS
@@ -256,7 +256,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern",$pattern }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -281,7 +281,7 @@ function Add-KeeperRecordNotes {
 .PARAMETER Notes
     * Optional [string], Notes to append to the current notes of an existing record
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Add-KeeperRecordNotes
 .OUTPUTS
@@ -306,7 +306,7 @@ Param(
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($notes)) { $Parameters += "--notes", $notes }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -329,7 +329,7 @@ function Get-KeeperRecordAttachment {
 .PARAMETER Identity
     * Required [string], Record UID or name
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Get-KeeperRecordAttachment
 .OUTPUTS
@@ -352,7 +352,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record",$Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -377,7 +377,7 @@ function Del-KeeperRecordAttachment {
 .PARAMETER Name
     * Required [string], The name of the attachment file
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Del-KeeperRecordAttachment
 .OUTPUTS
@@ -403,7 +403,7 @@ Param(
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name", $Name }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -428,7 +428,7 @@ function New-KeeperRecordAttachment {
 .PARAMETER FilePath
     * Required [string[]], Requires a list of file(s) 
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to New-KeeperRecordAttachment
 .OUTPUTS
@@ -453,7 +453,7 @@ Param(
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($filePath)) { $Parameters += "--file", $filePath } # Requires to be a list?
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -484,7 +484,7 @@ function Set-KeeperSharedRecordPermissions {
 .PARAMETER Write
     Optional [string], Allow the user write permissions on the record
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Set-KeeperSharedRecordPermissions
 .OUTPUTS
@@ -516,7 +516,7 @@ if(![string]::IsNullOrEmpty($mail)) { $Parameters += "--email", $mail }
 if(![string]::IsNullOrEmpty($action)) { $Parameters += "--action", $action }
 if(![string]::IsNullOrEmpty($share)) { $Parameters += "--share", $share }
 if(![string]::IsNullOrEmpty($write)) { $Parameters += "--write", $write }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -525,6 +525,66 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
     catch 
     {
         Write-Error "Share-KeeperRecord: Unable to add attachment"
+        $result = "Error: $_"
+    }
+return $result
+}
+
+function Link-KeeperRecord {
+<#
+.SYNOPSIS
+  Link a record to another location
+.DESCRIPTION
+  This script will Link a record to a different location
+.PARAMETER Identity
+    * Required [string], Record UID or Name
+.PARAMETER Destination
+    * Required [string], Link a record to a different location "\" (root)
+.PARAMETER CanShare
+    Optional [string], Allow sharing of records
+.PARAMETER CanEdit
+    Optional [string], Allow editing of records
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Link-KeeperRecord
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Will add a link of the record <Record #1> in the folder named <Folder #2> in root
+  C:\PS> Link-KeeperRecord -Identity "Record #1" -Destination "\Folder #2" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
+Param(
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$true)][string]$Destination,
+    [Parameter(Mandatory=$false)][string]$CanEdit,
+    [Parameter(Mandatory=$false)][string]$CanReShare,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
+)
+
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
+if(![string]::IsNullOrEmpty($Destination)) { $Parameters += "--destination",$Destination }
+if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
+
+    try 
+    {
+        $result = python "$PSScriptRoot\PyScripts\Link-KeeperRecord.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Link-KeeperRecord: Unable to link record"
         $result = "Error: $_"
     }
 return $result
@@ -546,7 +606,7 @@ function List-KeeperFolder {
 .PARAMETER Pattern
     Optional [string], Allow the user to share the record
 .PARAMETER AuthObject
-    * Required |pscredential], need to be an account in Keeper Security
+    * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
   None, You cannot pipe objects to Set-KeeperSharedRecordPermissions
 .OUTPUTS
@@ -576,7 +636,7 @@ if(![string]::IsNullOrEmpty($list)) { $Parameters += "--list",$list }
 if(![string]::IsNullOrEmpty($folders)) { $Parameters += "--folders", $folders }
 if(![string]::IsNullOrEmpty($records)) { $Parameters += "--records", $records }
 if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern", $pattern }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -591,6 +651,35 @@ return $result
 }
 
 function Del-KeeperFolder {
+<#
+.SYNOPSIS
+  Remove a folder
+.DESCRIPTION
+  Remove a folder and its content
+.PARAMETER Identity
+    * Required [string], Folder UID or name
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Del-KeeperFolder
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Removes the folder with the name Folder #1 in root
+  C:\PS> Del-KeeperFolder -Identity "Folder #1" -AuthObject $credentials
+
+.EXAMPLE 2
+  Removes the folder with the UID 1CdbvrWQ3F%HG-
+  C:\PS> Del-KeeperFolder -Identity "1CdbvrWQ3F%HG-" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -598,7 +687,7 @@ Param(
 
 $Parameters = @{}
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--folder", $Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -613,24 +702,40 @@ return $result
 }
 
 function New-KeeperUserFolder {
+<#
+.SYNOPSIS
+  Creates a personal folder
+.DESCRIPTION
+  This script creates a personal folder for the current user
+.PARAMETER Name
+    * Required [string], Folder name
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperUserFolder
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Creates a folder with the name Folder #1 in root
+  C:\PS> New-KeeperUserFolder -Name "Folder #1" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Name, 
-    [Parameter(Mandatory=$false)][string]$Permission,
-    [Parameter(Mandatory=$false)][string]$ManageUsers,
-    [Parameter(Mandatory=$false)][string]$ManageRecords,
-    [Parameter(Mandatory=$false)][string]$CanShare,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
-if(![string]::IsNullOrEmpty($permission)) { $Parameters += "-all", $permission }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users", $manageUsers }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records", $manageRecords }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share", $canShare }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit", $canEdit }
 if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name", $name }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -645,6 +750,46 @@ return $result
 }
 
 function New-KeeperSharedFolder {
+<#
+.SYNOPSIS
+  Creates a shared folder
+.DESCRIPTION
+  This script creates a shared folder
+.PARAMETER Name
+    * Required [string], Folder name
+.PARAMETER Permission
+    Optional [string], Allow permission for all 
+.PARAMETER ManageUsers
+    Optional [string], Allow management of users
+.PARAMETER ManageRecords
+    Optional [string], Allow management of records
+.PARAMETER CanShare
+    Optional [string], Allow sharing of records and folders
+.PARAMETER CanEdit
+    Optional [string], All editing of records and folders
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperSharedFolder
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Creates a shared folder with the name Folder #1 in root
+  C:\PS> New-KeeperSharedFolder -Name "Folder #1" -AuthObject $credentials
+
+.EXAMPLE 2
+  Creates a shared folder with the name Folder #2 in root, and assign permissions to all and disallow sharing of records and folders
+  C:\PS> New-KeeperSharedFolder -Name "Folder #2" -Permission True -CanShare False -CanEdit True -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Name,
     [Parameter(Mandatory=$false)][string]$Permission,
@@ -662,7 +807,7 @@ if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users", $m
 if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manager-records", $manageRecords }
 if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share", $canShare }
 if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit", $canEdit }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -677,6 +822,42 @@ return $result
 }
 
 function Move-KeeperFolder {
+<#
+.SYNOPSIS
+  Move a current shared folder
+.DESCRIPTION
+  This script will move a shared folder to a new location
+.PARAMETER Identity
+    * Required [string], Folder UID or Name
+.PARAMETER Destination
+    * Required [string], Where to move the folder to "\<folder name>" or Folder UID 
+.PARAMETER CanShare
+    Optional [string], Allow sharing of records and folders
+.PARAMETER CanEdit
+    Optional [string], All editing of records and folders
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Move-KeeperFolder
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Will move the folder named <Folder #1> to the folder named <Folder #2> in root
+  C:\PS> Move-KeeperFolder -Identity "Folder #1" -Destination "\Folder #2" -AuthObject $credentials
+
+.EXAMPLE 2
+  will move the folder named <Folder #1> to the folder with UID <dfRE4V#2ckq-p> and disallow sharing of records and folders
+  C:\PS> Move-KeeperFolder -Identity "Folder #2" -Destination "dfRE4V#2ckq-p" -CanShare False -CanEdit True -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Destination,
@@ -690,7 +871,7 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
 if(![string]::IsNullOrEmpty($destination)) { $Parameters += "--destination",$destination }
 if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
 if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -704,35 +885,43 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.P
 return $result
 }
 
-function Link-KeeperRecord {
-Param(
-    [Parameter(Mandatory=$true)][string]$Identity,
-    [Parameter(Mandatory=$true)][string]$Destination,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$CanReShare,
-    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
-)
-
-$Parameters = @()
-if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
-if(![string]::IsNullOrEmpty($Destination)) { $Parameters += "--destination",$Destination }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
-
-    try 
-    {
-        $result = python "$PSScriptRoot\PyScripts\Link-KeeperRecord.py" @Parameters
-    }
-    catch 
-    {
-        Write-Error "Link-KeeperRecord: Unable to link record"
-        $result = "Error: $_"
-    }
-return $result
-}
-
 function Link-KeeperFolder {
+<#
+.SYNOPSIS
+  Link a folder to another location
+.DESCRIPTION
+  This script will Link a folder to a different location
+.PARAMETER Identity
+    * Required [string], Folder UID or Name
+.PARAMETER Destination
+    * Required [string], Link a folder to a different location "\" (root)
+.PARAMETER CanShare
+    Optional [string], Allow sharing of folder
+.PARAMETER CanEdit
+    Optional [string], Allow editing of folder
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Link-KeeperFolder
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Will add a link of the folder <Folder #1> in the in root
+  C:\PS> Link-KeeperRecord -Identity "Folder #1" -Destination "\" -AuthObject $credentials
+
+.EXAMPLE 2
+  Will add a link of the folder <Folder #2> in the folder named <SubFolder> in root
+  C:\PS> Link-KeeperRecord -Identity "Folder #2" -Destination "\SubFolder" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Destination,
@@ -746,7 +935,7 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
 if(![string]::IsNullOrEmpty($Destination)) { $Parameters += "--destination",$Destination }
 if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$CanEdit }
 if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$CanReShare }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -761,6 +950,48 @@ return $result
 }
 
 function Set-KeeperSharedFolderPermissions {
+<#
+.SYNOPSIS
+  Assign permissions on a shared folder
+.DESCRIPTION
+  This script will change the current permission level on a shared folder
+.PARAMETER Identity
+    * Required [string], Folder UID or Name
+.PARAMETER Action
+    Optional [string], grant/revoke/owner assing the permission level to the user
+.PARAMETER User
+    Optional [string], A user or team that will be affected by the permission change
+.PARAMETER ManageRecords
+    Optional [string], Allow managing of records
+.PARAMETER ManageUsers
+    Optional [string], Allow managing of users allowed to access the folder
+.PARAMETER CanShare
+    Optional [string], Allow sharing of folders and records
+.PARAMETER CanEdit
+    Optional [string], Allow editing of folders and records
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperSharedFolderPermissions
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Disallow everyone from editing any folders or records in the shared folder named <Folder #1>
+  C:\PS> Set-KeeperSharedFolderPermissions -Identity "Folder #1" -CanEdit False -AuthObject $credentials
+
+.EXAMPLE 2
+  Grant access for user user@domain.com to the folder named <Folder #1> 
+  C:\PS> Set-KeeperSharedFolderPermissions -Identity "Folder #1" -Action grant -User "user@domain.com" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$Action,
@@ -782,7 +1013,7 @@ if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records"
 if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users",$manageUsers }
 if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share",$canShare }
 if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -798,6 +1029,46 @@ return $result
 
 # USER
 function New-KeeperUser {
+<#
+.SYNOPSIS
+  Create a new local user in Keeper
+.DESCRIPTION
+  This script will create a local user in Keeper
+.PARAMETER Email
+    * Required [string], Email address where the invite will be sent and used as username in some cases
+.PARAMETER Password
+    Optional [string], Password for the account, if left empty a password will be generated
+.PARAMETER Name
+    Optional [string], Name for the user account, does not work with enterprise license
+.PARAMETER DataCenter
+    Optional [string], The Data center where the user object will be created in (eu/us)
+.PARAMETER Node
+    Optional [string], The node where the user object will be created in
+.PARAMETER SecretQuestion
+    * REquired [string], Secret question that will require a answer during password reset 
+.PARAMETER SecretAnswer
+    * Required [string], Secret answer which will be asked for during password reset
+.PARAMETER StoreRecord
+    Optional [string], ???
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperUser
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Create a local user account named Jon Doe
+  C:\PS> New-KeeperUser -Email "jon.doe@domain.com" -Name "Jon Doe" -Password "Hello1234" -SecretQuestion "What is Keeper" -SecretAnswer "Great" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Mail,
     [Parameter(Mandatory=$false)][string]$Password,
@@ -819,7 +1090,7 @@ if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node", $node }
 if(![string]::IsNullOrEmpty($secretQuestion)) { $Parameters += "--question",$secretQuestion }
 if(![string]::IsNullOrEmpty($secretAnswer)) { $Parameters += "--answer",$secretAnswer }
 if(![string]::IsNullOrEmpty($storeRecord)) { $Parameters += "--store-record",$storeRecord }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -835,6 +1106,48 @@ return $result
 
 # ENTERPRISE INFO
 function Get-KeeperEnterpriseInfo {
+<#
+.SYNOPSIS
+  Retreive information about the enterprise setup
+.DESCRIPTION
+  A customized or detailed view of the enterprise setup
+.PARAMETER Nodes
+    Optional [string], List the nodes in the enterprise
+.PARAMETER Users
+    Optional [string], List the users in the enterprise
+.PARAMETER Teams
+    Optional [string], List the teams in the enterprise
+.PARAMETER Roles
+    Optional [string], List the roles in the enterprise
+.PARAMETER Node
+    Optional [string], A list of users/teams/roles in certain node
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperEnterpriseInfo
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Full list of enterprise information
+  C:\PS> Get-KeeperEnterpriseInfo -AuthObject $credentials
+
+.EXAMPLE 2
+  Full list of users in the enterprise
+  C:\PS> Get-KeeperEnterpriseInfo -Users True -AuthObject $credentials
+
+.EXAMPLE 3
+  List of teams located in the Node named <Contoso>
+  C:\PS> Get-KeeperEnterpriseInfo -Teams True -Node "CONTOSO" -AuthObject $credentials
+
+#>
+
+[CmdletBinding()]
 Param (
     [Parameter(Mandatory=$false)][string]$Nodes,
     [Parameter(Mandatory=$false)][string]$Users,
@@ -850,7 +1163,7 @@ if(![string]::IsNullOrEmpty($users)) { $Parameters += "--users",$users }
 if(![string]::IsNullOrEmpty($teams)) { $Parameters += "--teams",$teams }
 if(![string]::IsNullOrEmpty($roles)) { $Parameters += "--roles",$roles }
 if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -891,7 +1204,7 @@ if(![string]::IsNullOrEmpty($TeamToAdd)) { $Parameters += "--add-team",$TeamToAd
 if(![string]::IsNullOrEmpty($TeamToRemove)) { $Parameters += "--remove-team",$TeamToRemove }
 if(![string]::IsNullOrEmpty($Unlock)) { $Parameters += "--unlock",$Unlock }
 if(![string]::IsNullOrEmpty($Lock)) { $Parameters += "--lock",$Lock }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -921,7 +1234,7 @@ if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name",$Name }
 if(![string]::IsNullOrEmpty($RoleToAdd)) { $Parameters += "--add-role",$RoleToAdd }
 if(![string]::IsNullOrEmpty($TeamToAdd)) { $Parameters += "--add-team",$TeamToAdd }
 if(![string]::IsNullOrEmpty($Node)) { $Parameters += "--node",$Node }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -943,7 +1256,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--email", $Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -970,7 +1283,7 @@ $Parameters = @()
 if(![string]::IsNullOrEmpty($addUser)) { $Parameters += "--add-user",$addUser }
 if(![string]::IsNullOrEmpty($removeUser)) { $Parameters += "--remove-user",$removeUser }
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--role",$Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -993,7 +1306,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name", $Name }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -1027,7 +1340,7 @@ if(![string]::IsNullOrEmpty($restrictEdit)) { $Parameters += "--restrict-edit",$
 if(![string]::IsNullOrEmpty($restrictShare)) { $Parameters += "--restrict-share",$restrictShare }
 if(![string]::IsNullOrEmpty($restrictView)) { $Parameters += "--restrict-view",$restrictView }
 if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -1049,7 +1362,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--team", $Identity }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -1074,7 +1387,7 @@ Param(
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($target)) { $Parameters += "--target", $target }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
@@ -1120,7 +1433,7 @@ if(![string]::IsNullOrEmpty($Username)) { $Parameters += "--username", $Username
 if(![string]::IsNullOrEmpty($ToUsername)) { $Parameters += "--to-username", $ToUsername }
 if(![string]::IsNullOrEmpty($RecordUid)) { $Parameters += "--record-uid", $RecordUid }
 if(![string]::IsNullOrEmpty($SharedFolderUid)) { $Parameters += "--shared-folder-uid", $SharedFolderUid }
-$Parameters += "--ausername", $AuthObject.UserName, "--apassword", $AuthObject.Password
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
     {
