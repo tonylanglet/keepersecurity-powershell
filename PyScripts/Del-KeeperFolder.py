@@ -45,7 +45,6 @@ def main(argv):
     # KEEPER COMMAND
     command = FolderRemoveCommand()
     recordResult = command.execute(my_params, **Parameters)
-    print("Successfully")
     return recordResult
 
 if __name__ == "__main__":
