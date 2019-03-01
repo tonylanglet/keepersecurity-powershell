@@ -56,7 +56,7 @@ def main(argv):
 
     # KEEPER COMMAND
     command = EnterpriseUserCommand()
-    result = command.execute(my_params, email=entUserEmail, add=entUserAdd, name=entUserName, node=entUserNode, add-role=entUserAddRole, add-team=entUserAddTeam, force=entUserForce)
+    result = command.execute(my_params, **Parameters)
     return result
 
 if __name__ == "__main__":
