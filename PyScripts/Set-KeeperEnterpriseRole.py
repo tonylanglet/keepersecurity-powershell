@@ -29,10 +29,10 @@ def main(argv):
     Parameters = dict()
     if args.role is not None:
         Parameters.update({'role':args.role})
-    if args.add-user is not None:
-        Parameters.update({'add-user':args.add-user})
-    if args.remove-user is not None:
-        Parameters.update({'remove-user':args.remove-user})
+    if args.add_user is not None:
+        Parameters.update({'add_user':args.add_user})
+    if args.remove_user is not None:
+        Parameters.update({'remove_user':args.remove_user})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
@@ -49,7 +49,6 @@ def main(argv):
     # KEEPER COMMAND
     command = EnterpriseRoleCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
