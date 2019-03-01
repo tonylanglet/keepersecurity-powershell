@@ -32,14 +32,14 @@ def main(argv):
     Parameters = dict()
     if args.add is not None:
         Parameters.update({'add',args.add})
-    if args.add-user is not None:
-        Parameters.update({'add-user',args.add-user})
-    if args.restrict-edit is not None:
-        Parameters.update({'restrict-edit',args.restrict-edit})
-    if args.restrict-share is not None:
-        Parameters.update({'restrict-share',args.restrict-share})
-    if args.restrict-view is not None:
-        Parameters.update({'restrict-view',args.restrict-view})
+    if args.add_user is not None:
+        Parameters.update({'add_user',args.add_user})
+    if args.restrict_edit is not None:
+        Parameters.update({'restrict_edit',args.restrict_edit})
+    if args.restrict_share is not None:
+        Parameters.update({'restrict_share',args.restrict_share})
+    if args.restrict_view is not None:
+        Parameters.update({'restrict_view',args.restrict_view})
     if args.node is not None:
         Parameters.update({'node',args.node})
             
