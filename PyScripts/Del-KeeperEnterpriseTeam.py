@@ -48,7 +48,6 @@ def main(argv):
     # KEEPER COMMAND
     command = EnterpriseTeamCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
