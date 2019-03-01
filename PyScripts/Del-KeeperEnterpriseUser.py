@@ -19,7 +19,7 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--email', type=str, help='user email or user ID or user search pattern')
+    parser.add_argument('--email', type=str, help='user email or user ID or user search pattern')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
