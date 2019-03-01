@@ -37,10 +37,10 @@ def main(argv):
         Parameters.update({'name':args.name})        
     if args.node is not None:
         Parameters.update({'node':args.node})
-    if args.add-role is not None:
-        Parameters.update({'add-role':args.add-role})
-    if args.add-team is not None:
-        Parameters.update({'add-team':args.add-team})
+    if args.add_role is not None:
+        Parameters.update({'add_role':args.add_role})
+    if args.add_team is not None:
+        Parameters.update({'add_team':args.add_team})
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
