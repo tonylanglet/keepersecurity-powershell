@@ -65,7 +65,6 @@ def main(argv):
 	print(Parameters)
 	command = RecordAddCommand()
 	record_uid = command.execute(my_params, **Parameters)
-	print("Successfully created record [",record_uid,"]")
 	return record_uid
 
 if __name__ == "__main__":
