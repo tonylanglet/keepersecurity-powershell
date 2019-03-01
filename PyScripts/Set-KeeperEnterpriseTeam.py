@@ -34,16 +34,16 @@ def main(argv):
     Parameters.update({'force':True})
     if args.team is not None:
         Parameters.Update({'team':args.team})
-    if args.add-user is not None:
-        Parameters.Update({'add-user':args.add-user})
-    if args.remove-user is not None:
-        Parameters.Update({'remove-user':args.remove-user})
-    if args.restrict-edit is not None:
-        Parameters.Update({'restrict-edit':args.restrict-edit})
-    if args.restrict-share is not None:
-        Parameters.Update({'restrict-share':args.restrict-share})
-    if args.restrict-view is not None:
-        Parameters.Update({'restrict-view':args.restrict-view})
+    if args.add_user is not None:
+        Parameters.Update({'add_user':args.add_user})
+    if args.remove_user is not None:
+        Parameters.Update({'remove_user':args.remove_user})
+    if args.restrict_edit is not None:
+        Parameters.Update({'restrict_edit':args.restrict_edit})
+    if args.restrict_share is not None:
+        Parameters.Update({'restrict_share':args.restrict_share})
+    if args.restrict_view is not None:
+        Parameters.Update({'restrict_view':args.restrict_view})
     if args.node is not None:
         Parameters.Update({'node':args.node})
             
@@ -63,7 +63,6 @@ def main(argv):
     # KEEPER COMMAND
     command = EnterpriseTeamCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
