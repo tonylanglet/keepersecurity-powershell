@@ -19,8 +19,8 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--record', action='store', help='Folder UID', required=True)
-    parser.add_argument('-f', '--file',  dest='file', action='append', help='file path', required=True)
+    parser.add_argument('--record', action='store', help='Folder UID', required=True)
+    parser.add_argument('--file',  dest='file', action='append', help='file path', required=True)
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
@@ -46,7 +46,6 @@ def main(argv):
     # KEEPER COMMAND
     command = RecordUploadAttachmentCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
