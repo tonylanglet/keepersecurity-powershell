@@ -46,7 +46,6 @@ if args.ausername:
     # KEEPER COMMAND
     command = EnterpriseUserCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully deleted user [", args.email ,"]")
     return result
 
 if __name__ == "__main__":
