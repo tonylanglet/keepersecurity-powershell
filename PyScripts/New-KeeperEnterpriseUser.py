@@ -19,11 +19,11 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--email', type=str, help='user email or user ID or user search pattern')
-    parser.add_argument('-n', '--name', type=str, help='set user name')
-    parser.add_argument('-no', '--node', type=str, help='node name or node ID')
-    parser.add_argument('-ar', '--add-role', type=str, help='role name or role ID')
-    parser.add_argument('-at', '--add-team', type=str, help='team name or team ID')
+    parser.add_argument('--email', type=str, action='store', help='user email or user ID or user search pattern')
+    parser.add_argument('--name', dest='displayname', action='store', help='set user name')
+    parser.add_argument('--node', dest='node', action='store', help='node name or node ID')
+    parser.add_argument('--add-role', dest='add_role', action='append', help='role name or role ID')
+    parser.add_argument('--add-team', dest='add_team', action='append', help='team name or team ID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
