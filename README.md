@@ -47,11 +47,11 @@ A Keeper Security account is required, "Keeper is free for local password manage
 Install [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6)
 
 #### keepersecurity.powershell module
-By downloading the module form here you'll get the module, manifest and all python scripts required for the module to work (you might want to remove the -master part of the folder once un-zipped). Move the module folder to the Powershell module folder <C:\Program Files\WindowsPowerShell\Modules\>  
+By downloading the module from here you'll get the module, manifest and all python scripts required for the module to work (you might want to remove the -master part of the folder once un-zipped). Move the module folder to the Powershell module folder <C:\Program Files\WindowsPowerShell\Modules\>  
   
-Open a Powershell window
+Open a Powershell window (note: you'll get a warning message of verbs not being used correctly, you can ignore that)
  ```
- C:\PS> Import-Module keepersecurity.powershell -Verbose
+ C:\PS> Import-Module keepersecurity.powershell 
  ```
 
 #### Verify Installation
