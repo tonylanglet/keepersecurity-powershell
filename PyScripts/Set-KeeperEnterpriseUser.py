@@ -45,14 +45,14 @@ def main(argv):
         Parameters.update({'unlock':args.unlock})
     if args.node is not None:
         Parameters.update({'node':args.node})
-    if args.add-role is not None:
-        Parameters.update({'add-role':args.add-role})
-    if args.remove-role is not None:
-        Parameters.update({'remove-role':args.remove-role})
-    if args.add-team is not None:
-        Parameters.update({'add-team':args.add-team})
-    if args.remove-team is not None:
-        Parameters.update({'remove-team':args.remove-team})
+    if args.add_role is not None:
+        Parameters.update({'add_role':args.add_role})
+    if args.remove_role is not None:
+        Parameters.update({'remove_role':args.remove_role})
+    if args.add_team is not None:
+        Parameters.update({'add_team':args.add_team})
+    if args.remove_team is not None:
+        Parameters.update({'remove_team':args.remove_team})
     if args.expire is not None:
         Parameters.update({'expire':args.expire})
     if args.ausername:
@@ -71,7 +71,6 @@ def main(argv):
     # KEEPER COMMAND
     command = EnterpriseUserCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully")
     return result
 
 if __name__ == "__main__":
