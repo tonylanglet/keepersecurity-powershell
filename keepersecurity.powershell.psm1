@@ -115,7 +115,7 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
-if(![string]::IsNullOrEmpty($format)) { $Parameters += "-format", $format }
+if(![string]::IsNullOrEmpty($format)) { $Parameters += "--format", $format }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -591,6 +591,57 @@ return $result
 }
 
 # FOLDER
+function Get-KeeperFolder {
+<#
+.SYNOPSIS
+  Retreive information of a specified folder
+.DESCRIPTION
+  This script will output information about a specific folder
+.PARAMETER Identity
+    * Required [string], A folder UID
+.PARAMETER Format
+    * Required [string], either a detailed description or json formated string.
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperFolder
+.OUTPUTS
+  A string or a JSON formated output
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Outputs a json string for the record 3Dfeca#fca3Cyv
+  C:\PS> Get-KeeperRecord -Identity "3Dfeca#fca3Cyv" -Format "json" -AuthObject $credentials
+#>
+
+[CmdletBinding()]
+Param(
+    [Parameter(Mandatory=$true)][string]$Identity,
+    [Parameter(Mandatory=$false)][ValidateSet("json","detail")][string]$Format,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
+)
+
+$Parameters = @()
+if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--folder", $Identity }
+if(![string]::IsNullOrEmpty($format)) { $Parameters += "--format", $format }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
+
+    try 
+    {
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperFolder.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Get-KeeperRecord: Unable to retreive folder info"
+        $result = "Error: $_"
+    }
+return $result
+}
+
 function List-KeeperFolder {
 <#
 .SYNOPSIS
