@@ -19,13 +19,13 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--team', type=str, help='add user to role')
-    parser.add_argument('-d', '--delete', type=str, help='add user to team')
+    parser.add_argument('--team', type=str, help='team to delete')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
     Parameters = dict()
+    Parameters.update({'delete':True})
     Parameters.update({'force':True})
     if args.team is not None:
         Parameters.update({'team':args.team})
