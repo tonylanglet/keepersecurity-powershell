@@ -19,7 +19,7 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--record', type=str, help='record UID', required=True)
+    parser.add_argument('-r', '--record', action='store', help='record UID', required=True)
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
