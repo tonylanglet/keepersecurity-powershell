@@ -46,7 +46,6 @@ def main(argv):
     # KEEPER COMMAND
     command = RecordGetUidCommand()
     result = command.execute(my_params, **Parameters)
-    print("Successfully fetched folder info")
     return result
 
 if __name__ == "__main__":
