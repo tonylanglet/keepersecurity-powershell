@@ -19,11 +19,11 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--record', type=str, help='Record UID', required=True)
-    parser.add_argument('-e', '--email', type=str, help='user email', required=True)
-    parser.add_argument('-a', '--action', choices=['grant', 'revoke', 'owner'], default='grant', help='user share action. \'grant\' if omitted')
-    parser.add_argument('-s', '--share', type=str, help='can re-share record')
-    parser.add_argument('-w', '--write', type=str, help='can modify record')
+    parser.add_argument('-r', '--record', nargs='?', type=str, action='store', help='Record UID', required=True)
+    parser.add_argument('-e', '--email', dest='email', action='append', help='user email', required=True)
+    parser.add_argument('-a', '--action', dest='action', choices=['grant', 'revoke', 'owner'], default='grant', action='store', help='user share action. \'grant\' if omitted')
+    parser.add_argument('-s', '--share', dest='can_share', action='store_true', help='can re-share record')
+    parser.add_argument('-w', '--write', dest='can_edit', action='store_true', help='can modify record')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
