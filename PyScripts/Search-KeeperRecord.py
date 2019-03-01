@@ -43,7 +43,6 @@ def main(argv):
     # KEEPER COMMAND
     command = SearchCommand()
     result = command.execute(my_params, **Parameters)
-    print("Search complete")
     return result
 
 if __name__ == "__main__":
