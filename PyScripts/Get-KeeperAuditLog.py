@@ -19,8 +19,8 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-t', '--target', type=str, choices=['splunk', 'syslog', 'sumo'], required=True, help='export target')
-    parser.add_argument('-r', '--record', type=str, help='keeper record name or UID')
+    parser.add_argument('--target', type=str, choices=['splunk', 'syslog', 'sumo'], required=True, help='export target')
+    parser.add_argument('--record', type=str, help='keeper record name or UID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
