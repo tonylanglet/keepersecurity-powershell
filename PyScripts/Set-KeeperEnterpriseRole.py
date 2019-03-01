@@ -19,9 +19,9 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--role', type=str, help='role id')
-    parser.add_argument('-au', '--add-user', type=str, help='add user to role')
-    parser.add_argument('-ru', '--remove-user', type=str, help='remove user from role')
+    parser.add_argument('--role', type=str, action='store', help='role id')
+    parser.add_argument('--add-user', dest='add_user', action='append', help='add user to role')
+    parser.add_argument('--remove-user', dest='remove_user', action='append', help='remove user from role')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
