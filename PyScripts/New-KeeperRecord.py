@@ -23,7 +23,7 @@ def main(argv):
 	parser.add_argument('--login', dest='login', action='store', help='Login for the record')
 	parser.add_argument('--password', dest='password', action='store', help='Password for the record, if left empty a Keeper generated password will be made')
 	parser.add_argument('--url', dest='url', action='store', help='URL for the record')
-	parser.add_argument('--customfields', dest='customfields', action='store',, help='Custom Fields for the record, syntax being used "key1:value1,key2:value2"')
+	parser.add_argument('--customfields', dest='customfields', action='store', help='Custom Fields for the record, syntax being used "key1:value1,key2:value2"')
 	parser.add_argument('--folder', dest='folder', action='store', help='Folder uid for the record')
 	parser.add_argument('--notes', dest='notes', action='store', help='Notes for the record')
 	parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
