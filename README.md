@@ -174,3 +174,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [ ] Compelte the enterprise functions synopsis
 - [ ] Create the utils functions of KeeperCommander
 - [ ] Finalize the complete set of functions/commands from KeeperCommander
+- [ ] Manage the UID's using "-" as first character
