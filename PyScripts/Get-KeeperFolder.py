@@ -20,7 +20,7 @@ def main(argv):
     # Arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--folder', type=str, action='store', help='Folder uid', required=True)
-    parser.add_argument('--format', dest='format', action='store', choices=['detail', 'json'], default='detail', default='json')
+    parser.add_argument('--format', dest='format', action='store', choices=['detail', 'json'], default='detail')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username')
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password')
     args = parser.parse_args()
