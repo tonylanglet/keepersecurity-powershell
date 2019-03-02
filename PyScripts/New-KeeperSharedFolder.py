@@ -19,9 +19,9 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--all', dest='grant', action='store_true', help='anyone has all permissions by default')
-    parser.add_argument('--manage-user', dest='manage_users', action='store_true', help='anyone can manage users by default')
-    parser.add_argument('--manage-record', dest='manage_records', action='store_true', help='anyone can manage records by default')
+    parser.add_argument('--all', action='store_true', help='anyone has all permissions by default')
+    parser.add_argument('--manage-users', dest='manage_users', action='store_true', help='anyone can manage users by default')
+    parser.add_argument('--manage-records', dest='manage_records', action='store_true', help='anyone can manage records by default')
     parser.add_argument('--can-share', dest='can_share', action='store_true', help='anyone can share records by default')
     parser.add_argument('--can-edit', dest='can_edit', action='store_true', help='anyone can edit records by default')
     parser.add_argument('--name', nargs='?', type=str, action='store', help='folder path folderUID')
@@ -33,17 +33,17 @@ def main(argv):
     Parameters.update({'shared_folder':True})
     if args.all is not None:
         Parameters.update({'all':args.all})
-    if args.manage_user is not None:
-        Parameters.update({'manage_user':args.manage_user})
-    if args.manage_record is not None:
-        Parameters.update({'manage_record':args.manage_record})
+    if args.manage_users is not None:
+        Parameters.update({'manage_users':args.manage_users})
+    if args.manage_records is not None:
+        Parameters.update({'manage_records':args.manage_records})
     if args.can_share is not None:
         Parameters.update({'can_share':args.can_share})
     if args.can_edit is not None:
         Parameters.update({'can_edit':args.can_edit})
     if args.name is not None:
         Parameters.update({'folder':args.name})
-            
+	
     if args.ausername:
         authUsername = args.ausername
     if args.apassword:
