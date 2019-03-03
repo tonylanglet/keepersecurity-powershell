@@ -675,7 +675,7 @@ function List-KeeperFolder {
 
 [CmdletBinding()]
 Param(
-    [Parameter(Mandatory=$false)][string]$List,
+    [Parameter(Mandatory=$false)][switch]$List,
     [Parameter(Mandatory=$false)][string]$Folders,
     [Parameter(Mandatory=$false)][string]$Records,
     [Parameter(Mandatory=$false)][string]$Pattern,
