@@ -28,8 +28,8 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.list is not None:
-        Parameters.update({'list':args.list})
+    if args.detail is not None:
+        Parameters.update({'detail':args.detail})
     if args.folders is not None:
         Parameters.update({'folders':args.folders})
     if args.records is not None:
