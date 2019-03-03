@@ -676,16 +676,16 @@ function List-KeeperFolder {
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)][switch]$List,
-    [Parameter(Mandatory=$false)][string]$Folders,
-    [Parameter(Mandatory=$false)][string]$Records,
+    [Parameter(Mandatory=$false)][switch]$Folders,
+    [Parameter(Mandatory=$false)][switch]$Records,
     [Parameter(Mandatory=$false)][string]$Pattern,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
-if(![string]::IsNullOrEmpty($list)) { $Parameters += "--list",$list }
-if(![string]::IsNullOrEmpty($folders)) { $Parameters += "--folders", $folders }
-if(![string]::IsNullOrEmpty($records)) { $Parameters += "--records", $records }
+if($list -eq $true) { $Parameters += "--list",$list }
+if($folders -eq true) { $Parameters += "--folders", $folders }
+if($records -eq true) { $Parameters += "--records", $records }
 if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern", $pattern }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
