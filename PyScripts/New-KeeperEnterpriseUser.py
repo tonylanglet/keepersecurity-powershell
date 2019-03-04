@@ -33,8 +33,8 @@ def main(argv):
     Parameters.update({'add':True})
     if args.email is not None:
         Parameters.update({'email':args.email})
-    if args.name is not None:
-        Parameters.update({'name':args.name})        
+    if args.displayname is not None:
+        Parameters.update({'displayname':args.displayname})        
     if args.node is not None:
         Parameters.update({'node':args.node})
     if args.add_role is not None:
