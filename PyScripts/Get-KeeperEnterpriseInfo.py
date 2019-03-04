@@ -19,10 +19,10 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--nodes', dest='nodes', action='store_true', help='print node tree')
-    parser.add_argument('--users', dest='users', action='store_true', help='print user list')
-    parser.add_argument('--teams', dest='teams', action='store_true', help='print team list')
-    parser.add_argument('--roles', dest='roles', action='store_true', help='print role list')
+    parser.add_argument('--nodes', dest='nodes', type=bool, help='print node tree')
+    parser.add_argument('--users', dest='users', type=bool', help='print user list')
+    parser.add_argument('--teams', dest='teams', type=bool', help='print team list')
+    parser.add_argument('--roles', dest='roles', type=bool', help='print role list')
     parser.add_argument('--node', dest='node', action='store', help='limit results to node (name or ID)')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
