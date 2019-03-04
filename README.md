@@ -171,7 +171,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## To-Do
 - [ ] Complete the enterprise functions testing, require enterprise admin account
-- [ ] Compelte the enterprise functions synopsis
+- [x] Compelte the enterprise functions synopsis
 - [ ] Create the utils functions of KeeperCommander
 - [ ] Finalize the complete set of functions/commands from KeeperCommander
 - [ ] Manage the UID's using "-" as first character
