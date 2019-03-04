@@ -1398,6 +1398,30 @@ return $result
 }
 
 function Del-KeeperEnterpriseUser {
+<#
+.SYNOPSIS
+  Delete enterprise user
+.DESCRIPTION
+  This script will delete a enterprise user
+.PARAMETER Identity
+    * Required [string], the user identity (email)
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Del-KeeperEnterpriseUser
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Delete a user account with the email address <jon.doe@domain.com>
+  C:\PS> Del-KeeperEnterpriseUser -Identity "jon.doe@domain.com" -AuthObject $credentials
+  
+#>
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -1421,6 +1445,34 @@ return $result
 
 # ENTERPRISE ROLE
 function Set-KeeperEnterpriseRole {
+<#
+.SYNOPSIS
+  Edit enterprise role
+.DESCRIPTION
+  This script will edit a enterprise role
+.PARAMETER Identity
+    * Required [string], the role identity/name
+.PARAMETER AddUser
+    * Optional [string], Add a user to the role (mail)
+.PARAMETER RemoveUser
+    * Optional [string], Remove a user from the role (mail)
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperEnterpriseRole
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Add user <jon.doe@domain.com> to the role <Administrator>
+  C:\PS> Set-KeeperEnterpriseRole -Identity "Administrator" -AddUser "jon.doe@domain.com" -AuthObject $credentials
+  
+#>
 Param(
     [Parameter(Mandatory=$false)][string]$AddUser,
     [Parameter(Mandatory=$false)][string]$RemoveUser,
@@ -1448,6 +1500,30 @@ return $result
 
 # ENTERPRISE TEAM
 function New-KeeperEnterpriseTeam {
+<#
+.SYNOPSIS
+  Create a new enterprise team
+.DESCRIPTION
+  This script creates a new enterprise team
+.PARAMETER Name
+    * Required [string], the role identity/name
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to New-KeeperEnterpriseTeam
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Creates a new enterprise team with the name <Gold Team>
+  C:\PS> New-KeeperEnterpriseTeam -Name "Gold Team" -AuthObject $credentials
+  
+#>
 Param(
     [Parameter(Mandatory=$true)][string]$Name,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -1470,6 +1546,46 @@ return $result
 }
 
 function Set-KeeperEnterpriseTeam {
+<#
+.SYNOPSIS
+  Edit an enterprise team
+.DESCRIPTION
+  This script will edit an enterprise team
+.PARAMETER Identity
+    * Required [string], the team identity/name
+.PARAMETER AddUser
+    Optional [string], add a user to the team (mail)
+.PARAMETER RemoveUser
+    Optional [string], remove a user from the team (mail)
+.PARAMETER RestrictEdit
+    Optional [string], restrict the team from editing records/folders
+.PARAMETER RestrictShare
+    Optional [string], restrict the team from sharing records/folders
+.PARAMETER RestrictView
+    Optional [string], restrict the team from viewing records/folders
+.PARAMETER Node
+    Optional [string], the specific node the team is located in
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Set-KeeperEnterpriseTeam
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 1
+  Will add a user named <jon.doe@domain.com> to the team with the name <Gold Team>
+  C:\PS> Set-KeeperEnterpriseTeam -Identity "Gold Team" -AddUser "jon.doe@domain.com -AuthObject $credentials
+  
+.EXAMPLE 2
+  Will restrict users in the team <Gold Team> to edit folder and records
+  C:\PS> Set-KeeperEnterpriseTeam -Identity "Gold Team" -RestrictEdit On -AuthObject $credentials
+  
+#>
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$AddUser,
