@@ -480,9 +480,9 @@ function Set-KeeperSharedRecordPermissions {
 .PARAMETER Action
     Optional [string], grant/revoke/owner permissions on record for user
 .PARAMETER Share
-    Optional [string], Allow the user to share the record
+    Optional [switch], Allow the user to share the record
 .PARAMETER Write
-    Optional [string], Allow the user write permissions on the record
+    Optional [switch], Allow the user write permissions on the record
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -505,8 +505,8 @@ Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$false)][string]$Mail,
     [Parameter(Mandatory=$false)][ValidateSet("grant","revoke","owner")][string]$Action,
-    [Parameter(Mandatory=$false)][string]$Share,
-    [Parameter(Mandatory=$false)][string]$Write,
+    [Parameter(Mandatory=$false)][switch]$Share,
+    [Parameter(Mandatory=$false)][switch]$Write,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
@@ -514,8 +514,8 @@ $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--record", $Identity }
 if(![string]::IsNullOrEmpty($mail)) { $Parameters += "--email", $mail }
 if(![string]::IsNullOrEmpty($action)) { $Parameters += "--action", $action }
-if(![string]::IsNullOrEmpty($share)) { $Parameters += "--share", $share }
-if(![string]::IsNullOrEmpty($write)) { $Parameters += "--write", $write }
+if($share) { $Parameters += "--share", $share }
+if($write) { $Parameters += "--write", $write }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -541,9 +541,9 @@ function Link-KeeperRecord {
 .PARAMETER Destination
     * Required [string], Link a record to a different location "\" (root)
 .PARAMETER CanShare
-    Optional [string], Allow sharing of records
+    Optional [switch], Allow sharing of records
 .PARAMETER CanEdit
-    Optional [string], Allow editing of records
+    Optional [switch], Allow editing of records
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -556,9 +556,14 @@ function Link-KeeperRecord {
   Creation Date:  2019-02-28
   Purpose/Change: Initial script development
   
-.EXAMPLE
+.EXAMPLE 1
   Will add a link of the record <Record #1> in the folder named <Folder #2> in root
   C:\PS> Link-KeeperRecord -Identity "Record #1" -Destination "\Folder #2" -AuthObject $credentials
+
+.EXAMPLE 2
+  Will add a link of the record <Record #1> in the folder named <Folder #2> in root and allows content to be editited and reshared
+  C:\PS> Link-KeeperRecord -Identity "Record #1" -Destination "\Folder #2" -CanEdit -CanReshare -AuthObject $credentials
+
 
 #>
 
@@ -566,16 +571,16 @@ function Link-KeeperRecord {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Destination,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$CanReShare,
+    [Parameter(Mandatory=$false)][switch]$CanEdit,
+    [Parameter(Mandatory=$false)][switch]$CanReShare,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
 if(![string]::IsNullOrEmpty($Destination)) { $Parameters += "--destination",$Destination }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+if($canEdit) { $Parameters += "--can-edit",$canEdit }
+if($canReShare) { $Parameters += "--can-reshare",$canReShare }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -649,17 +654,17 @@ function List-KeeperFolder {
 .DESCRIPTION
   List the folders located in the current users context
 .PARAMETER List
-    * Required [string], Record UID or name
+    Optional [switch], List all content
 .PARAMETER Folders
-    Optional [string], the user account gaining permission changes
+    Optional [switch], List folders
 .PARAMETER Records
-    Optional [string], grant/revoke/owner permissions on record for user
+    Optional [switch], List records
 .PARAMETER Pattern
-    Optional [string], Allow the user to share the record
+    Optional [switch], Regex pattern to match
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Set-KeeperSharedRecordPermissions
+  None, You cannot pipe objects to List-KeeperFolder
 .OUTPUTS
   None
 .NOTES
@@ -668,9 +673,14 @@ function List-KeeperFolder {
   Creation Date:  2019-02-28
   Purpose/Change: Initial script development
   
-.EXAMPLE
-  Grant permissions on a existing shared record for the user with mail user@domain.com
-  C:\PS> Set-KeeperSharedRecordPermissions -Record "_saE3cECJo4vla" -Mail "user@domain.com" -Action grant -AuthObject $credentials
+.EXAMPLE 1
+  Show a full list of objects
+  C:\PS> List-KeeperFolder -List -AuthObject $credentials
+  
+.EXAMPLE 2
+  Show a full list of folders
+  C:\PS> List-KeeperFolder -List -Folders -AuthObject $credentials
+  
 #>
 
 [CmdletBinding()]
@@ -683,9 +693,9 @@ Param(
 )
 
 $Parameters = @()
-if($list -eq $true) { $Parameters += "--list",$list }
-if($folders -eq true) { $Parameters += "--folders", $folders }
-if($records -eq true) { $Parameters += "--records", $records }
+if($list) { $Parameters += "--list",$list }
+if($folders) { $Parameters += "--folders", $folders }
+if($records) { $Parameters += "--records", $records }
 if(![string]::IsNullOrEmpty($pattern)) { $Parameters += "--pattern", $pattern }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
@@ -809,15 +819,15 @@ function New-KeeperSharedFolder {
 .PARAMETER Name
     * Required [string], Folder name
 .PARAMETER Permission
-    Optional [string], Allow permission for all 
+    Optional [switch], Allow permission for all 
 .PARAMETER ManageUsers
-    Optional [string], Allow management of users
+    Optional [switch], Allow management of users
 .PARAMETER ManageRecords
-    Optional [string], Allow management of records
+    Optional [switch], Allow management of records
 .PARAMETER CanShare
-    Optional [string], Allow sharing of records and folders
+    Optional [switch], Allow sharing of records and folders
 .PARAMETER CanEdit
-    Optional [string], All editing of records and folders
+    Optional [switch], All editing of records and folders
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -836,28 +846,28 @@ function New-KeeperSharedFolder {
 
 .EXAMPLE 2
   Creates a shared folder with the name Folder #2 in root, and assign permissions to all and disallow sharing of records and folders
-  C:\PS> New-KeeperSharedFolder -Name "Folder #2" -Permission True -CanShare False -CanEdit True -AuthObject $credentials
+  C:\PS> New-KeeperSharedFolder -Name "Folder #2" -Permission -CanShare -CanEdit -AuthObject $credentials
 
 #>
 
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory=$true)][string]$Name,
-    [Parameter(Mandatory=$false)][string]$Permission,
-    [Parameter(Mandatory=$false)][string]$ManageUsers,
-    [Parameter(Mandatory=$false)][string]$ManageRecords,
-    [Parameter(Mandatory=$false)][string]$CanShare,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
+    [Parameter(Mandatory=$false)][switch]$Permission,
+    [Parameter(Mandatory=$false)][switch]$ManageUsers,
+    [Parameter(Mandatory=$false)][switch]$ManageRecords,
+    [Parameter(Mandatory=$false)][switch]$CanShare,
+    [Parameter(Mandatory=$false)][switch]$CanEdit,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name", $Name }
-if(![string]::IsNullOrEmpty($permission)) { $Parameters += "--all", $permission }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users", $manageUsers }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records", $manageRecords }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share", $canShare }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit", $canEdit }
+if($permission) { $Parameters += "--all", $permission }
+if($manageUsers) { $Parameters += "--manage-users", $manageUsers }
+if($manageRecords) { $Parameters += "--manage-records", $manageRecords }
+if($canShare) { $Parameters += "--can-share", $canShare }
+if($canEdit) { $Parameters += "--can-edit", $canEdit }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -883,9 +893,9 @@ function Move-KeeperFolder {
 .PARAMETER Destination
     * Required [string], Where to move the folder to "\<folder name>" or Folder UID 
 .PARAMETER CanShare
-    Optional [string], Allow sharing of records and folders
+    Optional [switch], Allow sharing of records and folders
 .PARAMETER CanEdit
-    Optional [string], All editing of records and folders
+    Optional [switch], All editing of records and folders
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -904,7 +914,7 @@ function Move-KeeperFolder {
 
 .EXAMPLE 2
   will move the folder named <Folder #1> to the folder with UID <dfRE4V#2ckq-p> and disallow sharing of records and folders
-  C:\PS> Move-KeeperFolder -Identity "Folder #2" -Destination "dfRE4V#2ckq-p" -CanShare False -CanEdit True -AuthObject $credentials
+  C:\PS> Move-KeeperFolder -Identity "Folder #2" -Destination "dfRE4V#2ckq-p" -CanShare -CanEdit -AuthObject $credentials
 
 #>
 
@@ -912,16 +922,16 @@ function Move-KeeperFolder {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Destination,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$CanReShare,
+    [Parameter(Mandatory=$false)][switch]$CanEdit,
+    [Parameter(Mandatory=$false)][switch]$CanReShare,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
 if(![string]::IsNullOrEmpty($destination)) { $Parameters += "--destination",$destination }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$canReShare }
+if($canEdit) { $Parameters += "--can-edit",$canEdit }
+if($canReShare) { $Parameters += "--can-reshare",$canReShare }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -947,9 +957,9 @@ function Link-KeeperFolder {
 .PARAMETER Destination
     * Required [string], Link a folder to a different location "\" (root)
 .PARAMETER CanShare
-    Optional [string], Allow sharing of folder
+    Optional [switch], Allow sharing of folder
 .PARAMETER CanEdit
-    Optional [string], Allow editing of folder
+    Optional [switch], Allow editing of folder
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -976,16 +986,16 @@ function Link-KeeperFolder {
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][string]$Destination,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
-    [Parameter(Mandatory=$false)][string]$CanReShare,
+    [Parameter(Mandatory=$false)][switch]$CanEdit,
+    [Parameter(Mandatory=$false)][switch]$CanReShare,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--source",$Identity }
 if(![string]::IsNullOrEmpty($Destination)) { $Parameters += "--destination",$Destination }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$CanEdit }
-if(![string]::IsNullOrEmpty($canReShare)) { $Parameters += "--can-reshare",$CanReShare }
+if($canEdit) { $Parameters += "--can-edit",$CanEdit }
+if($canReShare) { $Parameters += "--can-reshare",$CanReShare }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -1013,13 +1023,13 @@ function Set-KeeperSharedFolderPermissions {
 .PARAMETER User
     Optional [string], A user or team that will be affected by the permission change
 .PARAMETER ManageRecords
-    Optional [string], Allow managing of records
+    Optional [switch], Allow managing of records
 .PARAMETER ManageUsers
-    Optional [string], Allow managing of users allowed to access the folder
+    Optional [switch], Allow managing of users allowed to access the folder
 .PARAMETER CanShare
-    Optional [string], Allow sharing of folders and records
+    Optional [switch], Allow sharing of folders and records
 .PARAMETER CanEdit
-    Optional [string], Allow editing of folders and records
+    Optional [switch], Allow editing of folders and records
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
@@ -1034,7 +1044,7 @@ function Set-KeeperSharedFolderPermissions {
   
 .EXAMPLE 1
   Disallow everyone from editing any folders or records in the shared folder named <Folder #1>
-  C:\PS> Set-KeeperSharedFolderPermissions -Identity "Folder #1" -CanEdit False -AuthObject $credentials
+  C:\PS> Set-KeeperSharedFolderPermissions -Identity "Folder #1" -CanEdit -AuthObject $credentials
 
 .EXAMPLE 2
   Grant access for user user@domain.com to the folder named <Folder #1> 
@@ -1048,10 +1058,10 @@ Param(
     [Parameter(Mandatory=$false)][string]$Action,
     [Parameter(Mandatory=$false)][string]$User,
     [Parameter(Mandatory=$false)][string]$Record,
-    [Parameter(Mandatory=$false)][string]$ManageRecords,
-    [Parameter(Mandatory=$false)][string]$ManageUsers,
-    [Parameter(Mandatory=$false)][string]$CanShare,
-    [Parameter(Mandatory=$false)][string]$CanEdit,
+    [Parameter(Mandatory=$false)][switch]$ManageRecords,
+    [Parameter(Mandatory=$false)][switch]$ManageUsers,
+    [Parameter(Mandatory=$false)][switch]$CanShare,
+    [Parameter(Mandatory=$false)][switch]$CanEdit,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
@@ -1060,10 +1070,10 @@ if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--folder",$Identity }
 if(![string]::IsNullOrEmpty($action)) { $Parameters += "--action",$action }
 if(![string]::IsNullOrEmpty($user)) { $Parameters += "--user",$user }
 if(![string]::IsNullOrEmpty($record)) { $Parameters += "--record",$record }
-if(![string]::IsNullOrEmpty($manageRecords)) { $Parameters += "--manage-records",$manageRecords }
-if(![string]::IsNullOrEmpty($manageUsers)) { $Parameters += "--manage-users",$manageUsers }
-if(![string]::IsNullOrEmpty($canShare)) { $Parameters += "--can-share",$canShare }
-if(![string]::IsNullOrEmpty($canEdit)) { $Parameters += "--can-edit",$canEdit }
+if($manageRecords) { $Parameters += "--manage-records",$manageRecords }
+if($manageUsers) { $Parameters += "--manage-users",$manageUsers }
+if($canShare) { $Parameters += "--can-share",$canShare }
+if($canEdit) { $Parameters += "--can-edit",$canEdit }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
@@ -1163,13 +1173,13 @@ function Get-KeeperEnterpriseInfo {
 .DESCRIPTION
   A customized or detailed view of the enterprise setup
 .PARAMETER Nodes
-    Optional [string], List the nodes in the enterprise
+    Optional [switch], List the nodes in the enterprise
 .PARAMETER Users
-    Optional [string], List the users in the enterprise
+    Optional [switch], List the users in the enterprise
 .PARAMETER Teams
-    Optional [string], List the teams in the enterprise
+    Optional [switch], List the teams in the enterprise
 .PARAMETER Roles
-    Optional [string], List the roles in the enterprise
+    Optional [switch], List the roles in the enterprise
 .PARAMETER Node
     Optional [string], A list of users/teams/roles in certain node
 .PARAMETER AuthObject
@@ -1190,29 +1200,29 @@ function Get-KeeperEnterpriseInfo {
 
 .EXAMPLE 2
   Full list of users in the enterprise
-  C:\PS> Get-KeeperEnterpriseInfo -Users True -AuthObject $credentials
+  C:\PS> Get-KeeperEnterpriseInfo -Users -AuthObject $credentials
 
 .EXAMPLE 3
   List of teams located in the Node named <Contoso>
-  C:\PS> Get-KeeperEnterpriseInfo -Teams True -Node "CONTOSO" -AuthObject $credentials
+  C:\PS> Get-KeeperEnterpriseInfo -Teams -Node "CONTOSO" -AuthObject $credentials
 
 #>
 
 [CmdletBinding()]
 Param (
-    [Parameter(Mandatory=$false)][string]$Nodes,
-    [Parameter(Mandatory=$false)][string]$Users,
-    [Parameter(Mandatory=$false)][string]$Teams,
-    [Parameter(Mandatory=$false)][string]$Roles,
+    [Parameter(Mandatory=$false)][switch]$Nodes,
+    [Parameter(Mandatory=$false)][switch]$Users,
+    [Parameter(Mandatory=$false)][switch]$Teams,
+    [Parameter(Mandatory=$false)][switch]$Roles,
     [Parameter(Mandatory=$false)][string]$Node,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
-if(![string]::IsNullOrEmpty($nodes)) { $Parameters += "--nodes",$nodes }
-if(![string]::IsNullOrEmpty($users)) { $Parameters += "--users",$users }
-if(![string]::IsNullOrEmpty($teams)) { $Parameters += "--teams",$teams }
-if(![string]::IsNullOrEmpty($roles)) { $Parameters += "--roles",$roles }
+if($nodes) { $Parameters += "--nodes",$nodes }
+if($users) { $Parameters += "--users",$users }
+if($teams) { $Parameters += "--teams",$teams }
+if($roles) { $Parameters += "--roles",$roles }
 if(![string]::IsNullOrEmpty($node)) { $Parameters += "--node",$node }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
@@ -1239,11 +1249,11 @@ function Set-KeeperEnterpriseUser {
 .PARAMETER Identity
     Optional [string], The user identity (email)
 .PARAMETER ExpireMasterPassword
-    Optional [string], Expire the master password 
+    Optional [switch], Expire the master password 
 .PARAMETER Lock
-    Optional [string], Lock the user account
+    Optional [switch], Lock the user account
 .PARAMETER Unlock
-    Optional [string], Unlock the user account
+    Optional [switch], Unlock the user account
 .PARAMETER Name
     Optional [string], Change the name of a user account
 .PARAMETER Node
@@ -1281,9 +1291,9 @@ function Set-KeeperEnterpriseUser {
 [CmdletBinding()]
 Param(
     [Parameter(Mandatory=$false)][string]$Identity, #mail
-    [Parameter(Mandatory=$false)][string]$ExpireMasterPassword,
-    [Parameter(Mandatory=$false)][string]$Lock,
-    [Parameter(Mandatory=$false)][string]$Unlock,
+    [Parameter(Mandatory=$false)][switch]$ExpireMasterPassword,
+    [Parameter(Mandatory=$false)][switch]$Lock,
+    [Parameter(Mandatory=$false)][switch]$Unlock,
     [Parameter(Mandatory=$false)][string]$Name,
     [Parameter(Mandatory=$false)][string]$Node,
     [Parameter(Mandatory=$false)][string]$RoleToAdd,
@@ -1295,15 +1305,15 @@ Param(
 
 $Parameters = @()
 if(![string]::IsNullOrEmpty($Identity)) { $Parameters += "--email",$Identity }
-if(![string]::IsNullOrEmpty($ExpireMasterPassword)) { $Parameters += "--expire",$ExpireMasterPassword }
+if($ExpireMasterPassword) { $Parameters += "--expire",$ExpireMasterPassword }
 if(![string]::IsNullOrEmpty($Name)) { $Parameters += "--name",$Name }
 if(![string]::IsNullOrEmpty($Node)) { $Parameters += "--node",$Node }
 if(![string]::IsNullOrEmpty($RoleToAdd)) { $Parameters += "--add-role",$RoleToAdd }
 if(![string]::IsNullOrEmpty($RoleToRemove)) { $Parameters += "--remove-role",$RoleToRemove }
 if(![string]::IsNullOrEmpty($TeamToAdd)) { $Parameters += "--add-team",$TeamToAdd }
 if(![string]::IsNullOrEmpty($TeamToRemove)) { $Parameters += "--remove-team",$TeamToRemove }
-if(![string]::IsNullOrEmpty($Unlock)) { $Parameters += "--unlock",$Unlock }
-if(![string]::IsNullOrEmpty($Lock)) { $Parameters += "--lock",$Lock }
+if($Unlock) { $Parameters += "--unlock",$Unlock }
+if($Lock) { $Parameters += "--lock",$Lock }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
