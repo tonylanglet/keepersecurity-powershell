@@ -19,11 +19,11 @@ def main(argv):
 
     # Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--all', dest='grant', action='store_true', help='anyone has all permissions by default')
-    parser.add_argument('--manage-user', dest='manage_users', action='store_true', help='anyone can manage users by default')
-    parser.add_argument('--manage-record', dest='manage_records', action='store_true', help='anyone can manage records by default')
-    parser.add_argument('--can-share', dest='can_share', action='store_true', help='anyone can share records by default')
-    parser.add_argument('--can-edit', dest='can_edit', action='store_true', help='anyone can edit records by default')
+    parser.add_argument('--all', dest='grant', type=bool, help='anyone has all permissions by default')
+    parser.add_argument('--manage-user', dest='manage_users', type=bool, help='anyone can manage users by default')
+    parser.add_argument('--manage-record', dest='manage_records', type=bool, help='anyone can manage records by default')
+    parser.add_argument('--can-share', dest='can_share', type=bool, help='anyone can share records by default')
+    parser.add_argument('--can-edit', dest='can_edit', type=bool, help='anyone can edit records by default')
     parser.add_argument('--name', nargs='?', type=str, action='store', help='folder path folderUID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
