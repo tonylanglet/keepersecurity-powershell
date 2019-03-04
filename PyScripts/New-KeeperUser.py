@@ -19,8 +19,8 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--store-record', dest='store', action='store_true', help='store credentials into Keeper record (must be logged in)')
-    parser.add_argument('--generate', dest='generate', action='store_true', help='generate a password')
+    parser.add_argument('--store-record', dest='store', type=bool, help='store credentials into Keeper record (must be logged in)')
+    parser.add_argument('--generate', dest='generate', type=bool, help='generate a password')
     parser.add_argument('-pass', '--password', dest='password', action='store', help='user password')
     parser.add_argument('--data-center', dest='data_center', choices=['us', 'eu'], action='store', help='data center')
     parser.add_argument('--node', dest='node', action='store', help='node name or node ID (enterprise only)')
@@ -33,8 +33,8 @@ def main(argv):
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.store-record is not None:
-        Parameter.update({'store-record':args.store-record})
+    if args.store is not None:
+        Parameter.update({'store':args.store})
     if args.generate is not None:
         Parameter.update({'generate':args.generate})
     if args.password is not None:
