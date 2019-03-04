@@ -21,8 +21,8 @@ def main(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--email', type=str, action='store', help='user email or user ID or user search pattern')
     parser.add_argument('--name', dest='displayname', action='store', help='set user name')
-    parser.add_argument('--lock', dest='lock', action='store_true', help='invite user')
-    parser.add_argument('--unlock', dest='unlock', action='store_true', help='invite user')
+    parser.add_argument('--lock', dest='lock', type=bool, help='invite user')
+    parser.add_argument('--unlock', dest='unlock', type=bool, help='invite user')
     parser.add_argument('--node', dest='node', action='store', help='node name or node ID')
     parser.add_argument('--add-role', dest='add_role', action='append', help='role name or role ID')
     parser.add_argument('--remove-role', dest='remove_role', action='append', help='role name or role ID')
@@ -37,8 +37,8 @@ def main(argv):
     Parameters.update({'force':True})
     if args.email is not None:
         Parameters.update({'email':args.email})
-    if args.name is not None:
-        Parameters.update({'name':args.name})
+    if args.displayname is not None:
+        Parameters.update({'displayname':args.displayname})
     if args.lock is not None:
         Parameters.update({'lock':args.lock})
     if args.unlock is not None:
