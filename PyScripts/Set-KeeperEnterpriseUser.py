@@ -28,7 +28,7 @@ def main(argv):
     parser.add_argument('--remove-role', dest='remove_role', action='append', help='role name or role ID')
     parser.add_argument('--add-team', dest='add_team', action='append', help='team name or team ID')
     parser.add_argument('--remove-team', dest='remove_team', action='append', help='team name or team ID')
-    parser.add_argument('--expire', dest='expire', action='store_true', help='team name or team ID')
+    parser.add_argument('--expire', dest='expire', type=bool, help='team name or team ID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
