@@ -19,11 +19,11 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--add', dest='add', type=bool, help='add user to role')
+    parser.add_argument('--add', dest='add', type=bool, help='add user to team')
     parser.add_argument('--add-user', dest='add_user', action='append', help='add user to team')
-    parser.add_argument('--restrict-edit', dest='restrict_edit', choices=['on', 'off'], action='store', help='remove user from role')
-    parser.add_argument('--restrict-share', dest='restrict_share', choices=['on', 'off'], action='store', help='remove user from role')
-    parser.add_argument('--restrict-view',dest='restrict_view', choices=['on', 'off'], action='store', help='remove user from role')
+    parser.add_argument('--restrict-edit', dest='restrict_edit', choices=['on', 'off'], action='store', help='restrict edit for the team')
+    parser.add_argument('--restrict-share', dest='restrict_share', choices=['on', 'off'], action='store', help='restrict sharing for the team')
+    parser.add_argument('--restrict-view',dest='restrict_view', choices=['on', 'off'], action='store', help='restrict viewing for the team')
     parser.add_argument('--node', dest='node', action='store', help='remove user from role')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
