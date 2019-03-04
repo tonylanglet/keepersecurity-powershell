@@ -19,7 +19,7 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--add', dest='add', action='store_true', help='add user to role')
+    parser.add_argument('--add', dest='add', type=bool, help='add user to role')
     parser.add_argument('--add-user', dest='add_user', action='append', help='add user to team')
     parser.add_argument('--restrict-edit', dest='restrict_edit', choices=['on', 'off'], action='store', help='remove user from role')
     parser.add_argument('--restrict-share', dest='restrict_share', choices=['on', 'off'], action='store', help='remove user from role')
