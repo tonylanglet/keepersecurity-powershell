@@ -1620,6 +1620,30 @@ return $result
 }
 
 function Del-KeeperEnterpriseTeam {
+<#
+.SYNOPSIS
+  Delete an enterprise team
+.DESCRIPTION
+  This script will delete an enterprise team
+.PARAMETER Identity
+    * Required [string], the team identity/name
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Del-KeeperEnterpriseTeam
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE
+  Will delete the team named <Gold Team>
+  C:\PS> Del-KeeperEnterpriseTeam -Identity "Gold Team" -AuthObject $credentials
+  
+#>
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
@@ -1643,6 +1667,32 @@ return $result
 
 # AUDIT LOG\REPORT
 function Get-KeeperAuditLog {
+<#
+.SYNOPSIS
+  Edit an enterprise team
+.DESCRIPTION
+  This script will edit an enterprise team
+.PARAMETER Identity
+    * Required [string], record UID or name
+.PARAMETER Target
+    Optional [string], splunk/syslog/sumo
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperAuditLog -AuthObject $credentials
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 
+  Featch the audit log as a syslog for the record with UID <4Vr6hbddJ&bs_E8>
+  C:\PS> Get-KeeperAuditLog -Identity "4Vr6hbddJ&bs_E8" -Target Syslog
+   
+#>
 Param(
     [Parameter(Mandatory=$true)][string]$Identity,
     [Parameter(Mandatory=$true)][ValidateSet("splunk","syslog","sumo")][string]$Target,
@@ -1667,6 +1717,54 @@ return $result
 }
 
 function Get-KeeperAuditReport {
+<#
+.SYNOPSIS
+  Edit an enterprise team
+.DESCRIPTION
+  This script will edit an enterprise team
+.PARAMETER ReportType
+    Optional [string], raw/dim/hour/day/week/month/span, the report scope
+.PARAMETER ReportFormat
+    Optional [string], Message/Fields
+.PARAMETER Columns
+    Optional [string], which columns to display
+.PARAMETER Aggregate
+    Optional [string], occurrences/first_created/last_created
+.PARAMETER Timezone
+    Optional [string], timezone id
+.PARAMETER Limit
+    Optional [string], limit
+.PARAMETER Order
+    Optional [string], order descendant or ascending
+.PARAMETER Created
+    Optional [string], created date
+.PARAMETER EventType
+    Optional [string], event type
+.PARAMETER Username
+    Optional [string], which username
+.PARAMETER ToUsername
+    Optional [string], which to username
+.PARAMETER RecordUid
+    Optional [string], record uid
+.PARAMETER SharedFolderUid
+    Optional [string], shared folder uid
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Get-KeeperAuditReport
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 
+  Create a report with the scope of month and a limit of 10 and order descendant
+  C:\PS> Get-KeeperAuditReport -ReportType month -Limit 10 -Order desc -AuthObject $credentials
+   
+#>
 Param(
     [Parameter(Mandatory=$false)][ValidateSet('raw', 'dim', 'hour', 'day', 'week', 'month', 'span')][string]$ReportType, 
     [Parameter(Mandatory=$false)][ValidateSet("Message","Fields")][string]$ReportFormat,
