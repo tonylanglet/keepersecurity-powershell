@@ -117,7 +117,8 @@ Make sure the keepersecurity.powershell module is loaded, see installation step 
 'Set-KeeperEnterpriseRole', 
 'Set-KeeperEnterpriseTeam', 
 'Set-KeeperSharedFolderPermission', 
-'Set-KeeperSharedRecordPermission'
+'Set-KeeperSharedRecordPermission',
+'Push-KeeperEnterprise'
 ```   
    
 The functions require a keeper security account, to be run the account credentials will have to be stored in a [pscredential] object and sent as input with each function. 
