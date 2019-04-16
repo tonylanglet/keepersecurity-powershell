@@ -1530,7 +1530,7 @@ Param(
 )
 
 $Parameters = @()
-if(![string]::IsNullOrEmpty($name)) { $Parameters += "--name", $Name }
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--add", $Name }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
