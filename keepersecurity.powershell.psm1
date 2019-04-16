@@ -1526,12 +1526,11 @@ function New-KeeperEnterpriseTeam {
 #>
 Param(
     [Parameter(Mandatory=$true)][string]$Name,
-    [Parameter(Mandatory=$true)][switch]$Add,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
-if($Add) { $Parameters += "--add", $Add }
+$Parameters += "--add"
 if(![string]::IsNullOrEmpty($name)) { $Parameters += "--team", $Name }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
