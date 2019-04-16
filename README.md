@@ -176,4 +176,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [ ] Create the utils functions of KeeperCommander
 - [ ] Finalize the complete set of functions/commands from KeeperCommander
 - [ ] Manage the UID's using "-" as first character
-- [ ] Change the Verbs of the Powershell module to follow the general standard
+- [x] Change the Verbs of the Powershell module to follow the general standard
