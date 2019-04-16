@@ -43,6 +43,8 @@ def main(argv):
         Parameters.update({'restrict_view',args.restrict_view})
     if args.node is not None:
         Parameters.update({'node',args.node})
+    if args.team is not None: 
+        Parameters.update({'team',args.team})
             
     if args.ausername:
         authUsername = args.ausername
