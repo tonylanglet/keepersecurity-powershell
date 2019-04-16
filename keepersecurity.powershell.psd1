@@ -69,13 +69,13 @@ PowerShellVersion = '3.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Add-KeeperRecordNotes', 'Del-KeeperEnterpriseTeam', 
-               'Del-KeeperEnterpriseUser', 'Del-KeeperFolder', 'Del-KeeperRecord', 
-               'Del-KeeperRecordAttachment', 'Get-KeeperAuditLog', 
+FunctionsToExport = 'Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam', 
+               'Remove-KeeperEnterpriseUser', 'Remove-KeeperFolder', 'Remove-KeeperRecord', 
+               'Remove-KeeperRecordAttachment', 'Get-KeeperAuditLog', 
                'Get-KeeperAuditReport', 'Get-KeeperEnterpriseInfo', 
                'Get-KeeperFolder', 'Get-KeeperRecord', 'Get-KeeperRecordAttachment', 
-               'Link-KeeperFolder', 'Link-KeeperRecord', 'List-KeeperFolder', 
-               'List-KeeperRecord', 'Move-KeeperFolder', 'New-KeeperEnterpriseTeam', 
+               'Set-KeeperFolderLink', 'Set-KeeperRecordLink', 'Get-KeeperFolderList', 
+               'Get-KeeperRecordList', 'Move-KeeperFolder', 'New-KeeperEnterpriseTeam', 
                'New-KeeperEnterpriseUser', 'New-KeeperRecord', 
                'New-KeeperRecordAttachment', 'New-KeeperSharedFolder', 
                'New-KeeperUser', 'New-KeeperUserFolder', 'Search-KeeperRecord', 
@@ -85,13 +85,13 @@ FunctionsToExport = 'Add-KeeperRecordNotes', 'Del-KeeperEnterpriseTeam',
                'Push-KeeperEnterpriseDefaultRecords'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = 'Add-KeeperRecordNotes', 'Del-KeeperEnterpriseTeam', 
-               'Del-KeeperEnterpriseUser', 'Del-KeeperFolder', 'Del-KeeperRecord', 
-               'Del-KeeperRecordAttachment', 'Get-KeeperAuditLog', 
+CmdletsToExport = ''Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam', 
+               'Remove-KeeperEnterpriseUser', 'Remove-KeeperFolder', 'Remove-KeeperRecord', 
+               'Remove-KeeperRecordAttachment', 'Get-KeeperAuditLog', 
                'Get-KeeperAuditReport', 'Get-KeeperEnterpriseInfo', 
                'Get-KeeperFolder', 'Get-KeeperRecord', 'Get-KeeperRecordAttachment', 
-               'Link-KeeperFolder', 'Link-KeeperRecord', 'List-KeeperFolder', 
-               'List-KeeperRecord', 'Move-KeeperFolder', 'New-KeeperEnterpriseTeam', 
+               'Set-KeeperFolderLink', 'Set-KeeperRecordLink', 'Get-KeeperFolderList', 
+               'Get-KeeperRecordList', 'Move-KeeperFolder', 'New-KeeperEnterpriseTeam', 
                'New-KeeperEnterpriseUser', 'New-KeeperRecord', 
                'New-KeeperRecordAttachment', 'New-KeeperSharedFolder', 
                'New-KeeperUser', 'New-KeeperUserFolder', 'Search-KeeperRecord', 
