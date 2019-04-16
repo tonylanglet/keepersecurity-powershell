@@ -1809,3 +1809,57 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
 return $result
 }
+
+function Push-KeeperEnterprise {
+<#
+.SYNOPSIS
+  Push objects for teams or users
+.DESCRIPTION
+  This script will push the records onto a certain team or user
+.PARAMETER File
+    [string], file name in JSON format that contains template records
+.PARAMETER User
+    Optional [string], User email or User ID. Records will be assigned to the user
+.PARAMETER Team
+    Optional [string], Team name or team UID. Records will be assigned to all users in the team
+.PARAMETER AuthObject
+    * Required [pscredential], need to be an account in Keeper Security
+.INPUTS
+  None, You cannot pipe objects to Push-KeeperEnterprise
+.OUTPUTS
+  None
+.NOTES
+  Version:        1.0
+  Author:         Tony Langlet
+  Creation Date:  2019-02-28
+  Purpose/Change: Initial script development
+  
+.EXAMPLE 
+  Push access to records in the $JsonObject to the team named Golder Team 
+  C:\PS> Push-KeeperEnterprise -File $JsonObject -Team "Golden Team" -AuthObject $credentials
+   
+#>
+Param(
+    [Parameter(Mandatory=$false)][string]$File, 
+    [Parameter(Mandatory=$false)][string]$User,
+    [Parameter(Mandatory=$false)][string]$Team,
+    [Parameter(Mandatory=$true)][PSCredential]$AuthObject
+)
+
+$Parameters = @()
+if(![string]::IsNullOrEmpty($ReportType)) { $Parameters += "--file", $File }
+if(![string]::IsNullOrEmpty($ReportFormat)) { $Parameters += "--user", $User }
+if(![string]::IsNullOrEmpty($Columns)) { $Parameters += "--team", $Team }
+$Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
+
+    try 
+    {
+        $result = python "$PSScriptRoot\PyScripts\Push-KeeperEnterprise.py" @Parameters
+    }
+    catch 
+    {
+        Write-Error "Push-KeeperEnterprise: Unable to Push settings"
+        $result = "Error: $_"
+    }
+return $result
+}
