@@ -5,7 +5,7 @@ import string
 import argparse
 
 from keepercommander.record import Record
-from keepercommander.commands.register import EnterpriseTeamCommand
+from keepercommander.commands.enterprise import EnterpriseTeamCommand
 from keepercommander.params import KeeperParams
 from keepercommander import display, api
 
