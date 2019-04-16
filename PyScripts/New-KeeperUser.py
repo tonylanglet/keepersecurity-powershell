@@ -40,7 +40,7 @@ def main(argv):
     if args.password is not None:
         Parameter.update({'pass':args.password})
     if args.data-center is not None:
-        Parameter.update({'data-center':args.data-center})
+        Parameter.update({'data_center':args.data_center})
     if args.node is not None:
         Parameter.update({'node':args.node})
     if args.name is not None:
