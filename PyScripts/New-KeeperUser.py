@@ -34,23 +34,23 @@ def main(argv):
 
     Parameters = dict()
     if args.store is not None:
-        Parameter.update({'store':args.store})
+        Parameters.update({'store':args.store})
     if args.generate is not None:
-        Parameter.update({'generate':args.generate})
+        Parameters.update({'generate':args.generate})
     if args.password is not None:
-        Parameter.update({'pass':args.password})
+        Parameters.update({'pass':args.password})
     if args.data_center is not None:
-        Parameter.update({'data_center':args.data_center})
+        Parameters.update({'data_center':args.data_center})
     if args.node is not None:
-        Parameter.update({'node':args.node})
+        Parameters.update({'node':args.node})
     if args.name is not None:
-        Parameter.update({'name':args.name})
+        Parameters.update({'name':args.name})
     if args.question is not None:
-        Parameter.update({'question':args.question})
+        Parameters.update({'question':args.question})
     if args.answer is not None:
-        Parameter.update({'answer':args.answer})
+        Parameters.update({'answer':args.answer})
     if args.email is not None:
-        Parameter.update({'email':args.email})
+        Parameters.update({'email':args.email})
             
     if args.ausername:
         authUsername = args.ausername
