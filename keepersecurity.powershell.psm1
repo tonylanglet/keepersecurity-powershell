@@ -1810,14 +1810,14 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Push-KeeperEnterprise {
+function Push-KeeperEnterpriseDefaultRecords {
 <#
 .SYNOPSIS
-  Push objects for teams or users
+  Push default template of records to team or user
 .DESCRIPTION
-  This script will push the records onto a certain team or user
+  This script will push a template of records onto a certain team or user
 .PARAMETER File
-    [string], file name in JSON format that contains template records
+    Required [string], file name in JSON format that contains template records
 .PARAMETER User
     Optional [string], User email or User ID. Records will be assigned to the user
 .PARAMETER Team
