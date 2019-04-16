@@ -12,7 +12,7 @@
 RootModule = 'keepersecurity.powershell.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0'
+ModuleVersion = '1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,7 +24,7 @@ GUID = 'a790e55a-c04f-4eb0-9b6d-13585af4f3cd'
 Author = 'Tony Langlet'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'Truesight.se'
 
 # Copyright statement for this module
 Copyright = '(c) 2019 Tony Langlet. All rights reserved.'
@@ -85,7 +85,7 @@ FunctionsToExport = 'Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam',
                'Push-KeeperEnterpriseDefaultRecords'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-CmdletsToExport = ''Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam', 
+CmdletsToExport = 'Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam', 
                'Remove-KeeperEnterpriseUser', 'Remove-KeeperFolder', 'Remove-KeeperRecord', 
                'Remove-KeeperRecordAttachment', 'Get-KeeperAuditLog', 
                'Get-KeeperAuditReport', 'Get-KeeperEnterpriseInfo', 
