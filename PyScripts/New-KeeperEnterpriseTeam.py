@@ -25,6 +25,7 @@ def main(argv):
     parser.add_argument('--restrict-share', dest='restrict_share', choices=['on', 'off'], action='store', help='restrict sharing for the team')
     parser.add_argument('--restrict-view',dest='restrict_view', choices=['on', 'off'], action='store', help='restrict viewing for the team')
     parser.add_argument('--node', dest='node', action='store', help='remove user from role')
+    parser.add_argument('--team', type=str, action='store', help='Team name or UID')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
