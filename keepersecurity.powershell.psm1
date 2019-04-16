@@ -1521,7 +1521,7 @@ function New-KeeperEnterpriseTeam {
   
 .EXAMPLE
   Creates a new enterprise team with the name <Gold Team>
-  C:\PS> New-KeeperEnterpriseTeam -Name "Gold Team" -AuthObject $credentials
+  C:\PS> New-KeeperEnterpriseTeam -Add -AuthObject $credentials
   
 #>
 Param(
@@ -1530,7 +1530,8 @@ Param(
 )
 
 $Parameters = @()
-if(![string]::IsNullOrEmpty($name)) { $Parameters += "--add", $Name }
+$Parameters += "--add", $true }
+if(![string]::IsNullOrEmpty($name)) { $Parameters += "--team", $Name }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
