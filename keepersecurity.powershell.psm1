@@ -124,7 +124,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Get-KeeperRecord: Unable to create new record"
+        Write-Error "Get-KeeperRecord: Unable to get record"
         $result = "Error: $_"
     }
 return $result
@@ -141,7 +141,7 @@ function Remove-KeeperRecord {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Get-KeeperRecord
+  None, You cannot pipe objects to Remove-KeeperRecord
 .OUTPUTS
   None
 .NOTES
@@ -151,7 +151,7 @@ function Remove-KeeperRecord {
   Purpose/Change: Initial script development
   
 .EXAMPLE
-  C:\PS> Del-KeeperRecord -Identity "3Dfeca#fca3Cyv" -AuthObject $credentials
+  C:\PS> Remove-KeeperRecord -Identity "3Dfeca#fca3Cyv" -AuthObject $credentials
 #>
 
 [CmdletBinding()]
@@ -166,11 +166,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Del-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Remove-KeeperRecord.py" @Parameters
     }
     catch 
     {
-        Write-Error "Del-KeeperRecord: Unable to create new record"
+        Write-Error "Remove-KeeperRecord: Unable to remove record [$Identity]"
         $result = "Error: $_"
     }
 return $result
@@ -187,7 +187,7 @@ function Get-KeeperRecordList {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to List-KeeperRecord
+  None, You cannot pipe objects to Get-KeeperRecordList
 .OUTPUTS
   A List of records matching the provided regex pattern
 .NOTES
@@ -198,7 +198,7 @@ function Get-KeeperRecordList {
   
 .EXAMPLE
   List all records
-  C:\PS> List-KeeperRecord -Pattern "^" -AuthObject $credentials
+  C:\PS> Get-KeeperRecordList -Pattern "^" -AuthObject $credentials
 #>
 
 [CmdletBinding()]
@@ -213,11 +213,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\List-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperRecordList.py" @Parameters
     }
     catch 
     {
-        Write-Error "List-KeeperRecord: Unable to create new record"
+        Write-Error "Get-KeeperRecordList: Unable to get record list"
         $result = "Error: $_"
     }
 return $result
@@ -264,7 +264,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Search-KeeperRecord: Unable to create new record"
+        Write-Error "Search-KeeperRecord: Unable to get record"
         $result = "Error: $_"
     }
 return $result
@@ -314,7 +314,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Add-KeeperRecordNotes: Unable to create new record"
+        Write-Error "Add-KeeperRecordNotes: Unable to add new record notes"
         $result = "Error: $_"
     }
 return $result
@@ -360,7 +360,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Get-KeeperRecordAttachment: Unable to get attachment"
+        Write-Error "Get-KeeperRecordAttachment: Unable to get record attachment"
         $result = "Error: $_"
     }
 return $result
@@ -379,7 +379,7 @@ function Remove-KeeperRecordAttachment {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Del-KeeperRecordAttachment
+  None, You cannot pipe objects to Remove-KeeperRecordAttachment
 .OUTPUTS
   None
 .NOTES
@@ -390,7 +390,7 @@ function Remove-KeeperRecordAttachment {
   
 .EXAMPLE
   Will remove the image named print_screen.jpg from the record
-  C:\PS> Add-KeeperRecordNotes -Record "_saE3cECJo4vla" -Name "print_screen.jpg" -AuthObject $credentials
+  C:\PS> Remove-KeeperRecordAttachment -Record "_saE3cECJo4vla" -Name "print_screen.jpg" -AuthObject $credentials
 #>
 
 [CmdletBinding()]
@@ -407,11 +407,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Del-KeeperRecordAttachment.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Remove-KeeperRecordAttachment.py" @Parameters
     }
     catch 
     {
-        Write-Error "Add-KeeperRecordAttachment: Unable to delete attachment"
+        Write-Error "Remove-KeeperRecordAttachment: Unable to remove record attachment"
         $result = "Error: $_"
     }
 return $result
@@ -461,7 +461,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "New-KeeperRecordAttachment: Unable to add attachment"
+        Write-Error "New-KeeperRecordAttachment: Unable to create new record attachment"
         $result = "Error: $_"
     }
 return $result
@@ -524,7 +524,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Share-KeeperRecord: Unable to add attachment"
+        Write-Error "Set-KeeperSharedRecordPermissions: Unable to add record permissions"
         $result = "Error: $_"
     }
 return $result
@@ -547,7 +547,7 @@ function Set-KeeperRecordLink {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Link-KeeperRecord
+  None, You cannot pipe objects to Set-KeeperRecordLink
 .OUTPUTS
   None
 .NOTES
@@ -558,11 +558,11 @@ function Set-KeeperRecordLink {
   
 .EXAMPLE 1
   Will add a link of the record <Record #1> in the folder named <Folder #2> in root
-  C:\PS> Link-KeeperRecord -Identity "Record #1" -Destination "\Folder #2" -AuthObject $credentials
+  C:\PS> Set-KeeperRecordLink -Identity "Record #1" -Destination "\Folder #2" -AuthObject $credentials
 
 .EXAMPLE 2
   Will add a link of the record <Record #1> in the folder named <Folder #2> in root and allows content to be editited and reshared
-  C:\PS> Link-KeeperRecord -Identity "Record #1" -Destination "\Folder #2" -CanEdit -CanReshare -AuthObject $credentials
+  C:\PS> Set-KeeperRecordLink -Identity "Record #1" -Destination "\Folder #2" -CanEdit -CanReshare -AuthObject $credentials
 
 
 #>
@@ -585,11 +585,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Link-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperRecordLink.py" @Parameters
     }
     catch 
     {
-        Write-Error "Link-KeeperRecord: Unable to link record"
+        Write-Error "Set-KeeperRecordLink: Unable to link record"
         $result = "Error: $_"
     }
 return $result
@@ -641,7 +641,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Get-KeeperRecord: Unable to retreive folder info"
+        Write-Error "Get-KeeperFolder: Unable to retreive folder info"
         $result = "Error: $_"
     }
 return $result
@@ -664,7 +664,7 @@ function Get-KeeperFolderList {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to List-KeeperFolder
+  None, You cannot pipe objects to Get-KeeperFolderList
 .OUTPUTS
   None
 .NOTES
@@ -675,11 +675,11 @@ function Get-KeeperFolderList {
   
 .EXAMPLE 1
   Show a full list of objects
-  C:\PS> List-KeeperFolder -List -AuthObject $credentials
+  C:\PS> Get-KeeperFolderList -List -AuthObject $credentials
   
 .EXAMPLE 2
   Show a full list of folders
-  C:\PS> List-KeeperFolder -List -Folders -AuthObject $credentials
+  C:\PS> Get-KeeperFolderList -List -Folders -AuthObject $credentials
   
 #>
 
@@ -701,11 +701,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\List-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Get-KeeperFolderList.py" @Parameters
     }
     catch 
     {
-        Write-Error "List-KeeperFolder: Unable to add attachment"
+        Write-Error "Get-KeeperFolderList: Unable to get folder list"
         $result = "Error: $_"
     }
 return $result
@@ -722,7 +722,7 @@ function Remove-KeeperFolder {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Del-KeeperFolder
+  None, You cannot pipe objects to Remove-KeeperFolder
 .OUTPUTS
   None
 .NOTES
@@ -733,11 +733,11 @@ function Remove-KeeperFolder {
   
 .EXAMPLE 1
   Removes the folder with the name Folder #1 in root
-  C:\PS> Del-KeeperFolder -Identity "Folder #1" -AuthObject $credentials
+  C:\PS> Remove-KeeperFolder -Identity "Folder #1" -AuthObject $credentials
 
 .EXAMPLE 2
   Removes the folder with the UID 1CdbvrWQ3F%HG-
-  C:\PS> Del-KeeperFolder -Identity "1CdbvrWQ3F%HG-" -AuthObject $credentials
+  C:\PS> Remove-KeeperFolder -Identity "1CdbvrWQ3F%HG-" -AuthObject $credentials
 #>
 
 [CmdletBinding()]
@@ -752,11 +752,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Del-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Remove-KeeperFolder.py" @Parameters
     }
     catch 
     {
-        Write-Error "Del-KeeperFolder: Unable to remove folder"
+        Write-Error "Remove-KeeperFolder: Unable to remove folder"
         $result = "Error: $_"
     }
 return $result
@@ -963,7 +963,7 @@ function Set-KeeperFolderLink {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Link-KeeperFolder
+  None, You cannot pipe objects to Set-KeeperFolderLink
 .OUTPUTS
   None
 .NOTES
@@ -974,11 +974,11 @@ function Set-KeeperFolderLink {
   
 .EXAMPLE 1
   Will add a link of the folder <Folder #1> in the in root
-  C:\PS> Link-KeeperRecord -Identity "Folder #1" -Destination "\" -AuthObject $credentials
+  C:\PS> Set-KeeperFolderLink -Identity "Folder #1" -Destination "\" -AuthObject $credentials
 
 .EXAMPLE 2
   Will add a link of the folder <Folder #2> in the folder named <SubFolder> in root
-  C:\PS> Link-KeeperRecord -Identity "Folder #2" -Destination "\SubFolder" -AuthObject $credentials
+  C:\PS> Set-KeeperFolderLink -Identity "Folder #2" -Destination "\SubFolder" -AuthObject $credentials
 
 #>
 
@@ -1000,11 +1000,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Link-KeeperFolder.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperFolderLink.py" @Parameters
     }
     catch 
     {
-        Write-Error "Link-KeeperFolder: Unable to link folder"
+        Write-Error "Set-KeeperFolderLink: Unable to link folder"
         $result = "Error: $_"
     }
 return $result
@@ -1082,7 +1082,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Share-KeeperFolder: Unable to link folder"
+        Write-Error "Set-KeeperSharedFolderPermissions: Unable to set shared folder permissions"
         $result = "Error: $_"
     }
 return $result
@@ -1232,7 +1232,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Get-KeeperEnterpriseInfo: Unable to link folder"
+        Write-Error "Get-KeeperEnterpriseInfo: Unable to get Enterprise information"
         $result = "Error: $_"
     }
 return $result
@@ -1408,7 +1408,7 @@ function Remove-KeeperEnterpriseUser {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Del-KeeperEnterpriseUser
+  None, You cannot pipe objects to Remove-KeeperEnterpriseUser
 .OUTPUTS
   None
 .NOTES
@@ -1419,7 +1419,7 @@ function Remove-KeeperEnterpriseUser {
   
 .EXAMPLE
   Delete a user account with the email address <jon.doe@domain.com>
-  C:\PS> Del-KeeperEnterpriseUser -Identity "jon.doe@domain.com" -AuthObject $credentials
+  C:\PS> Remove-KeeperEnterpriseUser -Identity "jon.doe@domain.com" -AuthObject $credentials
   
 #>
 Param(
@@ -1433,11 +1433,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Del-KeeperEnterpriseUser.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Remove-KeeperEnterpriseUser.py" @Parameters
     }
     catch 
     {
-        Write-Error "Del-KeeperEnterpriseUser: Unable to remove enterprise user"
+        Write-Error "Remove-KeeperEnterpriseUser: Unable to remove enterprise user"
         $result = "Error: $_"
     }
 return $result
@@ -1630,7 +1630,7 @@ function Remove-KeeperEnterpriseTeam {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Del-KeeperEnterpriseTeam
+  None, You cannot pipe objects to Remove-KeeperEnterpriseTeam
 .OUTPUTS
   None
 .NOTES
@@ -1641,7 +1641,7 @@ function Remove-KeeperEnterpriseTeam {
   
 .EXAMPLE
   Will delete the team named <Gold Team>
-  C:\PS> Del-KeeperEnterpriseTeam -Identity "Gold Team" -AuthObject $credentials
+  C:\PS> Remove-KeeperEnterpriseTeam -Identity "Gold Team" -AuthObject $credentials
   
 #>
 Param(
@@ -1655,11 +1655,11 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Del-KeeperEnterpriseTeam.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Remove-KeeperEnterpriseTeam.py" @Parameters
     }
     catch 
     {
-        Write-Error "Del-KeeperEnterpriseTeam: Unable to delete enterprise team"
+        Write-Error "Remove-KeeperEnterpriseTeam: Unable to remove enterprise team"
         $result = "Error: $_"
     }
 return $result
@@ -1825,7 +1825,7 @@ function Push-KeeperEnterpriseDefaultRecords {
 .PARAMETER AuthObject
     * Required [pscredential], need to be an account in Keeper Security
 .INPUTS
-  None, You cannot pipe objects to Push-KeeperEnterprise
+  None, You cannot pipe objects to Push-KeeperEnterpriseDefaultRecords
 .OUTPUTS
   None
 .NOTES
@@ -1836,7 +1836,7 @@ function Push-KeeperEnterpriseDefaultRecords {
   
 .EXAMPLE 
   Push access to records in the $JsonObject to the team named Golder Team 
-  C:\PS> Push-KeeperEnterprise -File $JsonObject -Team "Golden Team" -AuthObject $credentials
+  C:\PS> Push-KeeperEnterpriseDefaultRecords -File $JsonObject -Team "Golden Team" -AuthObject $credentials
    
 #>
 Param(
@@ -1858,7 +1858,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
     }
     catch 
     {
-        Write-Error "Push-KeeperEnterprise: Unable to Push settings"
+        Write-Error "Push-KeeperEnterpriseDefaultRecords: Unable to Push default template"
         $result = "Error: $_"
     }
 return $result
