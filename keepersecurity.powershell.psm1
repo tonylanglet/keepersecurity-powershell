@@ -130,7 +130,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Del-KeeperRecord {
+function Remove-KeeperRecord {
 <#
 .SYNOPSIS
   Removes specified record
@@ -176,7 +176,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function List-KeeperRecord {
+function Get-KeeperRecordList {
 <#
 .SYNOPSIS
   List Keeper records
@@ -366,7 +366,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Del-KeeperRecordAttachment {
+function Remove-KeeperRecordAttachment {
 <#
 .SYNOPSIS
   Remove attachment from a record
@@ -530,7 +530,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Link-KeeperRecord {
+function Set-KeeperRecordLink {
 <#
 .SYNOPSIS
   Link a record to another location
@@ -647,7 +647,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function List-KeeperFolder {
+function Get-KeeperFolderList {
 <#
 .SYNOPSIS
   List folders
@@ -711,7 +711,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Del-KeeperFolder {
+function Remove-KeeperFolder {
 <#
 .SYNOPSIS
   Remove a folder
@@ -946,7 +946,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Link-KeeperFolder {
+function Set-KeeperFolderLink {
 <#
 .SYNOPSIS
   Link a folder to another location
@@ -1397,7 +1397,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Del-KeeperEnterpriseUser {
+function Remove-KeeperEnterpriseUser {
 <#
 .SYNOPSIS
   Delete enterprise user
@@ -1619,7 +1619,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 return $result
 }
 
-function Del-KeeperEnterpriseTeam {
+function Remove-KeeperEnterpriseTeam {
 <#
 .SYNOPSIS
   Delete an enterprise team
