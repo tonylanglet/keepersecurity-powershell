@@ -39,7 +39,7 @@ def main(argv):
         Parameter.update({'generate':args.generate})
     if args.password is not None:
         Parameter.update({'pass':args.password})
-    if args.data-center is not None:
+    if args.data_center is not None:
         Parameter.update({'data_center':args.data_center})
     if args.node is not None:
         Parameter.update({'node':args.node})
