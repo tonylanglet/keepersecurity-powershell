@@ -1521,17 +1521,24 @@ function New-KeeperEnterpriseTeam {
   
 .EXAMPLE
   Creates a new enterprise team with the name <Gold Team>
-  C:\PS> New-KeeperEnterpriseTeam -Add -AuthObject $credentials
+  C:\PS> New-KeeperEnterpriseTeam -Name 'Gold Team' -AuthObject $credentials
   
 #>
 Param(
     [Parameter(Mandatory=$true)][string]$Name,
+    [ValidateSet('on','off')][Parameter(Mandatory=$false)][string]$RestrictEdit,
+    [ValidateSet('on','off')][Parameter(Mandatory=$false)][string]$RestrictShare,
+    [ValidateSet('on','off')][Parameter(Mandatory=$false)][string]$RestrictView,
+    [Parameter(Mandatory=$false)][string]$Node,
     [Parameter(Mandatory=$true)][PSCredential]$AuthObject
 )
 
 $Parameters = @()
-$Parameters += "--add"
 if(![string]::IsNullOrEmpty($name)) { $Parameters += "--team", $Name }
+if(![string]::IsNullOrEmpty($RestrictEdit)) { $Parameters += "--restrict-edit", $RestrictEdit }
+if(![string]::IsNullOrEmpty($RestrictShare)) { $Parameters += "--restrict-share", $RestrictShare }
+if(![string]::IsNullOrEmpty($RestrictView)) { $Parameters += "--restrict-view", $RestrictView }
+if(![string]::IsNullOrEmpty($Node)) { $Parameters += "--team", $Name }
 $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.GetNetworkCredential().Password)
 
     try 
