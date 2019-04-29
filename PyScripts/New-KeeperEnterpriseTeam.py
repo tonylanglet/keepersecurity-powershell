@@ -19,22 +19,22 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--add',  dest='add', action='store_true', help='create team')
-    parser.add_argument('--add-user', dest='add_user', action='append', help='add user to team')
+    #parser.add_argument('--add',  dest='add', action='store_true', help='create team') # The parameter is hard-coded into the parameter hash
+    #parser.add_argument('--add-user', dest='add_user', action='append', help='add user to team') # Need to be looked in to if it can be used at the same time as team creation
     parser.add_argument('--restrict-edit', dest='restrict_edit', choices=['on', 'off'], action='store', help='restrict edit for the team')
     parser.add_argument('--restrict-share', dest='restrict_share', choices=['on', 'off'], action='store', help='restrict sharing for the team')
     parser.add_argument('--restrict-view',dest='restrict_view', choices=['on', 'off'], action='store', help='restrict viewing for the team')
     parser.add_argument('--node', dest='node', action='store', help='remove user from role')
-    parser.add_argument('--team', type=str, action='store', help='Team name or UID')
+    parser.add_argument('--team', type=str, action='store', help='Team name')
     parser.add_argument('-auser', '--ausername', type=str, help='Authentication username', required=True)
     parser.add_argument('-apass', '--apassword', type=str, help='Authentication password', required=True)
     args = parser.parse_args()
 
     Parameters = dict()
-    if args.add is not None:
-        Parameters.update({'add':args.add})
-    if args.add_user is not None:
-        Parameters.update({'add_user':args.add_user})
+    Parameters.update({'add':True})
+    Parameters.update({'force':True})
+    #if args.add_user is not None:
+        #Parameters.update({'add_user':args.add_user})
     if args.restrict_edit is not None:
         Parameters.update({'restrict_edit':args.restrict_edit})
     if args.restrict_share is not None:
@@ -45,7 +45,6 @@ def main(argv):
         Parameters.update({'node':args.node})
     if args.team is not None: 
         Parameters.update({'team':args.team})
-    Parameters.update({'force':True})
             
     if args.ausername:
         authUsername = args.ausername
