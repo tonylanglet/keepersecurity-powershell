@@ -1,6 +1,8 @@
 # Keeper Security with Powershell
 Being able to use the Keeper security SDK with Powershell. The SDK is reliant on python and by calling python scripts in Powershell we'll be able to achieve the same result as the Keeper security cmd promt (KeeperCommander).
 
+**_Be aware that having a UID using starting with '-' is not support in the powershell module but a solution for it is on its way_**
+
 ## Getting Started
 
 ### Prerequisites
@@ -118,7 +120,7 @@ Make sure the keepersecurity.powershell module is loaded, see installation step 
 'Set-KeeperEnterpriseTeam', 
 'Set-KeeperSharedFolderPermission', 
 'Set-KeeperSharedRecordPermission',
-'Push-KeeperEnterprise'
+'Push-KeeperEnterpriseDefaultRecords'
 ```   
    
 The functions require a keeper security account, to be run the account credentials will have to be stored in a [pscredential] object and sent as input with each function. 
@@ -168,7 +170,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Would like to thank the Keeper Security (keepercommander) staff for the fast response when asking questions.
+* Would like to thank the Keeper Security (keepercommander) staff for the fast response when in need of help.
 
 ## To-Do
 - [ ] Complete the enterprise functions testing, require enterprise admin account
