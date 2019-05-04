@@ -171,6 +171,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Would like to thank the Keeper Security (keepercommander) staff for the fast response when in need of help.
+* Would like to give credits to @JimPahlAtSkyline whos been testing functionality in the Module. 
 
 ## To-Do
 - [ ] Complete the enterprise functions testing, require enterprise admin account
