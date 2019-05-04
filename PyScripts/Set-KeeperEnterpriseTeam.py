@@ -33,19 +33,19 @@ def main(argv):
     Parameters = dict()
     Parameters.update({'force':True})
     if args.team is not None:
-        Parameters.Update({'team':args.team})
+        Parameters.update({'team':args.team})
     if args.add_user is not None:
-        Parameters.Update({'add_user':args.add_user})
+        Parameters.update({'add_user':args.add_user})
     if args.remove_user is not None:
-        Parameters.Update({'remove_user':args.remove_user})
+        Parameters.update({'remove_user':args.remove_user})
     if args.restrict_edit is not None:
-        Parameters.Update({'restrict_edit':args.restrict_edit})
+        Parameters.update({'restrict_edit':args.restrict_edit})
     if args.restrict_share is not None:
-        Parameters.Update({'restrict_share':args.restrict_share})
+        Parameters.update({'restrict_share':args.restrict_share})
     if args.restrict_view is not None:
-        Parameters.Update({'restrict_view':args.restrict_view})
+        Parameters.update({'restrict_view':args.restrict_view})
     if args.node is not None:
-        Parameters.Update({'node':args.node})
+        Parameters.update({'node':args.node})
             
     if args.ausername:
         authUsername = args.ausername
