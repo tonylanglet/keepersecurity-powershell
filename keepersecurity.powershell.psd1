@@ -80,8 +80,8 @@ FunctionsToExport = 'Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam',
                'New-KeeperRecordAttachment', 'New-KeeperSharedFolder', 
                'New-KeeperUser', 'New-KeeperUserFolder', 'Search-KeeperRecord', 
                'Set-KeeperEnterpriseRole', 'Set-KeeperEnterpriseTeam', 
-               'Set-KeeperSharedFolderPermission', 
-               'Set-KeeperSharedRecordPermission',
+               'Set-KeeperSharedFolderPermissions', 
+               'Set-KeeperSharedRecordPermissions',
                'Push-KeeperEnterpriseDefaultRecords'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -96,8 +96,8 @@ CmdletsToExport = 'Add-KeeperRecordNotes', 'Remove-KeeperEnterpriseTeam',
                'New-KeeperRecordAttachment', 'New-KeeperSharedFolder', 
                'New-KeeperUser', 'New-KeeperUserFolder', 'Search-KeeperRecord', 
                'Set-KeeperEnterpriseRole', 'Set-KeeperEnterpriseTeam', 
-               'Set-KeeperSharedFolderPermission', 
-               'Set-KeeperSharedRecordPermission',
+               'Set-KeeperSharedFolderPermissions', 
+               'Set-KeeperSharedRecordPermissions',
                'Push-KeeperEnterpriseDefaultRecords'
 
 # Variables to export from this module
