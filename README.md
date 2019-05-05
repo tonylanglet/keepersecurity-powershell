@@ -118,8 +118,8 @@ Make sure the keepersecurity.powershell module is loaded, see installation step 
 'Search-KeeperRecord', 
 'Set-KeeperEnterpriseRole', 
 'Set-KeeperEnterpriseTeam', 
-'Set-KeeperSharedFolderPermission', 
-'Set-KeeperSharedRecordPermission',
+'Set-KeeperSharedFolderPermissions', 
+'Set-KeeperSharedRecordPermissions',
 'Push-KeeperEnterpriseDefaultRecords'
 ```   
    
