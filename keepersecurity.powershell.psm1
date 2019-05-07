@@ -520,7 +520,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Share-KeeperRecord.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperSharedRecordPermissions.py" @Parameters
     }
     catch 
     {
@@ -1078,7 +1078,7 @@ $Parameters += "--ausername", $AuthObject.UserName, "--apassword", ($AuthObject.
 
     try 
     {
-        $result = python "$PSScriptRoot\PyScripts\Set-KeeperSharedFolderPermission.py" @Parameters
+        $result = python "$PSScriptRoot\PyScripts\Set-KeeperSharedFolderPermissions.py" @Parameters
     }
     catch 
     {
