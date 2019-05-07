@@ -19,7 +19,7 @@ def main(argv):
 
     #Arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--folder', nargs='?', type=str, action='store', help='Record UID', required=True)
+    parser.add_argument('--folder', nargs='?', type=str, action='store', help='Folder name or Folder UID', required=True)
     parser.add_argument('--user', dest='user', action='append', help='account email, team, or \'*\' as default folder permission')
     parser.add_argument('--action', dest='action', choices=['grant', 'revoke'], default='grant', action='store', help='user share action. \'grant\' if omitted')
     parser.add_argument('--record', dest='record', action='append', help='record name, record UID, or \'*\' as default folder permission')
