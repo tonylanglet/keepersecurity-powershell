@@ -31,13 +31,13 @@ def main(argv):
     Parameters = dict()
     if args.record is not None:
         Parameters.update({'record':args.record})
-    if args.notes is not None:
+    if args.email is not None:
         Parameters.update({'email':args.email})
-    if args.record is not None:
+    if args.action is not None:
         Parameters.update({'action':args.action})
-    if args.notes is not None:
+    if args.share is not None:
         Parameters.update({'share':args.share})
-    if args.record is not None:
+    if args.write is not None:
         Parameters.update({'write':args.write})
             
     if args.ausername:
