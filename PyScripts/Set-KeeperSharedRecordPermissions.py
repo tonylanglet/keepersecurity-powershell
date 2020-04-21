@@ -36,9 +36,9 @@ def main(argv):
     if args.action is not None:
         Parameters.update({'action':args.action})
     if args.share is not None:
-        Parameters.update({'share':args.share})
+        Parameters.update({'can_share':args.share})
     if args.write is not None:
-        Parameters.update({'write':args.write})
+        Parameters.update({'can_edit':args.write})
             
     if args.ausername:
         authUsername = args.ausername
