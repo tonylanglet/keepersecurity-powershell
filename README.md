@@ -3,6 +3,8 @@ Being able to use the Keeper security SDK with Powershell. The SDK is reliant on
 
 **_Be aware that having a UID using starting with '-' is not support in the powershell module but a solution for it is on its way_**
 
+Keeper Security have developed a Powershell module which is WiP and have the most basic functionality ready to use. You are still welcome to use the wrapper I've created in case the PS Module isn't sufficent. [Keeper Commander Powershell Module](https://github.com/Keeper-Security/keeper-sdk-dotnet/tree/master/PowerCommander)
+
 ## Getting Started
 
 ### Prerequisites
