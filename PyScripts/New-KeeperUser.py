@@ -68,6 +68,7 @@ def main(argv):
     # KEEPER COMMAND
     command = RegisterCommand()
     result = command.execute(my_params, **Parameters)
+    print(result)
     return result
 
 if __name__ == "__main__":
