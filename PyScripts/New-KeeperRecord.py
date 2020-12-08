@@ -64,6 +64,7 @@ def main(argv):
     # KEEPER COMMAND 
 	command = RecordAddCommand()
 	record_uid = command.execute(my_params, **Parameters)
+	print(record_uid)
 	return record_uid
 
 if __name__ == "__main__":
