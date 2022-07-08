@@ -1,3 +1,6 @@
+## :exclamation: UNOFFICAL module :exclamation:
+### This is an unoffical Keeper Security powershell wrapper, some of the functionality is outdated but most of the functionality is still working. If you have any issues with this module/wrapper please report the issue here and not to the Keeper team. 
+
 # Keeper Security with Powershell
 Being able to use the Keeper security SDK with Powershell. The SDK is reliant on python and by calling python scripts in Powershell we'll be able to achieve the same result as the Keeper security cmd promt (KeeperCommander).
 
@@ -175,10 +178,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Would like to thank the Keeper Security (keepercommander) staff for the fast response when in need of help.
 * Would like to give credits to @JimPahlAtSkyline whos been testing functionality in the Module. 
 
-## To-Do
-- [ ] Complete the enterprise functions testing, require enterprise admin account
-- [x] Compelte the enterprise functions synopsis
-- [ ] Create the utils functions of KeeperCommander
-- [ ] Finalize the complete set of functions/commands from KeeperCommander
-- [ ] Manage the UID's using "-" as first character
-- [x] Change the Verbs of the Powershell module to follow the general standard
